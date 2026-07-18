@@ -2,56 +2,73 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    const username=document.getElementById("username").value;
+    const username = document.getElementById("username").value;
 
-    const password=document.getElementById("password").value;
+    const password = document.getElementById("password").value;
 
-    fetch("/login",{
 
-        method:"POST",
+    fetch("/login", {
 
-        headers:{
-            "Content-Type":"application/json"
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
         },
 
-        body:JSON.stringify({
+        body: JSON.stringify({
 
-            username:username,
-            password:password
+            username: username,
+            password: password
 
         })
 
     })
 
-    .then(response=>response.json())
 
-    .then(data=>{
+    .then(response => response.json())
 
-        if(data.role==="Admin"){
 
-            window.location.href="/admin/dashboard";
+    .then(data => {
 
-        }
 
-        else if(data.role==="Lecturer"){
+        if(data.role === "Admin"){
 
-            window.location.href="/lecturer/dashboard";
+    window.location.href = "/admin/dashboard";
 
-        }
+}
 
-        else if(data.role==="Student"){
+else if(data.role === "Lecturer"){
 
-            window.location.href="/student/dashboard";
+    window.location.href = "/lecturer/dashboard";
 
-        }
+}
+
+else if(data.role === "Student"){
+
+    window.location.href = "/student/dashboard";
+
+}
+
 
         else{
 
-            document.getElementById("error").innerHTML=
+            document.getElementById("error").innerHTML =
                 "Username or Password Incorrect";
 
         }
 
+
+    })
+
+
+    .catch(error => {
+
+        console.log("Login Error:", error);
+
+        document.getElementById("error").innerHTML =
+            "Server Error";
+
     });
+
 
 });
