@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2026 at 01:18 PM
+-- Generation Time: Jul 18, 2026 at 12:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,7 @@ CREATE TABLE `attendance` (
   `attendance_id` int(11) NOT NULL,
   `session_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `status` enum('Present','Absent') NOT NULL,
+  `status` enum('Pending','Present','Absent') NOT NULL DEFAULT 'Pending',
   `marked_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -221,7 +221,7 @@ ALTER TABLE `class`
 --
 ALTER TABLE `enrollment`
   ADD PRIMARY KEY (`enrollment_id`),
-  ADD UNIQUE KEY `student_id` (`student_id`),
+  ADD UNIQUE KEY `uq_student_class` (`student_id`,`class_id`),
   ADD KEY `fk_enrollment_class` (`class_id`);
 
 --
