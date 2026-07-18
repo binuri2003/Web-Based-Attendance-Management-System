@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Dashboard</title>
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="/css/student.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="wrapper">
+
+
+
+<!-- ================= Sidebar ================= -->
+
+
+<aside class="sidebar">
+
+
+
+<div class="logo">
+
+
+<img src="/images/logo.PNG" alt="Logo">
+
+
+<h2>AMS</h2>
+
+
+<p>Student Panel</p>
+
+
+</div>
+
+
+
+
+
+<ul>
+
+
+
+<li class="active">
+
+<a href="#">
+
+<i class="fas fa-house"></i>
+
+Dashboard
+
+</a>
+
+</li>
+
+
+
+
+
+
+<li>
+
+<a href="#" onclick="enterSessionCode()">
+
+<i class="fas fa-key"></i>
+
+Enter Session Code
+
+</a>
+
+</li>
+
+
+
+
+
+
+
+<li>
+
+<a href="#" onclick="viewSubjects()">
+
+<i class="fas fa-book"></i>
+
+My Subjects
+
+</a>
+
+</li>
+
+
+
+
+
+
+
+<li>
+
+<a href="#" onclick="viewAttendanceHistory()">
+
+<i class="fas fa-clipboard"></i>
+
+Attendance History
+
+</a>
+
+</li>
+
+
+
+
+
+
+
+<li>
+
+<a href="#" onclick="viewPercentage()">
+
+<i class="fas fa-chart-bar"></i>
+
+Attendance Percentage
+
+</a>
+
+</li>
+
+
+
+
+
+
+
+<li>
+
+<a href="#" onclick="logout()">
+
+<i class="fas fa-right-from-bracket"></i>
+
+Logout
+
+</a>
+
+</li>
+
+
+
+</ul>
+
+
+
+</aside>
+
+
+
+
+
+
+
+
+
+<!-- ================= Main Content ================= -->
+
+
+<main class="main-content">
+
+
+
+
+
+<!-- Header -->
+
+
+<header class="header">
+
+
+
+<h1>
+
+Welcome Student
+
+</h1>
+
+
+
+<p>
+
+Attendance Management System
+
+<br>
+
+University of Sri Jayewardenepura
+
+</p>
+
+
+
+</header>
+
+
+
+
+
+
+
+
+
+<!-- Dashboard Cards -->
+
+
+<section class="dashboard-cards">
+
+
+
+
+
+<div class="card">
+
+
+<i class="fas fa-key icon"></i>
+
+
+
+<h3>
+
+Enter Session Code
+
+</h3>
+
+
+
+<p>
+
+Enter active attendance session code to mark your attendance.
+
+</p>
+
+
+
+<button id="sessionBtn">
+
+Enter
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<i class="fas fa-book icon"></i>
+
+
+
+<h3>
+
+My Subjects
+
+</h3>
+
+
+
+<p>
+
+View enrolled subjects and subject information.
+
+</p>
+
+
+
+<button id="subjectBtn">
+
+View
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<i class="fas fa-clipboard icon"></i>
+
+
+
+<h3>
+
+Attendance History
+
+</h3>
+
+
+
+<p>
+
+View your previous attendance records.
+
+</p>
+
+
+
+<button id="historyBtn">
+
+View
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<i class="fas fa-chart-line icon"></i>
+
+
+
+<h3>
+
+Attendance Percentage
+
+</h3>
+
+
+
+<p>
+
+Check attendance percentage for each subject.
+
+</p>
+
+
+
+<button id="percentageBtn">
+
+View
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Logout Card -->
+
+
+<div class="card logout-card">
+
+
+
+<i class="fas fa-right-from-bracket icon"></i>
+
+
+
+<h3>
+
+Logout
+
+</h3>
+
+
+
+<p>
+
+Sign out from Attendance Management System.
+
+</p>
+
+
+
+<button id="logoutCardBtn">
+
+Logout
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Attendance Summary -->
+
+
+<section class="info-section">
+
+
+<div class="info-card">
+
+
+
+<h4>
+
+Today's Summary
+
+</h4>
+
+
+
+
+
+<table>
+
+
+
+<tr>
+
+<th>
+
+Item
+
+</th>
+
+
+<th>
+
+Total
+
+</th>
+
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+
+Total Subjects
+
+</td>
+
+
+<td>
+
+0
+
+</td>
+
+
+</tr>
+
+
+
+
+
+
+
+<tr>
+
+<td>
+
+Attendance Sessions
+
+</td>
+
+
+<td>
+
+0
+
+</td>
+
+
+</tr>
+
+
+
+
+
+
+
+<tr>
+
+<td>
+
+Average Attendance
+
+</td>
+
+
+<td>
+
+0%
+
+</td>
+
+
+</tr>
+
+
+
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Footer -->
+
+
+<footer>
+
+
+© 2026 Attendance Management System |
+
+Department of Computer Science | USJ
+
+
+</footer>
+
+
+
+
+
+</main>
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="/js/student.js"></script>
+
+
+</body>
+
+
+</html>

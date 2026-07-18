@@ -8,7 +8,13 @@
 
 <title>Lecturer Dashboard</title>
 
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
 <link rel="stylesheet" href="/css/lecturer.css">
+
 
 </head>
 
@@ -19,14 +25,12 @@
 <div class="wrapper">
 
 
-<!-- Sidebar -->
-
 <aside class="sidebar">
 
 
 <div class="logo">
 
-<img src="/images/logo.PNG" alt="Logo">
+<img src="/images/logo.PNG">
 
 <h2>AMS</h2>
 
@@ -35,7 +39,6 @@
 </div>
 
 
-<nav>
 
 <ul>
 
@@ -43,7 +46,10 @@
 <li class="active">
 
 <a href="#">
-🏠 Dashboard
+
+<i class="fas fa-house"></i>
+Dashboard
+
 </a>
 
 </li>
@@ -53,7 +59,10 @@
 <li>
 
 <a href="#" onclick="openSubjects()">
-📚 My Subjects
+
+<i class="fas fa-book"></i>
+My Subjects
+
 </a>
 
 </li>
@@ -63,7 +72,10 @@
 <li>
 
 <a href="#" onclick="openSessions()">
-📅 Create Attendance Session
+
+<i class="fas fa-calendar"></i>
+Create Attendance Session
+
 </a>
 
 </li>
@@ -73,7 +85,10 @@
 <li>
 
 <a href="#" onclick="openMarkAttendance()">
-✅ Mark / Edit Attendance
+
+<i class="fas fa-check"></i>
+Mark / Edit Attendance
+
 </a>
 
 </li>
@@ -83,7 +98,10 @@
 <li>
 
 <a href="#">
-📊 View Attendance
+
+<i class="fas fa-chart-bar"></i>
+View Attendance
+
 </a>
 
 </li>
@@ -93,7 +111,10 @@
 <li>
 
 <a href="#" onclick="openReports()">
-📄 Attendance Reports
+
+<i class="fas fa-file"></i>
+Attendance Reports
+
 </a>
 
 </li>
@@ -103,7 +124,10 @@
 <li>
 
 <a href="#" onclick="logout()">
-🚪 Logout
+
+<i class="fas fa-right-from-bracket"></i>
+Logout
+
 </a>
 
 </li>
@@ -111,23 +135,18 @@
 
 </ul>
 
-</nav>
-
 
 </aside>
 
 
 
 
-<!-- Main Content -->
-
 
 <main class="main-content">
 
 
 
-<header class="header">
-
+<header>
 
 <h1>
 Welcome Lecturer
@@ -140,40 +159,31 @@ Attendance Management System
 University of Sri Jayewardenepura
 </p>
 
-
 </header>
 
 
 
 
 
-<section class="dashboard-cards">
+
+<section class="cards">
 
 
 
 <div class="card">
 
+<i class="fas fa-book icon"></i>
 
-<div class="icon">
-📚
-</div>
-
-
-<h3>
-My Subjects
-</h3>
-
+<h3>My Subjects</h3>
 
 <p>
-View assigned subjects and course information.
+View assigned subjects.
 </p>
-
 
 <button onclick="openSubjects()">
 Open
 </button>
 
-
 </div>
 
 
@@ -182,27 +192,18 @@ Open
 
 <div class="card">
 
+<i class="fas fa-calendar icon"></i>
 
-<div class="icon">
-📅
-</div>
-
-
-<h3>
-Create Attendance Session
-</h3>
-
+<h3>Create Attendance Session</h3>
 
 <p>
-Create sessions and generate session codes.
+Generate active session code.
 </p>
-
 
 <button onclick="openSessions()">
 Open
 </button>
 
-
 </div>
 
 
@@ -211,29 +212,19 @@ Open
 
 <div class="card">
 
+<i class="fas fa-check icon"></i>
 
-<div class="icon">
-✅
-</div>
-
-
-<h3>
-Mark Attendance
-</h3>
-
+<h3>Mark Attendance</h3>
 
 <p>
-Mark or edit student attendance records.
+Mark and edit attendance.
 </p>
-
 
 <button onclick="openMarkAttendance()">
 Open
 </button>
 
-
 </div>
-
 
 
 
@@ -241,29 +232,19 @@ Open
 
 <div class="card">
 
+<i class="fas fa-chart-line icon"></i>
 
-<div class="icon">
-📊
-</div>
-
-
-<h3>
-View Attendance
-</h3>
-
+<h3>View Attendance</h3>
 
 <p>
-View student and subject attendance details.
+View student attendance.
 </p>
-
 
 <button>
 Open
 </button>
 
-
 </div>
-
 
 
 
@@ -271,24 +252,46 @@ Open
 
 <div class="card">
 
+<i class="fas fa-file icon"></i>
 
-<div class="icon">
-📄
+<h3>Attendance Reports</h3>
+
+<p>
+Generate reports.
+</p>
+
+<button onclick="openReports()">
+Open
+</button>
+
 </div>
 
 
+
+
+
+<!-- RED LOGOUT CARD -->
+
+<div class="card logout-card">
+
+
+<i class="fas fa-right-from-bracket icon"></i>
+
+
 <h3>
-Attendance Reports
+Logout
 </h3>
 
 
 <p>
-Generate attendance reports.
+Sign out from system.
 </p>
 
 
-<button onclick="openReports()">
-Open
+<button class="logout-btn" onclick="logout()">
+
+Logout
+
 </button>
 
 
@@ -303,18 +306,12 @@ Open
 
 
 
+<section class="summary">
 
 
-<section class="info-section">
-
-
-<div class="info-card">
-
-
-<h4>
+<h2>
 Today's Summary
-</h4>
-
+</h2>
 
 
 <table>
@@ -331,6 +328,7 @@ Total
 </th>
 
 </tr>
+
 
 
 <tr>
@@ -392,9 +390,6 @@ Students Absent
 </table>
 
 
-</div>
-
-
 </section>
 
 
@@ -403,11 +398,8 @@ Students Absent
 
 <footer>
 
-
 © 2026 Attendance Management System |
-Department of Computer Science |
-University of Sri Jayewardenepura
-
+Department of Computer Science | USJ
 
 </footer>
 
@@ -417,8 +409,8 @@ University of Sri Jayewardenepura
 </main>
 
 
-
 </div>
+
 
 
 
@@ -426,6 +418,5 @@ University of Sri Jayewardenepura
 
 
 </body>
-
 
 </html>
