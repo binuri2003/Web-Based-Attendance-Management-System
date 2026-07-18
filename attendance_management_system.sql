@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2026 at 02:36 PM
+-- Generation Time: Jul 16, 2026 at 01:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,14 @@ CREATE TABLE `admin` (
   `admin_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `admin_name`, `email`) VALUES
+(1, 'Nimal Perera', 'nimal@usjp.lk'),
+(2, 'Kamal Silva', 'kamal@usjp.lk');
 
 -- --------------------------------------------------------
 
@@ -105,6 +113,14 @@ CREATE TABLE `lecturer` (
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `lecturer`
+--
+
+INSERT INTO `lecturer` (`lecturer_id`, `lecturer_name`, `email`) VALUES
+(3, 'Dr. Nuwan Fernando', 'nuwan@usjp.lk'),
+(4, 'Ms. Dilani Jayasinghe', 'dilani@usjp.lk');
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +133,14 @@ CREATE TABLE `student` (
   `student_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`student_id`, `registration_no`, `student_name`, `email`) VALUES
+(5, 'AS20240001', 'Binuri Vihangi', 'binuri@sjp.ac.lk'),
+(6, 'AS20240002', 'Kasun Madushanka', 'kasun@sjp.ac.lk');
 
 -- --------------------------------------------------------
 
@@ -144,6 +168,18 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `role` enum('Admin','Lecturer','Student') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password`, `role`) VALUES
+(1, 'admin1', 'admin123', 'Admin'),
+(2, 'admin2', 'admin456', 'Admin'),
+(3, 'lecturer1', 'lect123', 'Lecturer'),
+(4, 'lecturer2', 'lect456', 'Lecturer'),
+(5, 'student1', 'stud123', 'Student'),
+(6, 'student2', 'stud456', 'Student');
 
 --
 -- Indexes for dumped tables
@@ -256,7 +292,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
