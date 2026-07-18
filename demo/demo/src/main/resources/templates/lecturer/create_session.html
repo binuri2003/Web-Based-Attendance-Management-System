@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Attendance Session</title>
+
+    <link rel="stylesheet" th:href="@{/css/lecturer.css}">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img th:src="@{/images/logo.PNG}" alt="Logo">
+
+            <h2>AMS</h2>
+
+            <p>Lecturer Panel</p>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li>
+                    <a th:href="@{/lecturer/dashboard}">
+                        🏠 Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        📚 My Subjects
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a th:href="@{/lecturer/create_session}">
+                        📅 Create Attendance Session
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        ✅ Mark / Edit Attendance
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        📊 View Attendance
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        📄 Attendance Reports
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        🚪 Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <header class="header">
+
+            <h1>Create Attendance Session</h1>
+
+            <p>
+                Select the subject and class to start a new attendance session.
+            </p>
+
+        </header>
+
+        <!-- Create Session Card -->
+
+        <section class="dashboard-cards">
+
+            <div class="card">
+
+                <div class="icon">
+                    📅
+                </div>
+
+                <h3>Create Attendance Session</h3>
+
+                <form th:action="@{/lecturer/start-session}" method="post">
+
+                    <div style="margin-top:20px; text-align:left;">
+
+                        <label><strong>Subject</strong></label>
+
+                        <select name="subjectId" style="width:100%; padding:10px; margin-top:8px;" required>
+
+                            <option value="">Select Subject</option>
+
+                            <option value="1">Object Oriented Programming</option>
+
+                            <option value="2">Database Management Systems</option>
+
+                            <option value="3">Software Engineering</option>
+
+                        </select>
+
+                    </div>
+
+                    <div style="margin-top:20px; text-align:left;">
+
+                        <label><strong>Class</strong></label>
+
+                        <select name="classId" style="width:100%; padding:10px; margin-top:8px;" required>
+
+                            <option value="">Select Class</option>
+
+                            <option value="1">Y2S1</option>
+
+                            <option value="2">Y2S2</option>
+
+                            <option value="3">Y3S1</option>
+
+                        </select>
+
+                    </div>
+
+                    <div style="margin-top:30px; text-align:center;">
+
+                        <button type="submit">
+
+                            Start Attendance
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- Session Details -->
+
+        <section class="info-section" th:if="${session != null}">
+
+            <div class="info-card">
+
+                <h3>Attendance Session Started</h3>
+
+                <br>
+
+                <h1 style="font-size:42px; color:#007bff;"
+                    th:text="${session.sessionCode}">
+                </h1>
+
+                <br>
+
+                <p>
+
+                    <strong>Status :</strong>
+
+                    <span style="color:green;">
+                        Active
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Started Time :</strong>
+
+                    <span th:text="${session.startTime}"></span>
+
+                </p>
+
+                <br>
+
+                <form th:action="@{/lecturer/end-session}" method="post">
+
+                    <input type="hidden"
+                           name="sessionId"
+                           th:value="${session.sessionId}">
+
+                    <button type="submit">
+
+                        End Attendance
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <footer>
+
+            © 2026 Attendance Management System |
+            Department of Computer Science |
+            University of Sri Jayewardenepura
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>
