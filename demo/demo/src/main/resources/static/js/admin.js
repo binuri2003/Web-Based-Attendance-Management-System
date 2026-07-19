@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
     // -------------------------------
@@ -44,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // -------------------------------
     // Logout confirmation
     // -------------------------------
-    const logoutBtn = document.querySelector('a[href="/logout"]');
+    const logoutButtons = document.querySelectorAll('a[href="/logout"]');
 
-    if (logoutBtn) {
+    logoutButtons.forEach(logoutBtn => {
 
         logoutBtn.addEventListener("click", function (event) {
 
@@ -56,14 +55,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (confirmLogout) {
 
-                // Redirect to login page
-                window.location.href = "/";
+                fetch("/logout", {
+                    method: "GET"
+                })
+                .then(() => {
+
+                    window.location.replace("/");
+
+                })
+                .catch(error => {
+
+                    console.error("Logout Error:", error);
+
+                    window.location.replace("/");
+
+                });
 
             }
 
         });
 
-    }
+    });
 
     // -------------------------------
     // Button click effect
@@ -87,4 +99,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
-

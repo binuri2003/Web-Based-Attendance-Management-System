@@ -253,41 +253,30 @@ function viewPercentage(){
 // Logout Function
 // =====================================
 
+// =====================================
+// Logout Function
+// =====================================
 
-function logout(){
+function logout() {
 
+    const confirmLogout = confirm("Are you sure you want to logout?");
 
+    if (confirmLogout) {
 
-    let confirmLogout = confirm(
+        fetch("/logout", {
+            method: "GET"
+        })
+        .then(() => {
 
-        "Are you sure you want to logout?"
+            window.location.replace("/");
 
-    );
+        })
+        .catch(() => {
 
+            window.location.replace("/");
 
-
-
-
-    if(confirmLogout){
-
-
-
-        alert(
-
-            "Logged out successfully"
-
-        );
-
-
-
-        // Spring Boot login controller
-
-        window.location.href="/";
-
-
+        });
 
     }
-
-
 
 }

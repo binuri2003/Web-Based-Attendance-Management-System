@@ -33,22 +33,21 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
         if(data.role === "Admin"){
 
-    window.location.href = "/admin/dashboard";
+            window.location.href = "/admin/dashboard";
 
-}
+        }
 
-else if(data.role === "Lecturer"){
+        else if(data.role === "Lecturer"){
 
-    window.location.href = "/lecturer/dashboard";
+            window.location.href = "/lecturer/dashboard";
 
-}
+        }
 
-else if(data.role === "Student"){
+        else if(data.role === "Student"){
 
-    window.location.href = "/student/dashboard";
+            window.location.href = "/student/dashboard";
 
-}
-
+        }
 
         else{
 
@@ -69,6 +68,5 @@ else if(data.role === "Student"){
             "Server Error";
 
     });
-
 
 });
