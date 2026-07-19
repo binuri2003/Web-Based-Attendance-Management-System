@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/lecturer")
 public class LecturerController {
 
+    @GetMapping("/dashboard")
+    public String lecturerDashboard() {
+        return "lecturer/dashboard";
+    }
+    
+
     @GetMapping("/create_session")
     public String createSessionPage() {
 
@@ -38,5 +44,17 @@ public class LecturerController {
         return "redirect:/lecturer/create_session";
 
     }
+
+    @GetMapping("/manage_attendance")
+    public String manageAttendance() {
+        return "lecturer/manage_attendance";
+    }
+
+    @GetMapping("/test")
+@ResponseBody
+public String test() {
+    return "Working!";
+}
+    
 
 }

@@ -431,3 +431,24 @@ footer {
 .info-card button:hover{
     background:#1E88E5;
 }
+
+.status{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:bold;
+    color:white;
+}
+
+.present{
+    background:#28a745;
+}
+
+.absent{
+    background:#dc3545;
+}
+
+.pending{
+    background:#ffc107;
+    color:black;
+}
