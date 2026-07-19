@@ -452,3 +452,27 @@ footer {
     background:#ffc107;
     color:black;
 }
+
+/* ================= View Attendance ================= */
+
+.filter-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.summary-number{
+    font-size:32px;
+    font-weight:bold;
+    color:#2563EB;
+    margin-top:10px;
+}
+
+table tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+table tr:hover{
+    background:#eef5ff;
+}

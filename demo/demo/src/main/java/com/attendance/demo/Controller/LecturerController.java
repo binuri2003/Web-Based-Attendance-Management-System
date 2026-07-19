@@ -50,4 +50,9 @@ public class LecturerController {
         return "lecturer/manage_attendance";
     }    
 
+    @GetMapping("/view_attendance")
+    public String viewAttendance() {
+        return "lecturer/view_attendance";
+    }
+
 }
