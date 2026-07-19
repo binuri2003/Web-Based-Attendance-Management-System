@@ -48,13 +48,6 @@ public class LecturerController {
     @GetMapping("/manage_attendance")
     public String manageAttendance() {
         return "lecturer/manage_attendance";
-    }
-
-    @GetMapping("/test")
-@ResponseBody
-public String test() {
-    return "Working!";
-}
-    
+    }    
 
 }
