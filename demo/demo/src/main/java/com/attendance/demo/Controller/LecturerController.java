@@ -55,4 +55,9 @@ public class LecturerController {
         return "lecturer/view_attendance";
     }
 
+    @GetMapping("/student_history")
+    public String studentHistory() {
+        return "lecturer/student_history";
+    }
+
 }
