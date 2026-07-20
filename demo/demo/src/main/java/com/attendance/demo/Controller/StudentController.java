@@ -26,9 +26,4 @@ public class StudentController {
         return "student/attendance_percentage";
     }
 
-    @GetMapping("/student/attendance_history")
-    public String attendanceHistory() {
-        return "student/attendance_history";
-    }
-
 }
