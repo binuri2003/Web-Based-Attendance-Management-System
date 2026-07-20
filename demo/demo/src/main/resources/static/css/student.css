@@ -575,3 +575,58 @@ footer{
 
 
 }
+
+/* ================= Form Styling ================= */
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-size:16px;
+    font-weight:600;
+    color:#2563EB;
+}
+
+.form-group input{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    transition:0.3s;
+}
+
+.form-group input:focus{
+    border-color:#2563EB;
+    box-shadow:0 0 6px rgba(37,99,235,0.3);
+}
+
+.primary-btn{
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:12px 30px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.primary-btn:hover{
+    background:#1E88E5;
+}
+
+/* Attendance Status */
+
+.present{
+    background:#28a745;
+    color:white;
+    padding:6px 14px;
+    border-radius:20px;
+    font-weight:bold;
+}

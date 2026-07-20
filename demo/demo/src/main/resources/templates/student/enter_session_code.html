@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Enter Session Code</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/student.css">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= Sidebar ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="/images/logo.PNG" alt="Logo">
+
+            <h2>AMS</h2>
+
+            <p>Student Panel</p>
+
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/student/dashboard">
+                    <i class="fas fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="/student/enter_session_code">
+                    <i class="fas fa-key"></i>
+                    Enter Session Code
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-book"></i>
+                    My Subjects
+                </a>
+            </li>
+
+            <li>
+                <a href="/student/attendance_history">
+                    <i class="fas fa-clipboard"></i>
+                    Attendance History
+                </a>
+            </li>
+
+            <li>
+                <a href="/student/attendance_percentage">
+                    <i class="fas fa-chart-bar"></i>
+                    Attendance Percentage
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout">
+                    <i class="fas fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ================= Main Content ================= -->
+
+    <main class="main-content">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <h1>Enter Session Code</h1>
+
+            <p>
+                Attendance Management System
+                <br>
+                University of Sri Jayewardenepura
+            </p>
+
+        </header>
+
+        <!-- ================= Session Code ================= -->
+
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <h4>Mark Your Attendance</h4>
+
+                <form>
+
+                    <div class="form-group">
+
+                        <label>Session Code</label>
+
+                        <input
+                            type="text"
+                            name="sessionCode"
+                            placeholder="Enter 6-digit Session Code"
+                            maxlength="6"
+                            required>
+
+                    </div>
+
+                    <button type="submit" class="primary-btn">
+
+                        <i class="fas fa-check-circle"></i>
+                        Mark Attendance
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- ================= Session Details ================= -->
+
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <h4>Session Details</h4>
+
+                <table>
+
+                    <tr>
+                        <th>Item</th>
+                        <th>Details</th>
+                    </tr>
+
+                    <tr>
+                        <td>Subject</td>
+                        <td>Object Oriented Programming</td>
+                    </tr>
+
+                    <tr>
+                        <td>Class</td>
+                        <td>Y2S1 Statistics</td>
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>20 July 2026</td>
+                    </tr>
+
+                    <tr>
+                        <td>Time</td>
+                        <td>10.00 AM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Status</td>
+                        <td>
+                            <span class="present">
+                                Attendance Marked Successfully
+                            </span>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+
+        <footer>
+
+            © 2026 Attendance Management System |
+            Department of Computer Science | USJ
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="/js/student.js"></script>
+
+</body>
+
+</html>
