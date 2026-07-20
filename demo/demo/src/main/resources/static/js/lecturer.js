@@ -1,78 +1,135 @@
-// =======================================
+// =====================================
 // Lecturer Dashboard JavaScript
 // Attendance Management System
-// =======================================
+// =====================================
 
 
-// Run when page loads
-document.addEventListener("DOMContentLoaded", function () {
+// Page Load
+
+document.addEventListener("DOMContentLoaded", function(){
+
 
     console.log("Lecturer Dashboard Loaded");
+
+
+
+    // Active sidebar menu
+
+    const menuItems = document.querySelectorAll(".sidebar ul li a");
+
+
+    menuItems.forEach(item => {
+
+
+        item.addEventListener("click", function(){
+
+
+            document.querySelectorAll(".sidebar ul li")
+            .forEach(li => {
+
+                li.classList.remove("active");
+
+            });
+
+
+
+            this.parentElement.classList.add("active");
+
+
+        });
+
+
+    });
+
+
 
 });
 
 
 
 
-// =======================================
-// Navigation Functions
-// =======================================
 
 
-function openSubjects() {
+// =====================================
+// Lecturer Navigation Functions
+// =====================================
 
-    alert("Opening My Subjects page");
 
-    // Later connect with Spring Boot controller
-    // window.location.href = "/lecturer/subjects";
+
+function openSubjects(){
+
+
+    alert("Opening My Subjects Page");
+
+
+    // Connect Spring Boot later
+
+    // window.location.href="/lecturer/subjects";
+
 
 }
 
 
 
 
-function openSessions() {
 
-    alert("Opening Create Attendance Session page");
 
-    // Later:
-    // window.location.href = "/lecturer/sessions";
+function openSessions(){
+
+
+    alert("Opening Create Attendance Session Page");
+
+
+    // window.location.href="/lecturer/create-session";
+
 
 }
 
 
 
 
-function openMarkAttendance() {
 
-    alert("Opening Mark / Edit Attendance page");
 
-    // Later:
-    // window.location.href = "/lecturer/attendance";
+function openMarkAttendance(){
+
+
+    alert("Opening Mark / Edit Attendance Page");
+
+
+    // window.location.href="/lecturer/attendance";
+
 
 }
 
 
 
 
-function openReports() {
 
-    alert("Opening Attendance Reports page");
 
-    // Later:
-    // window.location.href = "/lecturer/reports";
+function openReports(){
+
+
+    alert("Opening Attendance Reports Page");
+
+
+    // window.location.href="/lecturer/reports";
+
 
 }
 
 
 
 
-// =======================================
+
+
+
+// =====================================
 // Logout Function
-// =======================================
+// =====================================
 
 
-function logout() {
+function logout(){
+
 
 
     let confirmLogout = confirm(
@@ -80,17 +137,25 @@ function logout() {
     );
 
 
+
     if(confirmLogout){
+
+
 
         alert(
             "Logged out successfully"
         );
 
 
+
         // Go to login page
-        window.location.href = "/";
+
+        window.location.href="/";
+
+
 
     }
+
 
 
 }

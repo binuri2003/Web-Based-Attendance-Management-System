@@ -1,356 +1,361 @@
-/* ==================================
+/* =====================================
    Lecturer Dashboard CSS
-   Attendance Management System
    Blue + White Theme
-================================== */
+===================================== */
 
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+*{
 
-
-
-body {
-
-    background: #FFFFFF;
-    color: #333333;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 
 }
 
 
+body{
 
-
-/* Main Wrapper */
-
-.wrapper {
-
-    display: flex;
-    min-height: 100vh;
+    background:#FFFFFF;
+    color:#333333;
 
 }
 
+
+
+/* ================= Layout ================= */
+
+
+.wrapper{
+
+    display:flex;
+    min-height:100vh;
+
+}
 
 
 
 /* ================= Sidebar ================= */
 
 
-.sidebar {
+.sidebar{
 
-    width: 270px;
-    background: #2563EB;
-    color: white;
-    padding: 25px 15px;
+    width:270px;
+    background:#2563EB;
+    color:white;
+    padding:25px 15px;
+    position:fixed;
+    height:100vh;
+
+}
+
+
+
+.logo{
+
+    text-align:center;
+    margin-bottom:35px;
+
+}
+
+
+
+.logo img{
+
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+
+}
+
+
+
+.logo h2{
+
+    font-size:32px;
+    font-weight:bold;
+
+}
+
+
+
+.logo p{
+
+    font-size:16px;
 
 }
 
 
 
 
-.logo {
+.sidebar ul{
 
-    text-align: center;
-    margin-bottom: 35px;
-
-}
-
-
-
-.logo img {
-
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+    list-style:none;
 
 }
 
 
 
-.logo h2 {
+.sidebar ul li{
 
-    font-size: 32px;
-    font-weight: bold;
-
-}
-
-
-
-.logo p {
-
-    font-size: 16px;
-}
-
-
-
-
-.sidebar ul {
-
-    list-style: none;
+    margin:15px 0;
 
 }
 
 
 
-.sidebar ul li {
 
-    margin: 15px 0;
+.sidebar ul li a{
 
-}
-
-
-
-.sidebar ul li a {
-
-    text-decoration: none;
-    color: white;
-    display: block;
-    padding: 12px 15px;
-    border-radius: 8px;
-    font-size: 17px;
-    font-weight: 500;
+    text-decoration:none;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 15px;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:500;
 
 }
 
 
 
 .sidebar ul li a:hover,
-.sidebar ul li.active a {
+.sidebar ul li.active a{
 
-    background: white;
-    color: #2563EB;
+    background:white;
+    color:#2563EB;
 
 }
-
 
 
 
 /* ================= Main Content ================= */
 
 
-.main-content {
+.main-content{
 
-    flex: 1;
-    padding: 30px;
-    background: #FFFFFF;
-
-}
-
-
-
-
-
-/* Header */
-
-
-.header {
-
-    margin-bottom: 30px;
+    margin-left:270px;
+    width:calc(100% - 270px);
+    padding:30px;
 
 }
 
 
 
-.header h1 {
-
-    font-size: 36px;
-    font-weight: bold;
-    color: #2563EB;
-
-}
+/* ================= Header ================= */
 
 
+header{
 
-.header p {
-
-    font-size: 18px;
-    color: #333333;
+    margin-bottom:35px;
+    border-bottom:3px solid #2563EB;
+    padding-bottom:20px;
 
 }
 
 
 
+header h1{
 
-
-/* Dashboard Cards */
-
-
-.dashboard-cards {
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-    gap: 25px;
+    font-size:36px;
+    font-weight:bold;
+    color:#2563EB;
 
 }
 
 
 
+header p{
 
-.card {
-
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    font-size:16px;
 
 }
 
 
 
-
-.card:hover {
-
-    transform: translateY(-5px);
-    transition: 0.3s;
-
-}
+/* ================= Cards ================= */
 
 
+.cards{
 
-.icon {
-
-    font-size: 45px;
-    margin-bottom: 15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
 
 }
 
 
 
+.card{
 
-.card h3 {
-
-    font-size: 22px;
-    font-weight: 600;
-    color: #2563EB;
-
-}
-
-
-
-
-.card p {
-
-    font-size: 16px;
-    margin: 15px 0;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    border:1px solid #ddd;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
 
 }
 
 
 
+.card:hover{
 
-.card button {
-
-    background: #2563EB;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+    transform:translateY(-5px);
+    transition:0.3s;
 
 }
 
 
 
-.card button:hover {
+.icon{
 
-    background: #1E88E5;
-
-}
-
-
-
-
-/* ================= Summary Table ================= */
-
-
-.info-section {
-
-    margin-top: 35px;
+    font-size:45px;
+    color:#2563EB;
+    margin-bottom:15px;
 
 }
 
 
 
-.info-card {
+.card h3{
 
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-
-}
-
-
-
-.info-card h4 {
-
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #2563EB;
+    font-size:22px;
+    font-weight:600;
+    color:#2563EB;
 
 }
 
 
 
+.card p{
 
-table {
-
-    width: 100%;
-    border-collapse: collapse;
-
-}
-
-
-
-table th {
-
-    background: #2563EB;
-    color: white;
-    font-size: 17px;
-    padding: 12px;
+    font-size:16px;
+    margin:15px 0;
 
 }
 
 
 
-table td {
-
-    padding: 12px;
-    font-size: 16px;
-    text-align: center;
-    border: 1px solid #ddd;
-
-}
+/* ================= Buttons ================= */
 
 
+.card button{
 
-
-
-/* Footer */
-
-
-footer {
-
-    margin-top: 40px;
-    text-align: center;
-    font-size: 14px;
-    color: #666;
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:10px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
 
 }
 
 
 
+.card button:hover{
 
-/* Responsive */
+    background:#1E88E5;
+
+}
+
+
+
+/* ================= RED LOGOUT BUTTON ================= */
+
+
+.logout-btn{
+
+    background:#DC2626 !important;
+
+}
+
+
+
+.logout-btn:hover{
+
+    background:#B91C1C !important;
+
+}
+
+
+
+/* ================= Summary ================= */
+
+
+.summary{
+
+    margin-top:40px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+
+}
+
+
+
+.summary h2{
+
+    font-size:26px;
+    color:#2563EB;
+    margin-bottom:20px;
+
+}
+
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+
+table th{
+
+    background:#2563EB;
+    color:white;
+    padding:12px;
+    font-size:17px;
+
+}
+
+
+
+table td{
+
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+    font-size:16px;
+
+}
+
+
+
+/* ================= Footer ================= */
+
+
+footer{
+
+    margin-top:40px;
+    text-align:center;
+    color:#666;
+    font-size:14px;
+
+}
+
+
+
+/* ================= Responsive ================= */
 
 
 @media(max-width:900px){
@@ -363,8 +368,20 @@ footer {
 }
 
 
+
 .sidebar{
 
+    position:relative;
+    width:100%;
+    height:auto;
+
+}
+
+
+
+.main-content{
+
+    margin-left:0;
     width:100%;
 
 }
