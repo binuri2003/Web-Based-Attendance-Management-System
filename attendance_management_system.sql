@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2026 at 12:00 PM
+-- Generation Time: Jul 20, 2026 at 08:06 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `admin_id` int(11) NOT NULL,
-  `admin_name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `admin_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -88,6 +88,14 @@ CREATE TABLE `class` (
   `academic_year` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`class_id`, `class_name`, `program`, `year`, `stream`, `semester`, `academic_year`) VALUES
+(1, 'CS 2nd Year', 'Computer Science', 2, 'Computer Science', 1, '2026'),
+(2, 'CS 3rd Year Special', 'Computer Science', 3, 'Computer Science', 1, '2026');
+
 -- --------------------------------------------------------
 
 --
@@ -109,8 +117,8 @@ CREATE TABLE `enrollment` (
 
 CREATE TABLE `lecturer` (
   `lecturer_id` int(11) NOT NULL,
-  `lecturer_name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `lecturer_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -129,18 +137,19 @@ INSERT INTO `lecturer` (`lecturer_id`, `lecturer_name`, `email`) VALUES
 
 CREATE TABLE `student` (
   `student_id` int(11) NOT NULL,
-  `registration_no` varchar(30) NOT NULL,
-  `student_name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `registration_no` varchar(255) DEFAULT NULL,
+  `student_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `class_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `registration_no`, `student_name`, `email`) VALUES
-(5, 'AS20240001', 'Binuri Vihangi', 'binuri@sjp.ac.lk'),
-(6, 'AS20240002', 'Kasun Madushanka', 'kasun@sjp.ac.lk');
+INSERT INTO `student` (`student_id`, `registration_no`, `student_name`, `email`, `class_id`) VALUES
+(5, 'AS20240001', 'Binuri Vihangi', 'binuri@sjp.ac.lk', 1),
+(6, 'AS20240002', 'Kasun Madushanka', 'kasun@sjp.ac.lk', 2);
 
 -- --------------------------------------------------------
 
@@ -164,7 +173,7 @@ CREATE TABLE `subject` (
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('Admin','Lecturer','Student') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -237,7 +246,8 @@ ALTER TABLE `lecturer`
 ALTER TABLE `student`
   ADD PRIMARY KEY (`student_id`),
   ADD UNIQUE KEY `registration_no` (`registration_no`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `fk_student_class` (`class_id`);
 
 --
 -- Indexes for table `subject`
@@ -274,7 +284,7 @@ ALTER TABLE `attendance_session`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
@@ -336,6 +346,7 @@ ALTER TABLE `lecturer`
 -- Constraints for table `student`
 --
 ALTER TABLE `student`
+  ADD CONSTRAINT `fk_student_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_student_user` FOREIGN KEY (`student_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
