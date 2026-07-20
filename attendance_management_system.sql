@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2026 at 08:06 AM
+-- Generation Time: Jul 20, 2026 at 05:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,8 +93,14 @@ CREATE TABLE `class` (
 --
 
 INSERT INTO `class` (`class_id`, `class_name`, `program`, `year`, `stream`, `semester`, `academic_year`) VALUES
-(1, 'CS 2nd Year', 'Computer Science', 2, 'Computer Science', 1, '2026'),
-(2, 'CS 3rd Year Special', 'Computer Science', 3, 'Computer Science', 1, '2026');
+(1, 'CS 1st Year', 'General', 1, 'Computer Science', 1, '2026'),
+(2, 'CS 2nd Year', 'General', 2, 'Computer Science', 1, '2026'),
+(3, 'CS 3rd Year General', 'General', 3, 'Computer Science', 1, '2026'),
+(4, 'CS 3rd Year Special', 'Special', 3, 'Computer Science', 1, '2026'),
+(5, 'CS 4th Year Special', 'Special', 4, 'Computer Science', 1, '2026'),
+(6, 'IT 1st Year', 'General', 1, 'Information Technology', 1, '2026'),
+(7, 'IT 2nd Year', 'General', 2, 'Information Technology', 1, '2026'),
+(8, 'IT 3rd Year', 'General', 3, 'Information Technology', 1, '2026');
 
 -- --------------------------------------------------------
 
@@ -127,7 +133,17 @@ CREATE TABLE `lecturer` (
 
 INSERT INTO `lecturer` (`lecturer_id`, `lecturer_name`, `email`) VALUES
 (3, 'Dr. Nuwan Fernando', 'nuwan@usjp.lk'),
-(4, 'Ms. Dilani Jayasinghe', 'dilani@usjp.lk');
+(4, 'Ms. Dilani Jayasinghe', 'dilani@usjp.lk'),
+(7, 'Mr. M.D.R. Perera', 'mdr.perera@sjp.ac.lk'),
+(8, 'Mrs. W.M.K.S. Illmini', 'wmks.illmini@sjp.ac.lk'),
+(9, 'Ms. N.H. Wanigasingha', 'nh.wanigasingha@sjp.ac.lk'),
+(10, 'Mrs. Surani Perera', 'surani.perera@sjp.ac.lk'),
+(11, 'Mr. Tisura Ambuldeniya', 'tisura.ambuldeniya@sjp.ac.lk'),
+(12, 'Miss Lavanka Harshani', 'lavanka.harshani@sjp.ac.lk'),
+(13, 'Dr. K.A. Silva', 'ka.silva@sjp.ac.lk'),
+(14, 'Mr. D.M. Fernando', 'dm.fernando@sjp.ac.lk'),
+(15, 'Mrs. P.N. Jayasinghe', 'pn.jayasinghe@sjp.ac.lk'),
+(16, 'Ms. H.M. Wickramasinghe', 'hm.wickramasinghe@sjp.ac.lk');
 
 -- --------------------------------------------------------
 
@@ -165,6 +181,29 @@ CREATE TABLE `subject` (
   `lecturer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `subject`
+--
+
+INSERT INTO `subject` (`subject_id`, `subject_code`, `subject_name`, `credits`, `lecturer_id`) VALUES
+(1, 'CS101', 'C Programming', 2, 3),
+(2, 'CS102', 'Programming Fundamentals', 2, 4),
+(3, 'CS103', 'Object-Oriented Programming', 2, 7),
+(4, 'CS104', 'Data Structures and Algorithms', 2, 8),
+(5, 'CS105', 'Database Management Systems', 2, 9),
+(6, 'CS106', 'Software Development', 2, 10),
+(7, 'CS107', 'Software Engineering', 2, 11),
+(8, 'CS108', 'Computer System Architecture', 2, 12),
+(9, 'CS109', 'Operating Systems', 2, 13),
+(10, 'CS110', 'Computer Networks', 2, 14),
+(11, 'CS111', 'Web Development', 2, 15),
+(12, 'CS112', 'Full Stack Development', 2, 16),
+(13, 'CS113', 'Mobile Application Development Lab', 1, 7),
+(14, 'CS114', 'Cyber Security Practical', 1, 8),
+(15, 'CS115', 'Information Security Lab', 1, 9),
+(16, 'CS116', 'Human Computer Interaction', 1, 10),
+(17, 'CS117', 'Artificial Intelligence Practical', 1, 11);
+
 -- --------------------------------------------------------
 
 --
@@ -188,7 +227,17 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `role`) VALUES
 (3, 'lecturer1', 'lect123', 'Lecturer'),
 (4, 'lecturer2', 'lect456', 'Lecturer'),
 (5, 'student1', 'stud123', 'Student'),
-(6, 'student2', 'stud456', 'Student');
+(6, 'student2', 'stud456', 'Student'),
+(7, 'mdr.perera', '123456', 'Lecturer'),
+(8, 'wmks.illmini', '123457', 'Lecturer'),
+(9, 'nh.wanigasingha', '123458', 'Lecturer'),
+(10, 'surani.perera', '123459', 'Lecturer'),
+(11, 'tisura', '123450', 'Lecturer'),
+(12, 'lavanka', '123451', 'Lecturer'),
+(13, 'ka.silva', '123452', 'Lecturer'),
+(14, 'dm.fernando', '123453', 'Lecturer'),
+(15, 'pn.jayasinghe', '123454', 'Lecturer'),
+(16, 'hm.wickramasinghe', '123455', 'Lecturer');
 
 --
 -- Indexes for dumped tables
@@ -284,7 +333,7 @@ ALTER TABLE `attendance_session`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
@@ -296,13 +345,13 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
