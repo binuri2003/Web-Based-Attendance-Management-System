@@ -630,3 +630,29 @@ footer{
     border-radius:20px;
     font-weight:bold;
 }
+
+/* ===== Attendance History ===== */
+
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+    transition:0.3s;
+    background:#fff;
+}
+
+.form-group select:focus{
+    border-color:#2563eb;
+}
+
+.absent{
+    background:#dc3545;
+    color:#fff;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:600;
+}
