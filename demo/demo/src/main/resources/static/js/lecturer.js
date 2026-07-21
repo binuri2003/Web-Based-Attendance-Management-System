@@ -6,47 +6,32 @@
 
 // Page Load
 
-document.addEventListener("DOMContentLoaded", function(){
-
+document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Lecturer Dashboard Loaded");
-
-
 
     // Active sidebar menu
 
     const menuItems = document.querySelectorAll(".sidebar ul li a");
 
-
     menuItems.forEach(item => {
 
-
-        item.addEventListener("click", function(){
-
+        item.addEventListener("click", function () {
 
             document.querySelectorAll(".sidebar ul li")
-            .forEach(li => {
+                .forEach(li => {
 
-                li.classList.remove("active");
+                    li.classList.remove("active");
 
-            });
-
-
+                });
 
             this.parentElement.classList.add("active");
 
-
         });
-
 
     });
 
-
-
 });
-
-
-
 
 
 
@@ -54,72 +39,37 @@ document.addEventListener("DOMContentLoaded", function(){
 // Lecturer Navigation Functions
 // =====================================
 
-
-
-function openSubjects(){
-
+function openSubjects() {
 
     alert("Opening My Subjects Page");
 
-
-    // Connect Spring Boot later
-
     // window.location.href="/lecturer/subjects";
-
 
 }
 
-
-
-
-
-
-function openSessions(){
-
+function openSessions() {
 
     alert("Opening Create Attendance Session Page");
 
-
     // window.location.href="/lecturer/create-session";
-
 
 }
 
-
-
-
-
-
-function openMarkAttendance(){
-
+function openMarkAttendance() {
 
     alert("Opening Mark / Edit Attendance Page");
 
-
     // window.location.href="/lecturer/attendance";
-
 
 }
 
-
-
-
-
-
-function openReports(){
-
+function openReports() {
 
     alert("Opening Attendance Reports Page");
 
-
     // window.location.href="/lecturer/reports";
 
-
 }
-
-
-
-
 
 
 
@@ -127,35 +77,26 @@ function openReports(){
 // Logout Function
 // =====================================
 
+function logout() {
 
-function logout(){
+    const confirmLogout = confirm("Are you sure you want to logout?");
 
+    if (confirmLogout) {
 
+        fetch("/logout", {
+            method: "GET"
+        })
+        .then(() => {
 
-    let confirmLogout = confirm(
-        "Are you sure you want to logout?"
-    );
+            window.location.replace("/");
 
+        })
+        .catch(() => {
 
+            window.location.replace("/");
 
-    if(confirmLogout){
-
-
-
-        alert(
-            "Logged out successfully"
-        );
-
-
-
-        // Go to login page
-
-        window.location.href="/";
-
-
+        });
 
     }
-
-
 
 }

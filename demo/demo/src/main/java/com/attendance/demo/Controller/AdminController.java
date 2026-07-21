@@ -1,4 +1,5 @@
 package com.attendance.demo.Controller;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,6 +9,11 @@ public class AdminController {
     @GetMapping("/admin/dashboard")
     public String adminDashboard() {
         return "admin/dashboard";
+    }
+
+    @GetMapping("/admin/students")
+    public String manageStudents() {
+        return "admin/students";
     }
 
 }
