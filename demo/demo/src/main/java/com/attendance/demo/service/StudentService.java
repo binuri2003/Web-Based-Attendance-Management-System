@@ -1,5 +1,6 @@
 package com.attendance.demo.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.attendance.demo.entity.Student;
 import com.attendance.demo.repository.ClassRepository;
 import com.attendance.demo.repository.StudentRepository;
 import com.attendance.demo.repository.UserRepository;
+
 
 
 @Service
@@ -33,13 +35,17 @@ public class StudentService {
 
 
 
+
     // ============================
-    // Get All Students
+    // GET ALL STUDENTS
     // ============================
 
     public List<StudentResponse> getAllStudents() {
 
-        List<Student> students = studentRepository.findAll();
+
+        List<Student> students =
+                studentRepository.findAll();
+
 
         return convertToResponse(students);
 
@@ -48,9 +54,10 @@ public class StudentService {
 
 
 
+
+
     // ============================
-    // Search Students
-    // Registration / Name / Username
+    // SEARCH STUDENTS
     // ============================
 
     public List<StudentResponse> searchStudents(String keyword) {
@@ -73,8 +80,9 @@ public class StudentService {
 
 
 
+
     // ============================
-    // Search By Class
+    // SEARCH BY CLASS
     // ============================
 
     public List<StudentResponse> searchByClass(String className) {
@@ -94,8 +102,10 @@ public class StudentService {
 
 
 
+
+
     // ============================
-    // Search By Stream
+    // SEARCH BY STREAM
     // ============================
 
     public List<StudentResponse> searchByStream(String stream) {
@@ -115,26 +125,40 @@ public class StudentService {
 
 
 
+
+
+
     // ============================
-    // Add Student
+    // ADD STUDENT
     // ============================
 
     public Student addStudent(StudentRequest request) {
 
 
+
         if(userRepository.existsByUsername(request.getUsername())) {
 
-            throw new RuntimeException("Username already exists");
+
+            throw new RuntimeException(
+                    "Username already exists"
+            );
 
         }
 
 
 
-        if(studentRepository.existsByRegistrationNo(request.getRegistrationNo())) {
 
-            throw new RuntimeException("Registration number already exists");
+        if(studentRepository.existsByRegistrationNo(
+                request.getRegistrationNo())) {
+
+
+            throw new RuntimeException(
+                    "Registration number already exists"
+            );
 
         }
+
+
 
 
 
@@ -142,24 +166,46 @@ public class StudentService {
 
 
 
+
+
         // USER TABLE
 
-        student.setUsername(request.getUsername());
+        student.setUsername(
+                request.getUsername()
+        );
 
-        student.setPassword(request.getPassword());
 
-        student.setRole(Role.Student);
+        student.setPassword(
+                request.getPassword()
+        );
+
+
+        student.setRole(
+                Role.Student
+        );
+
+
 
 
 
 
         // STUDENT TABLE
 
-        student.setRegistrationNo(request.getRegistrationNo());
+        student.setRegistrationNo(
+                request.getRegistrationNo()
+        );
 
-        student.setStudentName(request.getStudentName());
 
-        student.setEmail(request.getEmail());
+        student.setStudentName(
+                request.getStudentName()
+        );
+
+
+        student.setEmail(
+                request.getEmail()
+        );
+
+
 
 
 
@@ -167,19 +213,29 @@ public class StudentService {
 
         // CLASS
 
-        if(request.getClassId() != null) {
+        if(request.getClassId()!=null){
 
 
             ClassEntity classEntity =
-                    classRepository.findById(request.getClassId())
+                    classRepository.findById(
+                            request.getClassId()
+                    )
                     .orElseThrow(() ->
-                            new RuntimeException("Class not found")
+                            new RuntimeException(
+                                    "Class not found"
+                            )
                     );
 
 
-            student.setStudentClass(classEntity);
+
+            student.setStudentClass(
+                    classEntity
+            );
+
 
         }
+
+
 
 
 
@@ -194,12 +250,170 @@ public class StudentService {
 
 
 
+
+
     // ============================
-    // Convert Entity To DTO
+    // GET STUDENT BY ID
+    // ============================
+
+    public Student getStudentById(Integer id){
+
+
+        return studentRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Student not found"
+                        )
+                );
+
+
+    }
+
+
+
+
+
+
+
+
+    // ============================
+    // UPDATE STUDENT
+    // ============================
+
+    public Student updateStudent(
+            Integer id,
+            StudentRequest request){
+
+
+
+        Student student =
+                getStudentById(id);
+
+
+
+
+
+
+        // USER TABLE UPDATE
+
+        student.setUsername(
+                request.getUsername()
+        );
+
+
+        if(request.getPassword()!=null &&
+                !request.getPassword().isEmpty()){
+
+
+            student.setPassword(
+                    request.getPassword()
+            );
+
+        }
+
+
+
+
+
+
+        // STUDENT TABLE UPDATE
+
+        student.setRegistrationNo(
+                request.getRegistrationNo()
+        );
+
+
+        student.setStudentName(
+                request.getStudentName()
+        );
+
+
+        student.setEmail(
+                request.getEmail()
+        );
+
+
+
+
+
+
+
+        // CLASS UPDATE
+
+        if(request.getClassId()!=null){
+
+
+
+            ClassEntity classEntity =
+                    classRepository.findById(
+                            request.getClassId()
+                    )
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    "Class not found"
+                            )
+                    );
+
+
+
+            student.setStudentClass(
+                    classEntity
+            );
+
+
+        }
+
+
+
+
+
+
+        return studentRepository.save(student);
+
+
+    }
+
+
+
+
+
+
+
+
+    // ============================
+    // DELETE STUDENT
+    // ============================
+
+    public void deleteStudent(Integer id){
+
+
+
+        Student student =
+                getStudentById(id);
+
+
+
+        studentRepository.delete(student);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    // ============================
+    // CONVERT ENTITY TO RESPONSE
     // ============================
 
     private List<StudentResponse> convertToResponse(
-            List<Student> students) {
+            List<Student> students){
+
 
 
         List<StudentResponse> responseList =
@@ -207,11 +421,15 @@ public class StudentService {
 
 
 
-        for(Student student : students) {
+
+
+        for(Student student : students){
+
 
 
             StudentResponse response =
                     new StudentResponse();
+
 
 
 
@@ -220,9 +438,11 @@ public class StudentService {
             );
 
 
+
             response.setUsername(
                     student.getUsername()
             );
+
 
 
             response.setRegistrationNo(
@@ -230,9 +450,11 @@ public class StudentService {
             );
 
 
+
             response.setStudentName(
                     student.getStudentName()
             );
+
 
 
             response.setEmail(
@@ -241,7 +463,9 @@ public class StudentService {
 
 
 
-            if(student.getStudentClass() != null) {
+
+
+            if(student.getStudentClass()!=null){
 
 
                 response.setClassName(
@@ -250,21 +474,29 @@ public class StudentService {
                 );
 
 
-            } else {
+            }
+            else{
 
 
                 response.setClassName(
                         "Not Assigned"
                 );
 
+
             }
+
+
 
 
 
             responseList.add(response);
 
 
+
         }
+
+
+
 
 
 
@@ -272,6 +504,7 @@ public class StudentService {
 
 
     }
+
 
 
 }

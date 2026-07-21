@@ -2,47 +2,52 @@ let selectedStudentId = null;
 
 
 /* ==============================
-   Page Load
+   PAGE LOAD
 ============================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
     loadStudents();
 
-
 });
 
 
 
+
+
 /* ==============================
-   Load All Students
+   LOAD ALL STUDENTS
 ============================== */
 
 function loadStudents(){
 
+
     fetch("/api/students")
 
-    .then(response=>response.json())
+    .then(response => response.json())
 
-    .then(data=>{
+    .then(data => {
 
         displayStudents(data);
 
     })
 
-    .catch(error=>{
+    .catch(error => {
 
         console.log(error);
 
     });
+
 
 }
 
 
 
 
+
+
 /* ==============================
-   Display Students
+   DISPLAY STUDENTS
 ============================== */
 
 function displayStudents(students){
@@ -56,6 +61,7 @@ function displayStudents(students){
     document.getElementById("studentCount");
 
 
+
     tableBody.innerHTML="";
 
 
@@ -63,30 +69,38 @@ function displayStudents(students){
 
 
 
-    if(students.length===0){
 
-        tableBody.innerHTML=`
+
+    if(students.length === 0){
+
+
+        tableBody.innerHTML = `
 
         <tr>
 
-        <td colspan="7" class="text-center">
+            <td colspan="7" class="text-center">
 
-        No Students Found
+                No Students Found
 
-        </td>
+            </td>
 
         </tr>
 
         `;
 
+
         return;
+
 
     }
 
 
 
 
+
+
     students.forEach((student,index)=>{
+
 
 
         tableBody.innerHTML += `
@@ -95,60 +109,69 @@ function displayStudents(students){
         <tr>
 
 
-        <td>${index+1}</td>
+            <td>${index+1}</td>
 
 
-        <td>${student.username}</td>
+            <td>${student.username}</td>
 
 
-        <td>${student.registrationNo}</td>
+            <td>${student.registrationNo}</td>
 
 
-        <td>${student.studentName}</td>
+            <td>${student.studentName}</td>
 
 
-        <td>${student.email}</td>
+            <td>${student.email}</td>
 
 
-        <td>
+            <td>
 
-        <span class="badge bg-success">
+                <span class="badge bg-success">
 
-        ${student.className}
+                    ${student.className}
 
-        </span>
+                </span>
 
-        </td>
-
-
-        <td>
-
-
-        <button class="btn btn-warning btn-sm"
-        onclick="openEditModal(${student.studentId})">
-
-        <i class="fas fa-pen"></i>
-
-        Edit
-
-        </button>
+            </td>
 
 
 
-        <button class="btn btn-danger btn-sm"
-        onclick="openDeleteModal(${student.studentId},
-        '${student.studentName}')">
+            <td>
 
 
-        <i class="fas fa-trash"></i>
+                <button class="btn btn-warning btn-sm"
 
-        Delete
-
-
-        </button>
+                onclick="openEditModal(${student.studentId})">
 
 
-        </td>
+                    <i class="fas fa-pen"></i>
+
+                    Edit
+
+
+                </button>
+
+
+
+
+
+                <button class="btn btn-danger btn-sm"
+
+                onclick="openDeleteModal(
+                ${student.studentId},
+                '${student.studentName}'
+                )">
+
+
+                    <i class="fas fa-trash"></i>
+
+                    Delete
+
+
+                </button>
+
+
+            </td>
 
 
         </tr>
@@ -157,7 +180,9 @@ function displayStudents(students){
         `;
 
 
+
     });
+
 
 
 }
@@ -165,8 +190,12 @@ function displayStudents(students){
 
 
 
+
+
+
+
 /* ==============================
-   SEARCH FUNCTION
+   SEARCH
 ============================== */
 
 
@@ -189,7 +218,7 @@ document.getElementById("streamFilter").value;
 
 
 
-// search by registration/name/username
+
 
 if(keyword !== ""){
 
@@ -214,7 +243,6 @@ return;
 
 
 
-// search by class
 
 if(className !== ""){
 
@@ -240,8 +268,6 @@ return;
 
 
 
-// search by stream
-
 if(stream !== ""){
 
 
@@ -260,18 +286,21 @@ displayStudents(data);
 
 return;
 
+
 }
 
 
 
 
-// if nothing selected
 
 loadStudents();
 
 
 
 });
+
+
+
 
 
 
@@ -288,6 +317,7 @@ document
 .addEventListener("click",function(){
 
 
+
 document.getElementById("searchStudent").value="";
 
 
@@ -297,11 +327,15 @@ document.getElementById("classFilter").value="";
 document.getElementById("streamFilter").value="";
 
 
+
 loadStudents();
 
 
 
 });
+
+
+
 
 
 
@@ -322,7 +356,8 @@ e.preventDefault();
 
 
 
-let student={
+
+let student = {
 
 
 username:
@@ -353,6 +388,9 @@ document.getElementById("classId").value
 
 
 
+
+
+
 fetch("/api/students",{
 
 
@@ -361,7 +399,9 @@ method:"POST",
 
 headers:{
 
+
 "Content-Type":"application/json"
+
 
 },
 
@@ -370,6 +410,8 @@ body:JSON.stringify(student)
 
 
 })
+
+
 
 .then(res=>{
 
@@ -387,15 +429,19 @@ return res.json();
 })
 
 
+
 .then(data=>{
 
 
 alert("Student Added Successfully");
 
 
+
 document
 .getElementById("addStudentForm")
 .reset();
+
+
 
 
 bootstrap.Modal
@@ -406,10 +452,13 @@ document.getElementById("addStudentModal")
 
 
 
+
 loadStudents();
 
 
+
 })
+
 
 
 .catch(()=>{
@@ -430,8 +479,10 @@ alert("Error Adding Student");
 
 
 
+
+
 /* ==============================
- Edit
+ OPEN EDIT MODAL
 ============================== */
 
 
@@ -441,11 +492,55 @@ function openEditModal(id){
 selectedStudentId=id;
 
 
+
+
+fetch("/api/students")
+
+.then(res=>res.json())
+
+.then(students=>{
+
+
+let student =
+students.find(
+s=>s.studentId===id
+);
+
+
+
+document.getElementById("editStudentId").value =
+student.studentId;
+
+
+document.getElementById("editUsername").value =
+student.username;
+
+
+document.getElementById("editRegistrationNo").value =
+student.registrationNo;
+
+
+document.getElementById("editStudentName").value =
+student.studentName;
+
+
+document.getElementById("editEmail").value =
+student.email;
+
+
+
+
+
 new bootstrap.Modal(
 
 document.getElementById("editStudentModal")
 
 ).show();
+
+
+
+});
+
 
 
 }
@@ -455,8 +550,112 @@ document.getElementById("editStudentModal")
 
 
 
+
+
+
 /* ==============================
- Delete
+ UPDATE STUDENT
+============================== */
+
+
+document
+.getElementById("editStudentForm")
+.addEventListener("submit",function(e){
+
+
+e.preventDefault();
+
+
+
+
+let student = {
+
+
+username:
+document.getElementById("editUsername").value,
+
+
+password:"123456",
+
+
+registrationNo:
+document.getElementById("editRegistrationNo").value,
+
+
+studentName:
+document.getElementById("editStudentName").value,
+
+
+email:
+document.getElementById("editEmail").value
+
+
+};
+
+
+
+
+
+fetch("/api/students/"+selectedStudentId,{
+
+
+method:"PUT",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify(student)
+
+
+})
+
+
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+alert("Student Updated Successfully");
+
+
+
+bootstrap.Modal
+.getInstance(
+document.getElementById("editStudentModal")
+)
+.hide();
+
+
+
+
+loadStudents();
+
+
+
+});
+
+
+
+});
+
+
+
+
+
+
+
+
+
+/* ==============================
+ OPEN DELETE MODAL
 ============================== */
 
 
@@ -466,9 +665,12 @@ function openDeleteModal(id,name){
 selectedStudentId=id;
 
 
+
 document
 .getElementById("deleteStudentName")
 .innerText=name;
+
+
 
 
 new bootstrap.Modal(
@@ -478,10 +680,20 @@ document.getElementById("deleteStudentModal")
 ).show();
 
 
+
 }
 
 
 
+
+
+
+
+
+
+/* ==============================
+ DELETE STUDENT
+============================== */
 
 
 document
@@ -489,7 +701,43 @@ document
 .addEventListener("click",function(){
 
 
-alert("Delete API not added yet");
+
+fetch("/api/students/"+selectedStudentId,{
+
+
+method:"DELETE"
+
+
+})
+
+
+
+.then(res=>res.text())
+
+
+.then(data=>{
+
+
+alert("Student Deleted Successfully");
+
+
+
+
+bootstrap.Modal
+.getInstance(
+document.getElementById("deleteStudentModal")
+)
+.hide();
+
+
+
+
+loadStudents();
+
+
+
+});
+
 
 
 });
