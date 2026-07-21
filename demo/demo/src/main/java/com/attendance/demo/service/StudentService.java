@@ -15,17 +15,23 @@ import com.attendance.demo.repository.ClassRepository;
 import com.attendance.demo.repository.StudentRepository;
 import com.attendance.demo.repository.UserRepository;
 
+
 @Service
 public class StudentService {
+
 
     @Autowired
     private StudentRepository studentRepository;
 
+
     @Autowired
     private UserRepository userRepository;
 
+
     @Autowired
     private ClassRepository classRepository;
+
+
 
     // ============================
     // Get All Students
@@ -35,69 +41,79 @@ public class StudentService {
 
         List<Student> students = studentRepository.findAll();
 
-        List<StudentResponse> responseList = new ArrayList<>();
-
-        for (Student student : students) {
-
-            StudentResponse response = new StudentResponse();
-
-            response.setStudentId(student.getUserId());
-            response.setUsername(student.getUsername());
-            response.setRegistrationNo(student.getRegistrationNo());
-            response.setStudentName(student.getStudentName());
-            response.setEmail(student.getEmail());
-
-            if (student.getStudentClass() != null) {
-                response.setClassName(student.getStudentClass().getClassName());
-            } else {
-                response.setClassName("Not Assigned");
-            }
-
-            responseList.add(response);
-        }
-
-        return responseList;
+        return convertToResponse(students);
 
     }
 
+
+
+
     // ============================
     // Search Students
+    // Registration / Name / Username
     // ============================
 
     public List<StudentResponse> searchStudents(String keyword) {
+
 
         List<Student> students =
                 studentRepository
                 .findByRegistrationNoContainingIgnoreCaseOrStudentNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(
                         keyword,
                         keyword,
-                        keyword);
+                        keyword
+                );
 
-        List<StudentResponse> responseList = new ArrayList<>();
 
-        for (Student student : students) {
-
-            StudentResponse response = new StudentResponse();
-
-            response.setStudentId(student.getUserId());
-            response.setUsername(student.getUsername());
-            response.setRegistrationNo(student.getRegistrationNo());
-            response.setStudentName(student.getStudentName());
-            response.setEmail(student.getEmail());
-
-            if (student.getStudentClass() != null) {
-                response.setClassName(student.getStudentClass().getClassName());
-            } else {
-                response.setClassName("Not Assigned");
-            }
-
-            responseList.add(response);
-
-        }
-
-        return responseList;
+        return convertToResponse(students);
 
     }
+
+
+
+
+
+    // ============================
+    // Search By Class
+    // ============================
+
+    public List<StudentResponse> searchByClass(String className) {
+
+
+        List<Student> students =
+                studentRepository.findByStudentClass_ClassNameContainingIgnoreCase(
+                        className
+                );
+
+
+        return convertToResponse(students);
+
+    }
+
+
+
+
+
+    // ============================
+    // Search By Stream
+    // ============================
+
+    public List<StudentResponse> searchByStream(String stream) {
+
+
+        List<Student> students =
+                studentRepository.findByStudentClass_StreamContainingIgnoreCase(
+                        stream
+                );
+
+
+        return convertToResponse(students);
+
+    }
+
+
+
+
 
     // ============================
     // Add Student
@@ -105,47 +121,157 @@ public class StudentService {
 
     public Student addStudent(StudentRequest request) {
 
-        if (userRepository.existsByUsername(request.getUsername())) {
+
+        if(userRepository.existsByUsername(request.getUsername())) {
 
             throw new RuntimeException("Username already exists");
 
         }
 
-        if (studentRepository.existsByRegistrationNo(request.getRegistrationNo())) {
+
+
+        if(studentRepository.existsByRegistrationNo(request.getRegistrationNo())) {
 
             throw new RuntimeException("Registration number already exists");
 
         }
 
+
+
         Student student = new Student();
+
+
 
         // USER TABLE
 
         student.setUsername(request.getUsername());
+
         student.setPassword(request.getPassword());
+
         student.setRole(Role.Student);
+
+
+
 
         // STUDENT TABLE
 
         student.setRegistrationNo(request.getRegistrationNo());
+
         student.setStudentName(request.getStudentName());
+
         student.setEmail(request.getEmail());
+
+
+
+
 
         // CLASS
 
-        if (request.getClassId() != null) {
+        if(request.getClassId() != null) {
+
 
             ClassEntity classEntity =
                     classRepository.findById(request.getClassId())
                     .orElseThrow(() ->
-                            new RuntimeException("Class not found"));
+                            new RuntimeException("Class not found")
+                    );
+
 
             student.setStudentClass(classEntity);
 
         }
 
+
+
+
         return studentRepository.save(student);
 
+
     }
+
+
+
+
+
+
+    // ============================
+    // Convert Entity To DTO
+    // ============================
+
+    private List<StudentResponse> convertToResponse(
+            List<Student> students) {
+
+
+        List<StudentResponse> responseList =
+                new ArrayList<>();
+
+
+
+        for(Student student : students) {
+
+
+            StudentResponse response =
+                    new StudentResponse();
+
+
+
+            response.setStudentId(
+                    student.getUserId()
+            );
+
+
+            response.setUsername(
+                    student.getUsername()
+            );
+
+
+            response.setRegistrationNo(
+                    student.getRegistrationNo()
+            );
+
+
+            response.setStudentName(
+                    student.getStudentName()
+            );
+
+
+            response.setEmail(
+                    student.getEmail()
+            );
+
+
+
+            if(student.getStudentClass() != null) {
+
+
+                response.setClassName(
+                        student.getStudentClass()
+                        .getClassName()
+                );
+
+
+            } else {
+
+
+                response.setClassName(
+                        "Not Assigned"
+                );
+
+            }
+
+
+
+            responseList.add(response);
+
+
+        }
+
+
+
+        return responseList;
+
+
+    }
+
 
 }

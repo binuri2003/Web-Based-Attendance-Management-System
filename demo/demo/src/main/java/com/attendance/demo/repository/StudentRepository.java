@@ -10,13 +10,27 @@ import com.attendance.demo.entity.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    // Check duplicate registration number
+
     boolean existsByRegistrationNo(String registrationNo);
 
-    // Search students
+
+
     List<Student> findByRegistrationNoContainingIgnoreCaseOrStudentNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(
             String registrationNo,
             String studentName,
-            String username);
+            String username
+    );
+
+
+
+    List<Student> findByStudentClass_ClassNameContainingIgnoreCase(
+            String className
+    );
+
+
+
+    List<Student> findByStudentClass_StreamContainingIgnoreCase(
+            String stream
+    );
 
 }

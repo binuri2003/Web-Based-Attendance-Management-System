@@ -1,285 +1,495 @@
-/* ==========================================
-   Manage Students JavaScript
-   Attendance Management System
-========================================== */
-
 let selectedStudentId = null;
+
 
 /* ==============================
    Page Load
 ============================== */
 
 document.addEventListener("DOMContentLoaded", function () {
+
     loadStudents();
+
+
 });
 
+
+
 /* ==============================
-   Load Students
+   Load All Students
 ============================== */
 
-function loadStudents() {
+function loadStudents(){
 
     fetch("/api/students")
-        .then(response => {
 
-            if (!response.ok) {
-                throw new Error("Failed to load students");
-            }
+    .then(response=>response.json())
 
-            return response.json();
+    .then(data=>{
 
-        })
-        .then(data => {
+        displayStudents(data);
 
-            displayStudents(data);
+    })
 
-        })
-        .catch(error => {
+    .catch(error=>{
 
-            console.log(error);
+        console.log(error);
 
-            document.getElementById("studentTableBody").innerHTML = `
-                <tr>
-                    <td colspan="7" class="text-center text-danger">
-                        Unable to load student data
-                    </td>
-                </tr>
-            `;
-
-        });
+    });
 
 }
+
+
+
 
 /* ==============================
    Display Students
 ============================== */
 
-function displayStudents(students) {
+function displayStudents(students){
 
-    const tableBody = document.getElementById("studentTableBody");
-    const count = document.getElementById("studentCount");
 
-    tableBody.innerHTML = "";
+    const tableBody =
+    document.getElementById("studentTableBody");
+
+
+    const count =
+    document.getElementById("studentCount");
+
+
+    tableBody.innerHTML="";
+
+
     count.innerText = students.length;
 
-    if (students.length === 0) {
 
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="7" class="text-center">
-                    No students found
-                </td>
-            </tr>
+
+    if(students.length===0){
+
+        tableBody.innerHTML=`
+
+        <tr>
+
+        <td colspan="7" class="text-center">
+
+        No Students Found
+
+        </td>
+
+        </tr>
+
         `;
 
         return;
+
     }
 
-    students.forEach((student, index) => {
+
+
+
+    students.forEach((student,index)=>{
+
 
         tableBody.innerHTML += `
 
-            <tr>
 
-                <td>${index + 1}</td>
+        <tr>
 
-                <td>${student.username}</td>
 
-                <td>${student.registrationNo}</td>
+        <td>${index+1}</td>
 
-                <td>${student.studentName}</td>
 
-                <td>${student.email}</td>
+        <td>${student.username}</td>
 
-                <td>
-                    <span class="badge bg-success">
-                        ${student.className || "Not Assigned"}
-                    </span>
-                </td>
 
-                <td>
+        <td>${student.registrationNo}</td>
 
-                    <button class="btn btn-warning btn-sm"
-                        onclick="openEditModal(${student.studentId})">
 
-                        <i class="fas fa-pen"></i>
-                        Edit
+        <td>${student.studentName}</td>
 
-                    </button>
 
-                    <button class="btn btn-danger btn-sm"
-                        onclick="openDeleteModal(${student.studentId}, '${student.studentName}')">
+        <td>${student.email}</td>
 
-                        <i class="fas fa-trash"></i>
-                        Delete
 
-                    </button>
+        <td>
 
-                </td>
+        <span class="badge bg-success">
 
-            </tr>
+        ${student.className}
+
+        </span>
+
+        </td>
+
+
+        <td>
+
+
+        <button class="btn btn-warning btn-sm"
+        onclick="openEditModal(${student.studentId})">
+
+        <i class="fas fa-pen"></i>
+
+        Edit
+
+        </button>
+
+
+
+        <button class="btn btn-danger btn-sm"
+        onclick="openDeleteModal(${student.studentId},
+        '${student.studentName}')">
+
+
+        <i class="fas fa-trash"></i>
+
+        Delete
+
+
+        </button>
+
+
+        </td>
+
+
+        </tr>
+
 
         `;
 
-    });
-
-}
-
-/* ==============================
-   Search Students
-============================== */
-
-document.getElementById("searchBtn")
-.addEventListener("click", function () {
-
-    const keyword = document.getElementById("searchStudent").value;
-
-    fetch("/api/students/search?keyword=" + encodeURIComponent(keyword))
-        .then(response => response.json())
-        .then(data => {
-
-            displayStudents(data);
-
-        });
-
-});
-
-/* ==============================
-   Reset Search
-============================== */
-
-document.getElementById("resetBtn")
-.addEventListener("click", function () {
-
-    document.getElementById("searchStudent").value = "";
-
-    loadStudents();
-
-});
-
-/* ==============================
-   ADD STUDENT
-============================== */
-
-document.getElementById("addStudentForm")
-.addEventListener("submit", function (e) {
-
-    e.preventDefault();
-
-    const student = {
-
-        username: document.getElementById("username").value,
-
-        password: document.getElementById("password").value,
-
-        registrationNo: document.getElementById("registrationNo").value,
-
-        studentName: document.getElementById("studentName").value,
-
-        email: document.getElementById("email").value,
-
-        classId: document.getElementById("classId").value
-
-    };
-
-    fetch("/api/students", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify(student)
-
-    })
-
-    .then(response => {
-
-        if (!response.ok) {
-            throw new Error("Student adding failed");
-        }
-
-        return response.json();
-
-    })
-
-    .then(data => {
-
-        alert("Student Added Successfully!");
-
-        document.getElementById("addStudentForm").reset();
-
-        bootstrap.Modal.getInstance(
-            document.getElementById("addStudentModal")
-        ).hide();
-
-        loadStudents();
-
-    })
-
-    .catch(error => {
-
-        console.log(error);
-
-        alert("Error adding student");
 
     });
 
-});
-
-/* ==============================
-   Open Edit Modal
-============================== */
-
-function openEditModal(id) {
-
-    selectedStudentId = id;
-
-    document.getElementById("editStudentId").value = id;
-
-    new bootstrap.Modal(
-        document.getElementById("editStudentModal")
-    ).show();
 
 }
 
+
+
+
 /* ==============================
-   Update Student
+   SEARCH FUNCTION
 ============================== */
 
-document.getElementById("editStudentForm")
-.addEventListener("submit", function (e) {
 
-    e.preventDefault();
+document
+.getElementById("searchBtn")
+.addEventListener("click",function(){
 
-    alert("Update Student feature coming next.");
+
+
+let keyword =
+document.getElementById("searchStudent").value.trim();
+
+
+let className =
+document.getElementById("classFilter").value;
+
+
+let stream =
+document.getElementById("streamFilter").value;
+
+
+
+// search by registration/name/username
+
+if(keyword !== ""){
+
+
+fetch("/api/students/search?keyword="
++encodeURIComponent(keyword))
+
+
+.then(res=>res.json())
+
+.then(data=>{
+
+displayStudents(data);
 
 });
 
-/* ==============================
-   Open Delete Modal
-============================== */
 
-function openDeleteModal(id, name) {
-
-    selectedStudentId = id;
-
-    document.getElementById("deleteStudentName").innerText = name;
-
-    new bootstrap.Modal(
-        document.getElementById("deleteStudentModal")
-    ).show();
+return;
 
 }
 
+
+
+
+// search by class
+
+if(className !== ""){
+
+
+fetch("/api/students/search/class?className="
++encodeURIComponent(className))
+
+
+.then(res=>res.json())
+
+.then(data=>{
+
+displayStudents(data);
+
+});
+
+
+return;
+
+}
+
+
+
+
+
+// search by stream
+
+if(stream !== ""){
+
+
+fetch("/api/students/search/stream?stream="
++encodeURIComponent(stream))
+
+
+.then(res=>res.json())
+
+.then(data=>{
+
+displayStudents(data);
+
+});
+
+
+return;
+
+}
+
+
+
+
+// if nothing selected
+
+loadStudents();
+
+
+
+});
+
+
+
+
+
+
 /* ==============================
-   Confirm Delete
+ RESET
 ============================== */
 
-document.getElementById("confirmDeleteBtn")
-.addEventListener("click", function () {
 
-    alert("Delete Student feature coming next.");
+document
+.getElementById("resetBtn")
+.addEventListener("click",function(){
+
+
+document.getElementById("searchStudent").value="";
+
+
+document.getElementById("classFilter").value="";
+
+
+document.getElementById("streamFilter").value="";
+
+
+loadStudents();
+
+
+
+});
+
+
+
+
+
+
+/* ==============================
+ ADD STUDENT
+============================== */
+
+
+document
+.getElementById("addStudentForm")
+.addEventListener("submit",function(e){
+
+
+e.preventDefault();
+
+
+
+let student={
+
+
+username:
+document.getElementById("username").value,
+
+
+password:
+document.getElementById("password").value,
+
+
+registrationNo:
+document.getElementById("registrationNo").value,
+
+
+studentName:
+document.getElementById("studentName").value,
+
+
+email:
+document.getElementById("email").value,
+
+
+classId:
+document.getElementById("classId").value
+
+
+};
+
+
+
+fetch("/api/students",{
+
+
+method:"POST",
+
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+
+body:JSON.stringify(student)
+
+
+})
+
+.then(res=>{
+
+
+if(!res.ok){
+
+throw new Error();
+
+}
+
+
+return res.json();
+
+
+})
+
+
+.then(data=>{
+
+
+alert("Student Added Successfully");
+
+
+document
+.getElementById("addStudentForm")
+.reset();
+
+
+bootstrap.Modal
+.getInstance(
+document.getElementById("addStudentModal")
+)
+.hide();
+
+
+
+loadStudents();
+
+
+})
+
+
+.catch(()=>{
+
+
+alert("Error Adding Student");
+
+
+});
+
+
+
+});
+
+
+
+
+
+
+
+/* ==============================
+ Edit
+============================== */
+
+
+function openEditModal(id){
+
+
+selectedStudentId=id;
+
+
+new bootstrap.Modal(
+
+document.getElementById("editStudentModal")
+
+).show();
+
+
+}
+
+
+
+
+
+
+/* ==============================
+ Delete
+============================== */
+
+
+function openDeleteModal(id,name){
+
+
+selectedStudentId=id;
+
+
+document
+.getElementById("deleteStudentName")
+.innerText=name;
+
+
+new bootstrap.Modal(
+
+document.getElementById("deleteStudentModal")
+
+).show();
+
+
+}
+
+
+
+
+
+document
+.getElementById("confirmDeleteBtn")
+.addEventListener("click",function(){
+
+
+alert("Delete API not added yet");
+
 
 });

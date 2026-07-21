@@ -253,152 +253,123 @@
 
 
 
-        <!-- ================= Search & Filter ================= -->
+  <!-- ================= Search & Filter ================= -->
+
+<section class="filter-card">
 
 
-        <section class="filter-card">
-
-
-
-            <div class="row g-3 align-items-end">
-
-
-
-                <!-- Search -->
-
-                <div class="col-lg-4 col-md-6">
-
-
-                    <label class="form-label">
-
-                        Search Student
-
-                    </label>
+<div class="row g-3 align-items-end">
 
 
 
-                    <input type="text"
-                           class="form-control"
-                           id="searchStudent"
-                           placeholder="Registration No / Name / Username">
+<!-- Search Student -->
+
+<div class="col-lg-4 col-md-6">
 
 
-                </div>
+<label class="form-label">
+
+Search Student
+
+</label>
 
 
+<input type="text"
+       class="form-control"
+       id="searchStudent"
+       placeholder="Registration No / Name / Username">
 
-
-
-
-                <!-- Class Filter -->
-
-
-                <div class="col-lg-3 col-md-6">
-
-
-                    <label class="form-label">
-
-                        Class
-
-                    </label>
-
-
-
-                    <select class="form-select"
-                            id="classFilter">
-
-
-    <option value="">All Classes</option>
-
-    <option value="CS 1st Year">CS 1st Year</option>
-
-    <option value="CS 2nd Year">CS 2nd Year</option>
-
-    <option value="CS 3rd Year General">CS 3rd Year General</option>
-
-    <option value="CS 3rd Year Special">CS 3rd Year Special</option>
-
-    <option value="CS 4th Year Special">CS 4th Year Special</option>
-
-    <option value="IT 1st Year">IT 1st Year</option>
-
-    <option value="IT 2nd Year">IT 2nd Year</option>
-
-    <option value="IT 3rd Year">IT 3rd Year</option>
-
-
-
-
-                    </select>
-
-
-                </div>
-
-
-<div class="col-lg-2 col-md-6">
-
-    <label class="form-label">
-        Stream
-    </label>
-
-    <select class="form-select" id="streamFilter">
-
-        <option value="">All Streams</option>
-
-        <option value="Computer Science">Computer Science</option>
-
-        <option value="Information Technology">Information Technology</option>
-
-    </select>
 
 </div>
 
 
 
 
-                <!-- Subject Filter -->
+
+<!-- Class Filter -->
+
+<div class="col-lg-3 col-md-6">
 
 
-                <div class="col-lg-3 col-md-6">
+<label class="form-label">
 
+Class
 
-                    <label class="form-label">
-
-                        Subject
-
-                    </label>
-
-
-
-                    <select class="form-select"
-                            id="subjectFilter">
-
-
-    <option value="">All Subjects</option>
-
-    <option>C Programming</option>
-    <option>Programming Fundamentals</option>
-    <option>Object-Oriented Programming</option>
-    <option>Data Structures and Algorithms</option>
-    <option>Database Management Systems</option>
-    <option>Software Development</option>
-    <option>Software Engineering</option>
-    <option>Computer System Architecture</option>
-    <option>Operating Systems</option>
-    <option>Computer Networks</option>
-    <option>Web Development</option>
-    <option>Full Stack Development</option>
-    <option>Mobile Application Development</option>
-    <option>Cyber Security</option>
-    <option>Information Security</option>
-    <option>Human Computer Interaction</option>
-    <option>Artificial Intelligence</option>
-
-                    </select>
+</label>
 
 
 
-                </div>
+<select class="form-select"
+        id="classFilter">
+
+
+<option value="">
+
+All Classes
+
+</option>
+
+
+<option value="CS 1st Year">
+
+CS 1st Year
+
+</option>
+
+
+<option value="CS 2nd Year">
+
+CS 2nd Year
+
+</option>
+
+
+<option value="CS 3rd Year General">
+
+CS 3rd Year General
+
+</option>
+
+
+<option value="CS 3rd Year Special">
+
+CS 3rd Year Special
+
+</option>
+
+
+<option value="CS 4th Year Special">
+
+CS 4th Year Special
+
+</option>
+
+
+<option value="IT 1st Year">
+
+IT 1st Year
+
+</option>
+
+
+<option value="IT 2nd Year">
+
+IT 2nd Year
+
+</option>
+
+
+<option value="IT 3rd Year">
+
+IT 3rd Year
+
+</option>
+
+
+</select>
+
+
+</div>
 
 
 
@@ -406,57 +377,99 @@
 
 
 
-                <!-- Buttons -->
+<!-- Stream Filter -->
 
 
-                <div class="col-lg-2 col-md-6">
+<div class="col-lg-3 col-md-6">
 
 
-                    <div class="d-grid gap-2">
+<label class="form-label">
 
+Stream
 
-                        <button class="btn btn-primary"
-                                id="searchBtn">
-
-
-                            <i class="fas fa-search"></i>
-
-
-                            Search
-
-
-                        </button>
+</label>
 
 
 
+<select class="form-select"
+        id="streamFilter">
 
 
-                        <button class="btn btn-outline-secondary"
-                                id="resetBtn">
+<option value="">
+
+All Streams
+
+</option>
 
 
-                            <i class="fas fa-rotate-right"></i>
+<option value="Computer Science">
+
+Computer Science
+
+</option>
 
 
-                            Reset
+<option value="Information Technology">
+
+Information Technology
+
+</option>
 
 
-                        </button>
+</select>
+
+
+</div>
 
 
 
-                    </div>
-
-
-                </div>
 
 
 
-            </div>
+
+<!-- Buttons -->
 
 
-        </section>
+<div class="col-lg-2 col-md-6">
 
+
+<button class="btn btn-primary w-100 mb-2"
+        id="searchBtn">
+
+
+<i class="fas fa-search"></i>
+
+Search
+
+
+</button>
+
+
+
+
+
+<button class="btn btn-outline-secondary w-100"
+        id="resetBtn">
+
+
+<i class="fas fa-rotate-right"></i>
+
+Reset
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
 
 
 

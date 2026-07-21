@@ -17,46 +17,79 @@ import com.attendance.demo.dto.StudentResponse;
 import com.attendance.demo.entity.Student;
 import com.attendance.demo.service.StudentService;
 
+
 @RestController
 @RequestMapping("/api/students")
 @CrossOrigin(origins = "*")
 public class StudentsController {
 
+
     @Autowired
     private StudentService studentService;
 
-    // ============================
-    // Get All Students
-    // ============================
+
+
+    // GET ALL
 
     @GetMapping
-    public List<StudentResponse> getAllStudents() {
+    public List<StudentResponse> getAllStudents(){
 
         return studentService.getAllStudents();
 
     }
 
-    // ============================
-    // Add Student
-    // ============================
+
+
+
+    // ADD STUDENT
 
     @PostMapping
-    public Student addStudent(@RequestBody StudentRequest request) {
+    public Student addStudent(
+            @RequestBody StudentRequest request){
 
         return studentService.addStudent(request);
 
     }
 
-    // ============================
-    // Search Students
-    // ============================
+
+
+
+    // SEARCH NAME / REGISTRATION / USERNAME
 
     @GetMapping("/search")
     public List<StudentResponse> searchStudents(
-            @RequestParam String keyword) {
+            @RequestParam String keyword){
 
         return studentService.searchStudents(keyword);
 
     }
+
+
+
+
+
+    // SEARCH CLASS
+
+    @GetMapping("/search/class")
+    public List<StudentResponse> searchByClass(
+            @RequestParam String className){
+
+        return studentService.searchByClass(className);
+
+    }
+
+
+
+
+    // SEARCH STREAM
+
+    @GetMapping("/search/stream")
+    public List<StudentResponse> searchByStream(
+            @RequestParam String stream){
+
+        return studentService.searchByStream(stream);
+
+    }
+
 
 }
