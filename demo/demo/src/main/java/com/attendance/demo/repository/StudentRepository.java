@@ -10,7 +10,10 @@ import com.attendance.demo.entity.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    // Search by registration number, student name or username
+    // Check duplicate registration number
+    boolean existsByRegistrationNo(String registrationNo);
+
+    // Search students
     List<Student> findByRegistrationNoContainingIgnoreCaseOrStudentNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(
             String registrationNo,
             String studentName,
