@@ -133,13 +133,7 @@ function loadSubjects(){
 
     })
 
-    .catch(error=>{
-
-        console.log(error);
-
-        alert("Unable to load subjects");
-
-    });
+    
 
 
 }
@@ -152,63 +146,46 @@ function loadSubjects(){
 // Load Lecturers Dropdown
 // ===============================
 
+function loadLecturers() {
 
-function loadLecturers(){
+    fetch("/api/lecturers")
+        .then(response => response.json())
+        .then(data => {
 
+            const addDropdown = document.getElementById("lecturerId");
+            const editDropdown = document.getElementById("editLecturerId");
 
-fetch("/api/lecturers")
+            // Clear previous options
+            addDropdown.innerHTML =
+                '<option value="">Select Lecturer</option>';
 
+            editDropdown.innerHTML =
+                '<option value="">Select Lecturer</option>';
 
-.then(response=>response.json())
+            data.forEach(lecturer => {
 
+                // Add Subject dropdown
+                const addOption = document.createElement("option");
+                addOption.value = lecturer.lecturerId;
+                addOption.textContent =
+                    lecturer.lecturerId + " - " + lecturer.lecturerName;
+                addDropdown.appendChild(addOption);
 
-.then(data=>{
+                // Edit Subject dropdown
+                const editOption = document.createElement("option");
+                editOption.value = lecturer.lecturerId;
+                editOption.textContent =
+                    lecturer.lecturerId + " - " + lecturer.lecturerName;
+                editDropdown.appendChild(editOption);
 
+            });
 
-let addDropdown =
-document.getElementById("lecturerId");
-
-
-let editDropdown =
-document.getElementById("editLecturerId");
-
-
-
-data.forEach(lecturer=>{
-
-
-let option = `
-
-<option value="${lecturer.lecturerId}">
-
-${lecturer.lecturerName}
-
-</option>
-
-`;
-
-
-
-addDropdown.innerHTML += option;
-
-editDropdown.innerHTML += option;
-
-
-
-});
-
-
-})
-
-
-.catch(error=>console.log(error));
-
+        })
+        .catch(error => {
+            console.error("Error loading lecturers:", error);
+        });
 
 }
-
-
-
-
 
 // ===============================
 // Add Subject
