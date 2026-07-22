@@ -28,128 +28,69 @@
 <div class="wrapper">
 
 
-    <!-- ================= Sidebar ================= -->
-
-    <aside class="sidebar">
-
-
-        <div class="logo-section">
-
-            <img src="/images/logo.PNG" class="logo">
-
-            <h3>AMS</h3>
-
-            <p>Admin Panel</p>
-
-        </div>
-
-
-
-        <ul class="menu">
-
-
-            <li>
-
-                <a href="/admin/dashboard">
-
-                    <i class="fas fa-house"></i>
-
-                    Dashboard
-
-                </a>
-
-            </li>
-
-
-
-            <li class="active">
-
-                <a href="/admin/students">
-
-                    <i class="fas fa-user-graduate"></i>
-
-                    Manage Students
-
-                </a>
-
-            </li>
-
-
-
-            <li>
-
-                <a href="/admin/lecturers">
-
-                    <i class="fas fa-chalkboard-teacher"></i>
-
-                    Manage Lecturers
-
-                </a>
-
-            </li>
-
-
-
-            <li>
-
-                <a href="/admin/subjects">
-
-                    <i class="fas fa-book-open"></i>
-
-                    Manage Subjects
-
-                </a>
-
-            </li>
-
-
-
-            <li>
-
-                <a href="/admin/classes">
-
-                    <i class="fas fa-school"></i>
-
-                    Manage Classes
-
-                </a>
-
-            </li>
-
-
-
-            <li>
-
-                <a href="/admin/reports">
-
-                    <i class="fas fa-chart-column"></i>
-
-                    Reports
-
-                </a>
-
-            </li>
-
-
-
-            <li>
-
-                <a href="/logout">
-
-                    <i class="fas fa-right-from-bracket"></i>
-
-                    Logout
-
-                </a>
-
-            </li>
-
-
-        </ul>
-
-
-    </aside>
-
+   <!-- ================= Sidebar ================= -->
+<aside class="sidebar">
+
+    <div class="logo-section">
+        <img src="/images/logo.PNG" class="logo">
+        <h3>AMS</h3>
+        <p>Admin Panel</p>
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <a th:href="@{/admin/dashboard}">
+                <i class="fas fa-house"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li class="active">
+            <a th:href="@{/admin/students}">
+                <i class="fas fa-user-graduate"></i>
+                Manage Students
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/lecturers}">
+                <i class="fas fa-chalkboard-teacher"></i>
+                Manage Lecturers
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/subjects}">
+                <i class="fas fa-book-open"></i>
+                Manage Subjects
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/classes}">
+                <i class="fas fa-school"></i>
+                Manage Classes
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/admin/reports}">
+                <i class="fas fa-chart-column"></i>
+                Reports
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/logout}">
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</aside>
 
 
 
