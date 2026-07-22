@@ -42,4 +42,13 @@ public class AdminController {
     }
 
 
+
+    @GetMapping("/admin/classes")
+    public String manageClasses() {
+
+        return "admin/classes";
+
+    }
+
+
 }
