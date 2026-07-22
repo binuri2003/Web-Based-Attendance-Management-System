@@ -33,4 +33,13 @@ public class AdminController {
     }
 
 
+
+    @GetMapping("/admin/subjects")
+    public String manageSubjects() {
+
+        return "admin/subjects";
+
+    }
+
+
 }
