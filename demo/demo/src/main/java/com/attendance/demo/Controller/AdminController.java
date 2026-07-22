@@ -51,4 +51,17 @@ public class AdminController {
     }
 
 
+
+    // ==============================
+    // REPORTS
+    // ==============================
+
+    @GetMapping("/admin/reports")
+    public String manageReports() {
+
+        return "admin/reports";
+
+    }
+
+
 }
