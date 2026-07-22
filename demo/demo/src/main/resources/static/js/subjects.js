@@ -11,25 +11,21 @@ document.addEventListener("DOMContentLoaded", function () {
     loadLecturers();
 
 
-    // Add Subject
     document
         .getElementById("addSubjectForm")
         .addEventListener("submit", addSubject);
 
 
-    // Edit Subject
     document
         .getElementById("editSubjectForm")
         .addEventListener("submit", updateSubject);
 
 
-    // Search
     document
         .getElementById("searchBtn")
         .addEventListener("click", searchSubjects);
 
 
-    // Reset
     document
         .getElementById("resetBtn")
         .addEventListener("click", function(){
@@ -42,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
 
 
 
@@ -100,7 +97,6 @@ function loadSubjects(){
                 <button class="btn btn-sm btn-warning"
                 onclick="openEditModal(${subject.subjectId})">
 
-
                 <i class="fas fa-edit"></i>
 
                 </button>
@@ -108,9 +104,7 @@ function loadSubjects(){
 
 
                 <button class="btn btn-sm btn-danger"
-                onclick="openDeleteModal(${subject.subjectId},
-                '${subject.subjectName}')">
-
+                onclick="openDeleteModal(${subject.subjectId}, '${subject.subjectName}')">
 
                 <i class="fas fa-trash"></i>
 
@@ -126,14 +120,10 @@ function loadSubjects(){
             `;
 
 
-
         });
 
 
-
-    })
-
-    
+    });
 
 
 }
@@ -142,144 +132,156 @@ function loadSubjects(){
 
 
 
+
+
 // ===============================
-// Load Lecturers Dropdown
+// Lecturer Dropdown
 // ===============================
 
-function loadLecturers() {
+function loadLecturers(){
 
-    fetch("/api/lecturers")
-        .then(response => response.json())
-        .then(data => {
 
-            const addDropdown = document.getElementById("lecturerId");
-            const editDropdown = document.getElementById("editLecturerId");
+    let lecturers = `
 
-            // Clear previous options
-            addDropdown.innerHTML =
-                '<option value="">Select Lecturer</option>';
+        <option value="">
+            Select Lecturer
+        </option>
 
-            editDropdown.innerHTML =
-                '<option value="">Select Lecturer</option>';
+        <option value="3">
+            3 - Dr. Nuwan Fernando
+        </option>
 
-            data.forEach(lecturer => {
+        <option value="4">
+            4 - Ms. Dilani Jayasinghe
+        </option>
 
-                // Add Subject dropdown
-                const addOption = document.createElement("option");
-                addOption.value = lecturer.lecturerId;
-                addOption.textContent =
-                    lecturer.lecturerId + " - " + lecturer.lecturerName;
-                addDropdown.appendChild(addOption);
+        <option value="7">
+            7 - Mr. M.D.R. Perera
+        </option>
 
-                // Edit Subject dropdown
-                const editOption = document.createElement("option");
-                editOption.value = lecturer.lecturerId;
-                editOption.textContent =
-                    lecturer.lecturerId + " - " + lecturer.lecturerName;
-                editDropdown.appendChild(editOption);
+        <option value="8">
+            8 - Mrs. W.M.K.S. Illmini
+        </option>
 
-            });
+        <option value="9">
+            9 - Ms. N.H. Wanigasingha
+        </option>
 
-        })
-        .catch(error => {
-            console.error("Error loading lecturers:", error);
-        });
+        <option value="10">
+            10 - Mrs. Surani Perera
+        </option>
+
+        <option value="11">
+            11 - Mr. Tisura Ambuldeniya
+        </option>
+
+        <option value="12">
+            12 - Miss Lavanka Harshani
+        </option>
+
+        <option value="13">
+            13 - Dr. K.A. Silva
+        </option>
+
+        <option value="14">
+            14 - Mr. D.M. Fernando
+        </option>
+
+        <option value="15">
+            15 - Mrs. P.N. Jayasinghe
+        </option>
+
+        <option value="16">
+            16 - Ms. H.M. Wickramasinghe
+        </option>
+
+    `;
+
+
+    document.getElementById("lecturerId").innerHTML = lecturers;
+
+
+    document.getElementById("editLecturerId").innerHTML = lecturers;
+
 
 }
+
+
+
+
+
+
 
 // ===============================
 // Add Subject
 // ===============================
 
-
 function addSubject(e){
 
-
-e.preventDefault();
-
+    e.preventDefault();
 
 
-let subject={
+    let subject={
 
 
-subjectCode:
-document.getElementById("subjectCode").value,
+        subjectCode:
+        document.getElementById("subjectCode").value,
 
 
-subjectName:
-document.getElementById("subjectName").value,
+        subjectName:
+        document.getElementById("subjectName").value,
 
 
-credits:
-document.getElementById("credits").value,
+        credits:
+        document.getElementById("credits").value,
 
 
-lecturerId:
-document.getElementById("lecturerId").value
+        lecturerId:
+        document.getElementById("lecturerId").value
 
 
-};
+    };
 
 
 
-fetch("/api/subjects",{
+    fetch("/api/subjects",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(subject)
 
 
-method:"POST",
+    })
 
 
-headers:{
-
-"Content-Type":"application/json"
-
-},
+    .then(response=>response.json())
 
 
-body:JSON.stringify(subject)
+    .then(data=>{
 
 
-})
+        alert("Subject Added Successfully");
 
 
-.then(response=>response.json())
-
-
-.then(data=>{
-
-
-alert("Subject Added Successfully");
-
-
-document.getElementById("addSubjectForm").reset();
+        document.getElementById("addSubjectForm").reset();
 
 
 
-let modal =
-bootstrap.Modal.getInstance(
-document.getElementById("addSubjectModal")
-);
+        bootstrap.Modal
+        .getInstance(
+            document.getElementById("addSubjectModal")
+        )
+        .hide();
 
 
-modal.hide();
+        loadSubjects();
 
 
-
-loadSubjects();
-
-
-
-})
-
-
-.catch(error=>{
-
-
-console.log(error);
-
-alert("Add Subject Failed");
-
-
-});
+    });
 
 
 }
@@ -294,43 +296,44 @@ alert("Add Subject Failed");
 // Search Subject
 // ===============================
 
-
 function searchSubjects(){
 
 
-let keyword =
-document.getElementById("searchSubject").value.toLowerCase();
+    let keyword =
+    document.getElementById("searchSubject")
+    .value
+    .toLowerCase();
 
 
 
-fetch("/api/subjects")
-
-.then(response=>response.json())
+    fetch("/api/subjects")
 
 
-.then(data=>{
+    .then(response=>response.json())
 
 
-let filtered=data.filter(subject=>
+    .then(data=>{
 
 
-subject.subjectName.toLowerCase()
-.includes(keyword)
-
-||
-
-subject.subjectCode.toLowerCase()
-.includes(keyword)
+        let filtered=data.filter(subject=>
 
 
-);
+            subject.subjectName.toLowerCase()
+            .includes(keyword)
+
+            ||
+
+            subject.subjectCode.toLowerCase()
+            .includes(keyword)
 
 
+        );
 
-displaySubjects(filtered);
+
+        displaySubjects(filtered);
 
 
-});
+    });
 
 
 }
@@ -339,94 +342,84 @@ displaySubjects(filtered);
 
 
 
-// ===============================
-// Display Table
-// ===============================
 
+// ===============================
+// Display Subjects
+// ===============================
 
 function displaySubjects(data){
 
 
-let table =
-document.getElementById("subjectTableBody");
+    let table =
+    document.getElementById("subjectTableBody");
 
 
-table.innerHTML="";
+    table.innerHTML="";
 
 
-document.getElementById("subjectCount")
-.innerText=data.length;
-
-
-
-data.forEach((subject,index)=>{
-
-
-table.innerHTML += `
-
-
-<tr>
-
-
-<td>${index+1}</td>
-
-<td>${subject.subjectCode}</td>
-
-<td>${subject.subjectName}</td>
-
-<td>${subject.credits}</td>
-
-
-<td>
-
-${subject.lecturer ?
-subject.lecturer.lecturerName :
-"Not Assigned"}
-
-</td>
+    document.getElementById("subjectCount")
+    .innerText=data.length;
 
 
 
-<td>
+    data.forEach((subject,index)=>{
 
 
-<button class="btn btn-warning btn-sm"
-onclick="openEditModal(${subject.subjectId})">
+        table.innerHTML += `
 
 
-<i class="fas fa-edit"></i>
+        <tr>
+
+        <td>${index+1}</td>
+
+        <td>${subject.subjectCode}</td>
+
+        <td>${subject.subjectName}</td>
+
+        <td>${subject.credits}</td>
 
 
-</button>
+        <td>
+
+        ${subject.lecturer ?
+        subject.lecturer.lecturerName :
+        "Not Assigned"}
+
+        </td>
 
 
-
-<button class="btn btn-danger btn-sm"
-onclick="openDeleteModal(${subject.subjectId},
-'${subject.subjectName}')">
+        <td>
 
 
-<i class="fas fa-trash"></i>
+        <button class="btn btn-warning btn-sm"
+        onclick="openEditModal(${subject.subjectId})">
+
+        <i class="fas fa-edit"></i>
+
+        </button>
 
 
-</button>
+        <button class="btn btn-danger btn-sm"
+        onclick="openDeleteModal(${subject.subjectId}, '${subject.subjectName}')">
+
+        <i class="fas fa-trash"></i>
+
+        </button>
 
 
-</td>
+        </td>
 
 
-</tr>
+        </tr>
 
 
-`;
+        `;
 
 
-
-});
+    });
 
 
 }
-
 
 
 
@@ -438,61 +431,62 @@ onclick="openDeleteModal(${subject.subjectId},
 // Open Edit Modal
 // ===============================
 
-
 function openEditModal(id){
 
 
-
-fetch(`/api/subjects/${id}`)
-
-
-.then(response=>response.json())
-
-
-.then(subject=>{
-
-
-document.getElementById("editSubjectId").value=
-subject.subjectId;
-
-
-document.getElementById("editSubjectCode").value=
-subject.subjectCode;
-
-
-document.getElementById("editSubjectName").value=
-subject.subjectName;
-
-
-document.getElementById("editCredits").value=
-subject.credits;
+    // load dropdown options
+    loadLecturers();
 
 
 
-if(subject.lecturer){
+    fetch(`/api/subjects/${id}`)
 
-document.getElementById("editLecturerId").value =
-subject.lecturer.lecturerId;
+    .then(response=>response.json())
+
+    .then(subject=>{
+
+
+        document.getElementById("editSubjectId").value =
+        subject.subjectId;
+
+
+        document.getElementById("editSubjectCode").value =
+        subject.subjectCode;
+
+
+        document.getElementById("editSubjectName").value =
+        subject.subjectName;
+
+
+        document.getElementById("editCredits").value =
+        subject.credits;
+
+
+
+        // FIXED: select lecturer
+        if(subject.lecturer){
+
+            document.getElementById("editLecturerId").value =
+            subject.lecturer.lecturerId;
+
+        }
+
+
+
+        let modal =
+        new bootstrap.Modal(
+            document.getElementById("editSubjectModal")
+        );
+
+
+        modal.show();
+
+
+    });
+
 
 }
 
-
-
-let modal =
-new bootstrap.Modal(
-document.getElementById("editSubjectModal")
-);
-
-
-modal.show();
-
-
-
-});
-
-
-
-}
 
 
 
@@ -504,94 +498,89 @@ modal.show();
 // Update Subject
 // ===============================
 
-
 function updateSubject(e){
 
-
-e.preventDefault();
-
-
-
-let id =
-document.getElementById("editSubjectId").value;
+    e.preventDefault();
 
 
 
-let subject={
-
-
-subjectCode:
-document.getElementById("editSubjectCode").value,
-
-
-subjectName:
-document.getElementById("editSubjectName").value,
-
-
-credits:
-document.getElementById("editCredits").value,
-
-
-lecturerId:
-document.getElementById("editLecturerId").value
-
-
-};
+    let id =
+    document.getElementById("editSubjectId").value;
 
 
 
-fetch(`/api/subjects/${id}`,{
+    let subject={
 
 
-method:"PUT",
+        subjectCode:
+        document.getElementById("editSubjectCode").value,
 
 
-headers:{
+        subjectName:
+        document.getElementById("editSubjectName").value,
 
 
-"Content-Type":"application/json"
+        credits:
+        document.getElementById("editCredits").value,
 
 
-},
+        lecturerId:
+        document.getElementById("editLecturerId").value
 
 
-body:JSON.stringify(subject)
-
-
-
-})
-
-
-.then(response=>response.json())
-
-
-.then(data=>{
-
-
-alert("Subject Updated Successfully");
+    };
 
 
 
-let modal =
-bootstrap.Modal.getInstance(
-document.getElementById("editSubjectModal")
-);
+    fetch(`/api/subjects/${id}`,{
 
 
-modal.hide();
+        method:"PUT",
+
+
+        headers:{
+
+
+            "Content-Type":"application/json"
+
+
+        },
+
+
+        body:JSON.stringify(subject)
 
 
 
-loadSubjects();
+    })
+
+
+    .then(response=>response.json())
+
+
+    .then(data=>{
+
+
+        alert("Subject Updated Successfully");
 
 
 
-});
+        bootstrap.Modal
+        .getInstance(
+            document.getElementById("editSubjectModal")
+        )
+        .hide();
+
+
+
+        loadSubjects();
+
+
+
+    });
 
 
 
 }
-
 
 
 
@@ -611,21 +600,18 @@ let deleteId;
 function openDeleteModal(id,name){
 
 
-deleteId=id;
+    deleteId=id;
 
 
-document.getElementById("deleteSubjectName")
-.innerText=name;
+    document.getElementById("deleteSubjectName")
+    .innerText=name;
 
 
 
-let modal =
-new bootstrap.Modal(
-document.getElementById("deleteSubjectModal")
-);
-
-
-modal.show();
+    new bootstrap.Modal(
+        document.getElementById("deleteSubjectModal")
+    )
+    .show();
 
 
 
@@ -647,47 +633,36 @@ document
 
 
 
-fetch(`/api/subjects/${deleteId}`,{
+    fetch(`/api/subjects/${deleteId}`,{
 
 
-method:"DELETE"
+        method:"DELETE"
 
 
-})
+    })
 
 
-.then(response=>{
+    .then(response=>{
 
 
-alert("Subject Deleted Successfully");
-
-
-
-let modal =
-bootstrap.Modal.getInstance(
-document.getElementById("deleteSubjectModal")
-);
-
-
-modal.hide();
+        alert("Subject Deleted Successfully");
 
 
 
-loadSubjects();
+        bootstrap.Modal
+        .getInstance(
+            document.getElementById("deleteSubjectModal")
+        )
+        .hide();
 
 
 
-})
-
-.catch(error=>{
+        loadSubjects();
 
 
-console.log(error);
 
-alert("Delete Failed");
+    });
 
-
-});
 
 
 });
