@@ -54,10 +54,10 @@ public class AttendanceService {
         for (Attendance attendance : attendanceList) {
 
             String subjectName = attendance.getAttendanceSession()
-                                           .getSubject()
-                                           .getSubjectName();
+                    .getSubject()
+                    .getSubjectName();
 
-            subjectData.putIfAbsent(subjectName, new int[] {0, 0});
+            subjectData.putIfAbsent(subjectName, new int[] { 0, 0 });
 
             int[] counts = subjectData.get(subjectName);
 
@@ -84,10 +84,28 @@ public class AttendanceService {
                     subject,
                     present,
                     total,
-                    percentage
-            ));
+                    percentage));
         }
 
         return result;
+    }
+
+    public List<Attendance> getAttendanceBySession(Integer sessionId) {
+        return attendanceRepository.findByAttendanceSessionSessionId(sessionId);
+    }
+
+    public void updateAttendance(Integer attendanceId, AttendanceStatus status) {
+
+        Attendance attendance = attendanceRepository
+                .findById(attendanceId)
+                .orElse(null);
+
+        if (attendance != null) {
+
+            attendance.setStatus(status);
+
+            attendanceRepository.save(attendance);
+
+        }
     }
 }

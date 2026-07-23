@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance List</title>
+
+    <link rel="stylesheet" href="/css/lecturer.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <img src="/images/logo.PNG" alt="Logo">
+            <h2>AMS</h2>
+            <p>Lecturer Panel</p>
+        </div>
+
+        <nav>
+            <ul>
+
+                <li>
+                    <a href="/lecturer/dashboard">
+                        🏠 Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        📚 My Subjects
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/lecturer/create_session">
+                        📅 Create Attendance Session
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/lecturer/manage_attendance">
+                        ✅ Mark / Edit Attendance
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="/lecturer/view_attendance">
+                        📊 View Attendance
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        📄 Attendance Reports
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        🚪 Logout
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <header class="header">
+            <h1>Attendance List</h1>
+            <p>View and edit attendance records for this session.</p>
+        </header>
+
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <h3>Students</h3>
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>Registration No</th>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:if="${#lists.isEmpty(attendanceList)}">
+                        <td colspan="4">
+                            No attendance records found.
+                        </td>
+                    </tr>
+
+                    <tr th:each="attendance : ${attendanceList}">
+
+                        <td th:text="${attendance.student.registrationNo}"></td>
+
+                        <td th:text="${attendance.student.studentName}"></td>
+
+                        <td>
+
+                            <span
+                                    th:classappend="${attendance.status.name()=='Present'} ? 'status present' : 'status absent'"
+                                    th:text="${attendance.status}">
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <a th:href="@{/lecturer/edit-attendance/{id}(id=${attendance.attendanceId})}">
+                                <button type="button">
+                                    ✏ Edit
+                                </button>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+                <br>
+
+                <a href="/lecturer/view_attendance">
+                    <button type="button">
+                        ⬅ Back
+                    </button>
+                </a>
+
+            </div>
+
+        </section>
+
+        <footer>
+            © 2026 Attendance Management System |
+            Department of Computer Science |
+            University of Sri Jayewardenepura
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="/js/lecturer.js"></script>
+
+</body>
+
+</html>

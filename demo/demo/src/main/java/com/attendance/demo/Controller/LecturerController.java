@@ -7,13 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.attendance.demo.entity.Attendance;
 import com.attendance.demo.entity.AttendanceSession;
+import com.attendance.demo.entity.AttendanceStatus;
 import com.attendance.demo.entity.ClassEntity;
 import com.attendance.demo.entity.Lecturer;
 import com.attendance.demo.entity.Subject;
 import com.attendance.demo.repository.ClassRepository;
 import com.attendance.demo.repository.LecturerRepository;
 import com.attendance.demo.repository.SubjectRepository;
+import com.attendance.demo.service.AttendanceService;
 import com.attendance.demo.service.AttendanceSessionService;
 
 @Controller
@@ -31,6 +34,9 @@ public class LecturerController {
 
     @Autowired
     private LecturerRepository lecturerRepository;
+
+    @Autowired
+    private AttendanceService attendanceService;
 
     @GetMapping("/dashboard")
     public String lecturerDashboard() {
@@ -115,13 +121,46 @@ public class LecturerController {
     }
 
     @GetMapping("/view_attendance")
-    public String viewAttendance() {
+    public String viewAttendance(Model model) {
+
+        model.addAttribute(
+                "sessionList",
+                attendanceSessionService.getAllSessions());
+
         return "lecturer/view_attendance";
     }
 
     @GetMapping("/student_history")
     public String studentHistory() {
         return "lecturer/student_history";
+    }
+
+    @GetMapping("/session/{id}")
+    public String viewSessionAttendance(@PathVariable Integer id, Model model) {
+
+        model.addAttribute("attendanceList",
+                attendanceService.getAttendanceBySession(id));
+
+        return "lecturer/attendance_list";
+    }
+
+    @GetMapping("/edit-attendance/{id}")
+    public String editAttendance(@PathVariable Integer id, Model model) {
+
+        model.addAttribute("attendance",
+                attendanceService.getAttendanceById(id));
+
+        return "lecturer/edit_attendance";
+    }
+
+    @PostMapping("/update-attendance")
+    public String updateAttendance(
+            @RequestParam Integer attendanceId,
+            @RequestParam AttendanceStatus status) {
+
+        attendanceService.updateAttendance(attendanceId, status);
+
+        return "redirect:/lecturer/view_attendance";
     }
 
 }
