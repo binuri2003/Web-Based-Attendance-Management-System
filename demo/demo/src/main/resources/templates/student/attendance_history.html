@@ -1,297 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Attendance History</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/student.css">
+    <link rel="stylesheet" href="/css/student.css" />
+  </head>
 
-</head>
+  <body>
+    <div class="wrapper">
+      <!-- ================= Sidebar ================= -->
 
-<body>
-
-<div class="wrapper">
-
-    <!-- ================= Sidebar ================= -->
-
-    <aside class="sidebar">
-
+      <aside class="sidebar">
         <div class="logo">
+          <img src="/images/logo.PNG" alt="Logo" />
 
-            <img src="/images/logo.PNG" alt="Logo">
+          <h2>AMS</h2>
 
-            <h2>AMS</h2>
-
-            <p>Student Panel</p>
-
+          <p>Student Panel</p>
         </div>
 
         <ul>
+          <li>
+            <a href="/student/dashboard">
+              <i class="fas fa-house"></i>
+              Dashboard
+            </a>
+          </li>
 
-            <li>
-                <a href="/student/dashboard">
-                    <i class="fas fa-house"></i>
-                    Dashboard
-                </a>
-            </li>
+          <li>
+            <a href="/student/enter_session_code">
+              <i class="fas fa-key"></i>
+              Enter Session Code
+            </a>
+          </li>
 
-            <li>
-                <a href="/student/enter_session_code">
-                    <i class="fas fa-key"></i>
-                    Enter Session Code
-                </a>
-            </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-book"></i>
+              My Subjects
+            </a>
+          </li>
 
-            <li>
-                <a href="#">
-                    <i class="fas fa-book"></i>
-                    My Subjects
-                </a>
-            </li>
+          <li class="active">
+            <a href="/student/attendance_history">
+              <i class="fas fa-clipboard"></i>
+              Attendance History
+            </a>
+          </li>
 
-            <li class="active">
-                <a href="/student/attendance_history">
-                    <i class="fas fa-clipboard"></i>
-                    Attendance History
-                </a>
-            </li>
+          <li>
+            <a href="/student/attendance_percentage">
+              <i class="fas fa-chart-bar"></i>
+              Attendance Percentage
+            </a>
+          </li>
 
-            <li>
-                <a href="/student/attendance_percentage">
-                    <i class="fas fa-chart-bar"></i>
-                    Attendance Percentage
-                </a>
-            </li>
-
-            <li>
-                <a href="/logout">
-                    <i class="fas fa-right-from-bracket"></i>
-                    Logout
-                </a>
-            </li>
-
+          <li>
+            <a href="/logout">
+              <i class="fas fa-right-from-bracket"></i>
+              Logout
+            </a>
+          </li>
         </ul>
+      </aside>
 
-    </aside>
+      <!-- ================= Main Content ================= -->
 
-    <!-- ================= Main Content ================= -->
-
-    <main class="main-content">
-
+      <main class="main-content">
         <!-- Header -->
 
         <header class="header">
+          <h1>Attendance History</h1>
 
-            <h1>Attendance History</h1>
-
-            <p>
-                Attendance Management System
-                <br>
-                University of Sri Jayewardenepura
-            </p>
-
+          <p>
+            Attendance Management System
+            <br />
+            University of Sri Jayewardenepura
+          </p>
         </header>
 
         <!-- ================= Filter Attendance ================= -->
 
         <section class="info-section">
+          <div class="info-card">
+            <h4>Filter Attendance Records</h4>
 
-            <div class="info-card">
+            <form>
+              <div class="form-group">
+                <label>Select Subject</label>
 
-                <h4>Filter Attendance Records</h4>
+                <select name="subject">
+                  <option>All Subjects</option>
+                  <option>Object Oriented Programming</option>
+                  <option>Database Management Systems</option>
+                  <option>Statistics</option>
+                </select>
+              </div>
 
-                <form>
-
-                    <div class="form-group">
-
-                        <label>Select Subject</label>
-
-                        <select name="subject">
-
-                            <option>All Subjects</option>
-                            <option>Object Oriented Programming</option>
-                            <option>Database Management Systems</option>
-                            <option>Statistics</option>
-
-                        </select>
-
-                    </div>
-
-                    <button type="submit" class="primary-btn">
-
-                        <i class="fas fa-filter"></i>
-                        Filter
-
-                    </button>
-
-                </form>
-
-            </div>
-
+              <button type="submit" class="primary-btn">
+                <i class="fas fa-filter"></i>
+                Filter
+              </button>
+            </form>
+          </div>
         </section>
 
         <!-- ================= Attendance History ================= -->
 
         <section class="info-section">
+          <div class="info-card">
+            <h4>Attendance Records</h4>
 
-            <div class="info-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Subject</th>
+                  <th>Session Code</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
 
-                <h4>Attendance Records</h4>
+              <tbody>
+                <!-- Display when no attendance records -->
+                <tr th:if="${#lists.isEmpty(attendanceList)}">
+                  <td colspan="4" style="text-align: center">
+                    No attendance records found.
+                  </td>
+                </tr>
 
-                <table>
+                <!-- Display attendance records -->
+                <tr th:each="attendance : ${attendanceList}">
+                  <td
+                    th:text="${attendance.attendanceSession.sessionDate}"
+                  ></td>
 
-                    <tr>
+                  <td
+                    th:text="${attendance.attendanceSession.subject.subjectName}"
+                  ></td>
 
-                        <th>Date</th>
-                        <th>Subject</th>
-                        <th>Session Code</th>
-                        <th>Status</th>
+                  <td
+                    th:text="${attendance.attendanceSession.sessionCode}"
+                  ></td>
 
-                    </tr>
-
-                    <tr>
-
-                        <td>20 July 2026</td>
-                        <td>Object Oriented Programming</td>
-                        <td>ABC123</td>
-                        <td>
-                            <span class="present">
-                                Present
-                            </span>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>18 July 2026</td>
-                        <td>Database Management Systems</td>
-                        <td>XYZ456</td>
-                        <td>
-                            <span class="absent">
-                                Absent
-                            </span>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>15 July 2026</td>
-                        <td>Statistics</td>
-                        <td>QWE789</td>
-                        <td>
-                            <span class="present">
-                                Present
-                            </span>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>10 July 2026</td>
-                        <td>Object Oriented Programming</td>
-                        <td>JKL852</td>
-                        <td>
-                            <span class="present">
-                                Present
-                            </span>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>08 July 2026</td>
-                        <td>Database Management Systems</td>
-                        <td>MNO741</td>
-                        <td>
-                            <span class="absent">
-                                Absent
-                            </span>
-                        </td>
-
-                    </tr>
-
-                </table>
-
-            </div>
-
+                  <td>
+                    <span
+                      th:text="${attendance.status}"
+                      th:classappend="${attendance.status.name() == 'Present'} ? 'present' : 'absent'"
+                    >
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
-                <!-- ================= Attendance Summary ================= -->
+        <!-- ================= Attendance Summary ================= -->
 
         <section class="info-section">
+          <div class="info-card">
+            <h4>Attendance Summary</h4>
 
-            <div class="info-card">
+            <table>
+              <tr>
+                <th>Item</th>
+                <th>Details</th>
+              </tr>
 
-                <h4>Attendance Summary</h4>
+              <tr>
+                <td>Total Sessions</td>
+                <td>15</td>
+              </tr>
 
-                <table>
+              <tr>
+                <td>Present</td>
+                <td>
+                  <span class="present"> 13 Sessions </span>
+                </td>
+              </tr>
 
-                    <tr>
-                        <th>Item</th>
-                        <th>Details</th>
-                    </tr>
+              <tr>
+                <td>Absent</td>
+                <td>
+                  <span class="absent"> 2 Sessions </span>
+                </td>
+              </tr>
 
-                    <tr>
-                        <td>Total Sessions</td>
-                        <td>15</td>
-                    </tr>
-
-                    <tr>
-                        <td>Present</td>
-                        <td>
-                            <span class="present">
-                                13 Sessions
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Absent</td>
-                        <td>
-                            <span class="absent">
-                                2 Sessions
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Attendance Percentage</td>
-                        <td>86.67%</td>
-                    </tr>
-
-                </table>
-
-            </div>
-
+              <tr>
+                <td>Attendance Percentage</td>
+                <td>86.67%</td>
+              </tr>
+            </table>
+          </div>
         </section>
 
         <!-- Footer -->
 
         <footer>
-
-            © 2026 Attendance Management System |
-            Department of Computer Science | USJ
-
+          © 2026 Attendance Management System | Department of Computer Science |
+          USJ
         </footer>
+      </main>
+    </div>
 
-    </main>
-
-</div>
-
-<script src="/js/student.js"></script>
-
-</body>
-
+    <script src="/js/student.js"></script>
+  </body>
 </html>

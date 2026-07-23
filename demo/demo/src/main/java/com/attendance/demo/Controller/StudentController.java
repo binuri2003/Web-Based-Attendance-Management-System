@@ -2,6 +2,7 @@ package com.attendance.demo.Controller;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,18 @@ public class StudentController {
     }
 
     @GetMapping("/student/attendance_history")
-    public String attendanceHistory() {
+    public String attendanceHistory(HttpSession session, Model model) {
+
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/";
+        }
+
+        List<Attendance> attendanceList = attendanceService.getAttendanceByStudent(loggedUser.getUserId());
+
+        model.addAttribute("attendanceList", attendanceList);
+
         return "student/attendance_history";
     }
 

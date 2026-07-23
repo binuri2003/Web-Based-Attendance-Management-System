@@ -1,6 +1,5 @@
 package com.attendance.demo.Controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,41 +19,24 @@ import com.attendance.demo.dto.StudentResponse;
 import com.attendance.demo.entity.Student;
 import com.attendance.demo.service.StudentService;
 
-
-
 @RestController
 @RequestMapping("/api/students")
 @CrossOrigin(origins = "*")
 public class StudentsController {
 
-
-
     @Autowired
     private StudentService studentService;
-
-
-
-
-
 
     // ============================
     // GET ALL STUDENTS
     // ============================
 
     @GetMapping
-    public List<StudentResponse> getAllStudents(){
-
+    public List<StudentResponse> getAllStudents() {
 
         return studentService.getAllStudents();
 
-
     }
-
-
-
-
-
-
 
     // ============================
     // ADD STUDENT
@@ -62,21 +44,11 @@ public class StudentsController {
 
     @PostMapping
     public Student addStudent(
-            @RequestBody StudentRequest request){
-
-
+            @RequestBody StudentRequest request) {
 
         return studentService.addStudent(request);
 
-
     }
-
-
-
-
-
-
-
 
     // ============================
     // UPDATE STUDENT
@@ -85,24 +57,13 @@ public class StudentsController {
     @PutMapping("/{id}")
     public Student updateStudent(
             @PathVariable Integer id,
-            @RequestBody StudentRequest request){
-
-
+            @RequestBody StudentRequest request) {
 
         return studentService.updateStudent(
                 id,
-                request
-        );
-
+                request);
 
     }
-
-
-
-
-
-
-
 
     // ============================
     // DELETE STUDENT
@@ -110,26 +71,13 @@ public class StudentsController {
 
     @DeleteMapping("/{id}")
     public String deleteStudent(
-            @PathVariable Integer id){
-
-
+            @PathVariable Integer id) {
 
         studentService.deleteStudent(id);
 
-
-
         return "Student deleted successfully";
 
-
     }
-
-
-
-
-
-
-
-
 
     // ============================
     // SEARCH NAME / REGISTRATION / USERNAME
@@ -137,24 +85,12 @@ public class StudentsController {
 
     @GetMapping("/search")
     public List<StudentResponse> searchStudents(
-            @RequestParam String keyword){
-
-
+            @RequestParam String keyword) {
 
         return studentService.searchStudents(
-                keyword
-        );
-
+                keyword);
 
     }
-
-
-
-
-
-
-
-
 
     // ============================
     // SEARCH BY CLASS
@@ -162,24 +98,12 @@ public class StudentsController {
 
     @GetMapping("/search/class")
     public List<StudentResponse> searchByClass(
-            @RequestParam String className){
-
-
+            @RequestParam String className) {
 
         return studentService.searchByClass(
-                className
-        );
-
+                className);
 
     }
-
-
-
-
-
-
-
-
 
     // ============================
     // SEARCH BY STREAM
@@ -187,17 +111,13 @@ public class StudentsController {
 
     @GetMapping("/search/stream")
     public List<StudentResponse> searchByStream(
-            @RequestParam String stream){
-
-
+            @RequestParam String stream) {
 
         return studentService.searchByStream(
-                stream
-        );
-
+                stream);
 
     }
 
-
+    
 
 }

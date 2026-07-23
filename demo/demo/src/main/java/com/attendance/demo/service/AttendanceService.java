@@ -36,4 +36,8 @@ public class AttendanceService {
         return attendanceRepository.findByAttendanceSessionSessionIdAndStudentUserId(
                 sessionId, userId);
     }
+
+    public List<Attendance> getAttendanceByStudent(Integer userId) {
+        return attendanceRepository.findByStudentUserId(userId);
+    }
 }

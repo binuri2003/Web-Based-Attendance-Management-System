@@ -55,7 +55,7 @@
           </li>
 
           <li>
-            <a href="#" onclick="viewAttendanceHistory()">
+            <a href="/student/attendance_history">
               <i class="fas fa-clipboard"></i>
 
               Attendance History
@@ -63,7 +63,7 @@
           </li>
 
           <li>
-            <a href="#" onclick="viewPercentage()">
+            <a href="/student/attendance_percentage">
               <i class="fas fa-chart-bar"></i>
 
               Attendance Percentage
@@ -71,7 +71,7 @@
           </li>
 
           <li>
-            <a href="#" onclick="logout()">
+            <a href="/logout">
               <i class="fas fa-right-from-bracket"></i>
 
               Logout
@@ -119,7 +119,7 @@
 
             <p>View enrolled subjects and subject information.</p>
 
-            <button id="subjectBtn">View</button>
+            <button onclick="location.href = '/student/subjects'">View</button>
           </div>
 
           <div class="card">
@@ -129,7 +129,9 @@
 
             <p>View your previous attendance records.</p>
 
-            <button id="historyBtn">View</button>
+            <button onclick="location.href = '/student/attendance_history'">
+              View
+            </button>
           </div>
 
           <div class="card">
@@ -139,7 +141,9 @@
 
             <p>Check attendance percentage for each subject.</p>
 
-            <button id="percentageBtn">View</button>
+            <button onclick="location.href = '/student/attendance_percentage'">
+              View
+            </button>
           </div>
 
           <!-- Logout Card -->
@@ -151,7 +155,7 @@
 
             <p>Sign out from Attendance Management System.</p>
 
-            <button id="logoutCardBtn">Logout</button>
+            <button onclick="location.href = '/logout'">Logout</button>
           </div>
         </section>
 
