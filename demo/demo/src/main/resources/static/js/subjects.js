@@ -133,13 +133,11 @@ function loadSubjects(){
 
     })
 
-    .catch(error=>{
+   .catch(error=>{
 
-        console.log(error);
+    console.error("Subject Loading Error:", error);
 
-        alert("Unable to load subjects");
-
-    });
+});
 
 
 }
