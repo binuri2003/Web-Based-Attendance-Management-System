@@ -263,13 +263,11 @@ subjectSelect.appendChild(option2);
 // STUDENT ATTENDANCE REPORT
 // =======================================
 
-
 function loadStudentReport(){
 
 
 let keyword =
-document.getElementById("studentSearch").value;
-
+document.getElementById("studentSearch").value.trim();
 
 
 let subject =
@@ -282,11 +280,9 @@ document.getElementById("studentReportBody");
 
 
 
-if(keyword=="" || subject==""){
-
+if(keyword === "" || subject === ""){
 
 alert("Please enter student and select subject");
-
 
 return;
 
@@ -294,23 +290,64 @@ return;
 
 
 
-
 fetch(
 "/api/reports/student?keyword="
-+keyword+
-"&subject="
++encodeURIComponent(keyword)
++"&subjectId="
 +subject
 )
 
 
 
-.then(response=>response.json())
+.then(response=>{
+
+
+if(!response.ok){
+
+throw new Error("API Error");
+
+}
+
+return response.json();
+
+
+})
 
 
 .then(data=>{
 
 
+console.log("Student Report Data:",data);
+
+
+
 table.innerHTML="";
+
+
+
+if(data.length===0){
+
+
+table.innerHTML=`
+
+<tr>
+
+<td colspan="7" class="text-center">
+
+No Attendance Data Found
+
+</td>
+
+</tr>
+
+`;
+
+
+return;
+
+
+}
+
 
 
 
@@ -324,21 +361,27 @@ table.innerHTML += `
 
 <td>${student.regNo}</td>
 
+
 <td>${student.name}</td>
+
 
 <td>${student.subject}</td>
 
+
 <td>${student.present}</td>
+
 
 <td>${student.absent}</td>
 
+
 <td>${student.total}</td>
+
 
 <td>
 
 <span class="badge bg-success">
 
-${student.percentage}
+${student.percentage}%
 
 </span>
 
@@ -361,10 +404,25 @@ ${student.percentage}
 .catch(error=>{
 
 
-console.log(
+console.error(
 "Student report error:",
 error
 );
+
+
+table.innerHTML=`
+
+<tr>
+
+<td colspan="7" class="text-center text-danger">
+
+Unable to load report
+
+</td>
+
+</tr>
+
+`;
 
 
 });
