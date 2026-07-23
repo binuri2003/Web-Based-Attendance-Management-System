@@ -6,4 +6,6 @@ import com.attendance.demo.entity.AttendanceSession;
 
 public interface AttendanceSessionRepository extends JpaRepository<AttendanceSession, Integer> {
 
+    AttendanceSession findBySessionCode(String sessionCode);
+
 }

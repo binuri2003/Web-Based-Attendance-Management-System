@@ -26,6 +26,10 @@ public class AttendanceSessionService {
         return attendanceSessionRepository.findById(sessionId).orElse(null);
     }
 
+    public AttendanceSession getSessionByCode(String sessionCode) {
+        return attendanceSessionRepository.findBySessionCode(sessionCode);
+    }
+
     public void deleteSession(Integer sessionId) {
         attendanceSessionRepository.deleteById(sessionId);
     }

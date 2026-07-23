@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.attendance.demo.entity.Attendance;
 import com.attendance.demo.repository.AttendanceRepository;
 
+import java.util.Optional;
+
 @Service
 public class AttendanceService {
 
@@ -28,5 +30,10 @@ public class AttendanceService {
 
     public void deleteAttendance(Integer attendanceId) {
         attendanceRepository.deleteById(attendanceId);
+    }
+
+    public Optional<Attendance> findAttendance(Integer sessionId, Integer userId) {
+        return attendanceRepository.findByAttendanceSessionSessionIdAndStudentUserId(
+                sessionId, userId);
     }
 }
