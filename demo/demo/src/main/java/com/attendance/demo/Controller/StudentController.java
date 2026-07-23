@@ -9,7 +9,6 @@ public class StudentController {
     @GetMapping("/student/dashboard")
     public String studentDashboard() {
         return "student/dashboard";
-<<<<<<< HEAD
     }
 
     @GetMapping("/student/enter_session_code")
@@ -25,8 +24,6 @@ public class StudentController {
     @GetMapping("/student/attendance_percentage")
     public String attendancePercentage() {
         return "student/attendance_percentage";
-=======
->>>>>>> main
     }
 
 }
