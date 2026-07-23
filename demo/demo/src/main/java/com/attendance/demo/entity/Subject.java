@@ -35,7 +35,7 @@ public class Subject {
 
 
     @ManyToOne
-    @JoinColumn(name="lecturer_id")
+    @JoinColumn(name="lecturer_id", nullable = true)
     private Lecturer lecturer;
 
 

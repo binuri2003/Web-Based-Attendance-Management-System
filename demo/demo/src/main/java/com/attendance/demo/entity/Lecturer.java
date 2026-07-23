@@ -14,7 +14,8 @@ public class Lecturer extends User {
     @Column(name = "lecturer_name")
     private String lecturerName;
 
-    private String email;
+    @Column(name="email")
+private String email;
 
     public Lecturer() {
 

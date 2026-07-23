@@ -41,15 +41,13 @@ function loadLecturers(){
     .catch(error => {
 
 
-        console.log(error);
+        console.log("Load Error:", error);
 
 
     });
 
 
 }
-
-
 
 
 
@@ -83,16 +81,14 @@ function displayLecturers(lecturers){
 
 
 
-
     if(lecturers.length === 0){
 
 
         tableBody.innerHTML = `
 
-
         <tr>
 
-        <td colspan="9" class="text-center">
+        <td colspan="7" class="text-center">
 
         No Lecturers Found
 
@@ -100,12 +96,10 @@ function displayLecturers(lecturers){
 
         </tr>
 
-
         `;
 
 
         return;
-
 
     }
 
@@ -118,9 +112,7 @@ function displayLecturers(lecturers){
     lecturers.forEach((lecturer,index)=>{
 
 
-
         tableBody.innerHTML += `
-
 
 
 <tr>
@@ -129,124 +121,53 @@ function displayLecturers(lecturers){
 <td>${index+1}</td>
 
 
-
 <td>${lecturer.username || "-"}</td>
-
 
 
 <td>${lecturer.lecturerId}</td>
 
 
-
 <td>${lecturer.lecturerName}</td>
-
 
 
 <td>${lecturer.email}</td>
 
 
+<td>${lecturer.subjects || "No Subjects Assigned"}</td>
 
 
 
 <td>
-
-
-${lecturer.subjects || "No Subjects Assigned"}
-
-
-</td>
-
-
-
-
-
-<td>
-
-
-<span class="badge bg-success">
-
-
-${lecturer.stream || "-"}
-
-
-</span>
-
-
-</td>
-
-
-
-
-
-
-<td>
-
-
-<span class="badge bg-primary">
-
-
-${lecturer.program || "-"}
-
-
-</span>
-
-
-</td>
-
-
-
-
-
-
-
-<td>
-
 
 
 <button class="btn btn-warning btn-sm"
 
 onclick="openEditModal(${lecturer.lecturerId})">
 
-
 <i class="fas fa-pen"></i>
 
 Edit
 
-
 </button>
-
-
 
 
 
 
 <button class="btn btn-danger btn-sm"
 
-onclick="openDeleteModal(
-${lecturer.lecturerId},
-'${lecturer.lecturerName}'
-)">
-
-
+onclick="openDeleteModal(${lecturer.lecturerId}, '${lecturer.lecturerName}')">
 
 <i class="fas fa-trash"></i>
 
-
 Delete
 
-
 </button>
-
 
 
 </td>
 
 
-
-
 </tr>
-
-
 
 
 `;
@@ -279,21 +200,18 @@ document
 
 
 let lecturerKeyword =
-document.getElementById("searchLecturer").value.trim();
-
+document.getElementById("searchLecturer").value;
 
 
 
 let subjectKeyword =
-document.getElementById("searchSubject").value.trim();
-
+document.getElementById("searchSubject").value;
 
 
 
 
 
 if(lecturerKeyword !== ""){
-
 
 
 fetch("/api/lecturers/search?keyword="
@@ -312,7 +230,6 @@ displayLecturers(data);
 });
 
 
-
 return;
 
 
@@ -323,9 +240,7 @@ return;
 
 
 
-
 if(subjectKeyword !== ""){
-
 
 
 fetch("/api/lecturers/search/subject?subject="
@@ -344,13 +259,10 @@ displayLecturers(data);
 });
 
 
-
 return;
 
 
 }
-
-
 
 
 
@@ -416,7 +328,6 @@ e.preventDefault();
 
 
 
-
 let lecturer = {
 
 
@@ -424,25 +335,19 @@ username:
 document.getElementById("username").value,
 
 
-
 password:
 document.getElementById("password").value,
-
 
 
 lecturerName:
 document.getElementById("lecturerName").value,
 
 
-
 email:
 document.getElementById("email").value
 
 
-
 };
-
-
 
 
 
@@ -466,7 +371,6 @@ headers:{
 body:JSON.stringify(lecturer)
 
 
-
 })
 
 
@@ -488,17 +392,15 @@ return res.json();
 
 
 
-.then(data=>{
+.then(()=>{
 
 
 alert("Lecturer Added Successfully");
 
 
-
 document
 .getElementById("addLecturerForm")
 .reset();
-
 
 
 
@@ -548,14 +450,11 @@ alert("Error Adding Lecturer");
 function openEditModal(id){
 
 
-
 selectedLecturerId=id;
 
 
 
-
 fetch("/api/lecturers")
-
 
 
 .then(res=>res.json())
@@ -571,21 +470,16 @@ l=>l.lecturerId===id
 
 
 
-
-
 document.getElementById("editLecturerId").value =
 lecturer.lecturerId;
-
 
 
 document.getElementById("editUsername").value =
 lecturer.username;
 
 
-
 document.getElementById("editLecturerName").value =
 lecturer.lecturerName;
-
 
 
 document.getElementById("editEmail").value =
@@ -617,6 +511,8 @@ document.getElementById("editLecturerModal")
 
 
 
+
+
 /* ==============================
  UPDATE LECTURER
 ============================== */
@@ -627,10 +523,7 @@ document
 .addEventListener("submit",function(e){
 
 
-
 e.preventDefault();
-
-
 
 
 
@@ -642,20 +535,15 @@ username:
 document.getElementById("editUsername").value,
 
 
-
 lecturerName:
 document.getElementById("editLecturerName").value,
-
 
 
 email:
 document.getElementById("editEmail").value
 
 
-
 };
-
-
 
 
 
@@ -664,7 +552,6 @@ fetch("/api/lecturers/"+selectedLecturerId,{
 
 
 method:"PUT",
-
 
 
 headers:{
@@ -676,9 +563,7 @@ headers:{
 },
 
 
-
 body:JSON.stringify(lecturer)
-
 
 
 })
@@ -688,8 +573,7 @@ body:JSON.stringify(lecturer)
 .then(res=>res.json())
 
 
-.then(data=>{
-
+.then(()=>{
 
 
 alert("Lecturer Updated Successfully");
@@ -701,7 +585,6 @@ bootstrap.Modal
 document.getElementById("editLecturerModal")
 )
 .hide();
-
 
 
 
@@ -733,7 +616,6 @@ function openDeleteModal(id,name){
 
 
 selectedLecturerId=id;
-
 
 
 
@@ -784,14 +666,10 @@ method:"DELETE"
 
 
 
-.then(res=>res.text())
-
-
-.then(data=>{
+.then(()=>{
 
 
 alert("Lecturer Deleted Successfully");
-
 
 
 
@@ -800,7 +678,6 @@ bootstrap.Modal
 document.getElementById("deleteLecturerModal")
 )
 .hide();
-
 
 
 

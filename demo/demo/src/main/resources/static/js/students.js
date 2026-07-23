@@ -1,10 +1,6 @@
 let selectedStudentId = null;
 
 
-/* ==============================
-   PAGE LOAD
-============================== */
-
 document.addEventListener("DOMContentLoaded", function () {
 
     loadStudents();
