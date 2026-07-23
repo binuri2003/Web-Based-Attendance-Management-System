@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,7 +13,6 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/student.css">
-
 </head>
 
 <body>
@@ -26,13 +24,9 @@
     <aside class="sidebar">
 
         <div class="logo">
-
             <img src="/images/logo.PNG" alt="Logo">
-
             <h2>AMS</h2>
-
             <p>Student Panel</p>
-
         </div>
 
         <ul>
@@ -90,7 +84,6 @@
         <!-- Header -->
 
         <header class="header">
-
             <h1>Attendance Percentage</h1>
 
             <p>
@@ -111,21 +104,14 @@
 
                 <div class="percentage-container">
 
-                    <h2 class="percentage-value">
-                        86.67%
-                    </h2>
+                    <h2 class="percentage-value">--</h2>
 
                     <div class="progress-bar">
-
-                        <div class="progress-fill"
-                             style="width:86.67%;">
-
-                        </div>
-
+                        <div class="progress-fill" style="width:0%;"></div>
                     </div>
 
                     <p class="percentage-text">
-                        Excellent Attendance Record
+                        Overall attendance will be available soon.
                     </p>
 
                 </div>
@@ -133,7 +119,8 @@
             </div>
 
         </section>
-                <!-- ================= Subject-wise Attendance ================= -->
+
+        <!-- ================= Subject-wise Attendance ================= -->
 
         <section class="info-section">
 
@@ -150,25 +137,17 @@
                         <th>Percentage</th>
                     </tr>
 
-                    <tr>
-                        <td>Object Oriented Programming</td>
-                        <td>10</td>
-                        <td>9</td>
-                        <td>90%</td>
+                    <tr th:if="${#lists.isEmpty(percentageList)}">
+                        <td colspan="4" style="text-align:center;">
+                            No attendance records found.
+                        </td>
                     </tr>
 
-                    <tr>
-                        <td>Database Management Systems</td>
-                        <td>8</td>
-                        <td>7</td>
-                        <td>87.50%</td>
-                    </tr>
-
-                    <tr>
-                        <td>Statistics</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>83.33%</td>
+                    <tr th:each="item : ${percentageList}">
+                        <td th:text="${item.subjectName}"></td>
+                        <td th:text="${item.totalSessions}"></td>
+                        <td th:text="${item.presentCount}"></td>
+                        <td th:text="${#numbers.formatDecimal(item.percentage,1,2)} + '%'"></td>
                     </tr>
 
                 </table>
@@ -188,10 +167,8 @@
                 <div class="status-container">
 
                     <span class="eligible">
-
                         <i class="fas fa-circle-check"></i>
                         Eligible for Final Examination
-
                     </span>
 
                 </div>
@@ -203,10 +180,8 @@
         <!-- Footer -->
 
         <footer>
-
             © 2026 Attendance Management System |
             Department of Computer Science | USJ
-
         </footer>
 
     </main>

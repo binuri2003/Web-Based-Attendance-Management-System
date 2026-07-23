@@ -21,6 +21,7 @@ import com.attendance.demo.repository.StudentRepository;
 import com.attendance.demo.service.AttendanceService;
 import com.attendance.demo.service.AttendanceSessionService;
 import jakarta.servlet.http.HttpSession;
+import com.attendance.demo.dto.AttendancePercentageDTO;
 
 @Controller
 public class StudentController {
@@ -61,7 +62,19 @@ public class StudentController {
     }
 
     @GetMapping("/student/attendance_percentage")
-    public String attendancePercentage() {
+    public String attendancePercentage(HttpSession session, Model model) {
+
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/";
+        }
+
+        List<AttendancePercentageDTO> percentageList = attendanceService
+                .getAttendancePercentage(loggedUser.getUserId());
+
+        model.addAttribute("percentageList", percentageList);
+
         return "student/attendance_percentage";
     }
 
