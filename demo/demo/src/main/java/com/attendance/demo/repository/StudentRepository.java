@@ -13,6 +13,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     boolean existsByRegistrationNo(String registrationNo);
 
+    Student findByUserId(Integer userId);
 
 
     List<Student> findByRegistrationNoContainingIgnoreCaseOrStudentNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(

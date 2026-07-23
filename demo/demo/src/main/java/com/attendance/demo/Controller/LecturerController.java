@@ -82,14 +82,16 @@ public class LecturerController {
     }
 
     @PostMapping("/end-session")
-    public String endSession(
+    public String endSession(@RequestParam int sessionId) {
 
-            @RequestParam int sessionId) {
+        AttendanceSession session = attendanceSessionService.getSessionById(sessionId);
 
-        // Close attendance session
+        if (session != null) {
+            session.setEndTime(new java.sql.Time(System.currentTimeMillis()));
+            attendanceSessionService.saveSession(session);
+        }
 
         return "redirect:/lecturer/create_session";
-
     }
 
     private String generateSessionCode() {
