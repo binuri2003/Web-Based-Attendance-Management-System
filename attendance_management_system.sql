@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2026 at 05:56 PM
+-- Generation Time: Jul 23, 2026 at 02:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -80,12 +80,12 @@ CREATE TABLE `attendance_session` (
 
 CREATE TABLE `class` (
   `class_id` int(11) NOT NULL,
-  `class_name` varchar(100) NOT NULL,
-  `program` varchar(50) NOT NULL,
+  `class_name` varchar(255) DEFAULT NULL,
+  `program` varchar(255) DEFAULT NULL,
   `year` int(11) NOT NULL,
-  `stream` varchar(50) DEFAULT NULL,
+  `stream` varchar(255) DEFAULT NULL,
   `semester` int(11) NOT NULL,
-  `academic_year` varchar(20) NOT NULL
+  `academic_year` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -165,7 +165,7 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`student_id`, `registration_no`, `student_name`, `email`, `class_id`) VALUES
 (5, 'AS20240001', 'Binuri Vihangi', 'binuri@sjp.ac.lk', 1),
-(6, 'AS20240002', 'Kasun Madushanka', 'kasun@sjp.ac.lk', 2);
+(17, 'AS2023530', 'Gagan Kavishka', 'gagan.kavishka@gmail.com', 3);
 
 -- --------------------------------------------------------
 
@@ -175,10 +175,10 @@ INSERT INTO `student` (`student_id`, `registration_no`, `student_name`, `email`,
 
 CREATE TABLE `subject` (
   `subject_id` int(11) NOT NULL,
-  `subject_code` varchar(20) NOT NULL,
-  `subject_name` varchar(100) NOT NULL,
+  `subject_code` varchar(255) DEFAULT NULL,
+  `subject_name` varchar(255) DEFAULT NULL,
   `credits` int(11) NOT NULL,
-  `lecturer_id` int(11) NOT NULL
+  `lecturer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`subject_id`, `subject_code`, `subject_name`, `credits`, `lecturer_id`) VALUES
-(1, 'CS101', 'C Programming', 2, 3),
+(1, 'CS101', 'C Programming', 2, 11),
 (2, 'CS102', 'Programming Fundamentals', 2, 4),
 (3, 'CS103', 'Object-Oriented Programming', 2, 7),
 (4, 'CS104', 'Data Structures and Algorithms', 2, 8),
@@ -201,8 +201,7 @@ INSERT INTO `subject` (`subject_id`, `subject_code`, `subject_name`, `credits`, 
 (13, 'CS113', 'Mobile Application Development Lab', 1, 7),
 (14, 'CS114', 'Cyber Security Practical', 1, 8),
 (15, 'CS115', 'Information Security Lab', 1, 9),
-(16, 'CS116', 'Human Computer Interaction', 1, 10),
-(17, 'CS117', 'Artificial Intelligence Practical', 1, 11);
+(16, 'CS116', 'Human Computer Interaction', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -227,7 +226,6 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `role`) VALUES
 (3, 'lecturer1', 'lect123', 'Lecturer'),
 (4, 'lecturer2', 'lect456', 'Lecturer'),
 (5, 'student1', 'stud123', 'Student'),
-(6, 'student2', 'stud456', 'Student'),
 (7, 'mdr.perera', '123456', 'Lecturer'),
 (8, 'wmks.illmini', '123457', 'Lecturer'),
 (9, 'nh.wanigasingha', '123458', 'Lecturer'),
@@ -237,7 +235,8 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `role`) VALUES
 (13, 'ka.silva', '123452', 'Lecturer'),
 (14, 'dm.fernando', '123453', 'Lecturer'),
 (15, 'pn.jayasinghe', '123454', 'Lecturer'),
-(16, 'hm.wickramasinghe', '123455', 'Lecturer');
+(16, 'hm.wickramasinghe', '123455', 'Lecturer'),
+(17, 'gugu', 'gugu15', 'Student');
 
 --
 -- Indexes for dumped tables
@@ -351,7 +350,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
