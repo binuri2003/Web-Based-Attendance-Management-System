@@ -8,36 +8,26 @@
 
 <title>Manage Classes</title>
 
-
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet">
-
 
 <!-- Font Awesome -->
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/css/classes.css">
 
-
 </head>
-
 
 <body>
 
-
 <div class="wrapper">
-
-
 
 <!-- ================= Sidebar ================= -->
 
-
 <aside class="sidebar">
-
 
 <div class="logo-section">
 
@@ -49,11 +39,7 @@
 
 </div>
 
-
-
-
 <ul class="menu">
-
 
 <li>
 
@@ -67,9 +53,6 @@ Dashboard
 
 </li>
 
-
-
-
 <li>
 
 <a href="/admin/students">
@@ -81,9 +64,6 @@ Manage Students
 </a>
 
 </li>
-
-
-
 
 <li>
 
@@ -97,9 +77,6 @@ Manage Lecturers
 
 </li>
 
-
-
-
 <li>
 
 <a href="/admin/subjects">
@@ -111,9 +88,6 @@ Manage Subjects
 </a>
 
 </li>
-
-
-
 
 <li class="active">
 
@@ -127,9 +101,6 @@ Manage Classes
 
 </li>
 
-
-
-
 <li>
 
 <a href="/admin/reports">
@@ -141,9 +112,6 @@ Reports
 </a>
 
 </li>
-
-
-
 
 <li>
 
@@ -157,28 +125,17 @@ Logout
 
 </li>
 
-
 </ul>
-
 
 </aside>
 
-
-
-
-
 <!-- ================= Main Content ================= -->
-
 
 <main class="main-content">
 
-
-
 <!-- Top Bar -->
 
-
 <header class="topbar">
-
 
 <div>
 
@@ -186,18 +143,13 @@ Logout
 Attendance Management System
 </h1>
 
-
 <p>
 University of Sri Jayewardenepura
 </p>
 
-
 </div>
 
-
-
 <div class="profile">
-
 
 <i class="fas fa-circle-user"></i>
 
@@ -205,96 +157,86 @@ University of Sri Jayewardenepura
 Admin
 </span>
 
-
 </div>
-
 
 </header>
 
-
-
-
-
-<!-- Page Header -->
-
+<!-- ================= Page Header ================= -->
 
 <section class="page-header">
 
-
 <div>
-
 
 <h2>
 Manage Classes
 </h2>
 
-
 <p>
-Add, edit, delete and manage class records.
+Manage existing class records.
 </p>
 
-
 </div>
-
-
-
-<button class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#addClassModal">
-
-
-<i class="fas fa-school"></i>
-
-Add Class
-
-
-</button>
-
-
 
 </section>
 
-
-
-
-
-
-
-
-<!-- Search Section -->
-
+<!-- ================= Search Section ================= -->
 
 <section class="filter-card">
 
-
 <div class="row g-3">
-
-
 
 <div class="col-lg-4">
 
-
 <label class="form-label">
 
-Search Class
+Class
 
 </label>
 
+<select id="searchClass"
+        class="form-select">
 
-<input type="text"
-       id="searchClass"
-       class="form-control"
-       placeholder="Search by class name or program">
+<option value="">
+All Classes
+</option>
 
+<option value="CS 1st Year">
+CS 1st Year
+</option>
+
+<option value="CS 2nd Year">
+CS 2nd Year
+</option>
+
+<option value="CS 3rd Year General">
+CS 3rd Year General
+</option>
+
+<option value="CS 3rd Year Special">
+CS 3rd Year Special
+</option>
+
+<option value="CS 4th Year Special">
+CS 4th Year Special
+</option>
+
+<option value="IT 1st Year">
+IT 1st Year
+</option>
+
+<option value="IT 2nd Year">
+IT 2nd Year
+</option>
+
+<option value="IT 3rd Year">
+IT 3rd Year
+</option>
+
+</select>
 
 </div>
 
-
-
-
-
 <div class="col-lg-2">
-
 
 <label class="form-label">
 
@@ -302,47 +244,34 @@ Year
 
 </label>
 
-
 <select id="yearFilter"
         class="form-select">
-
 
 <option value="">
 All Years
 </option>
 
-
 <option value="1">
 Year 1
 </option>
-
 
 <option value="2">
 Year 2
 </option>
 
-
 <option value="3">
 Year 3
 </option>
-
 
 <option value="4">
 Year 4
 </option>
 
-
 </select>
-
 
 </div>
 
-
-
-
-
 <div class="col-lg-3">
-
 
 <label class="form-label">
 
@@ -350,87 +279,55 @@ Stream
 
 </label>
 
-
 <select id="streamFilter"
         class="form-select">
-
 
 <option value="">
 All Streams
 </option>
 
-
 <option value="Computer Science">
 Computer Science
 </option>
-
 
 <option value="Information Technology">
 Information Technology
 </option>
 
-
 </select>
-
 
 </div>
 
-
-
-
 <div class="col-lg-3 d-flex align-items-end gap-2">
-
 
 <button class="btn btn-primary w-50"
         id="searchBtn">
-
 
 <i class="fas fa-search"></i>
 
 Search
 
-
 </button>
-
-
 
 <button class="btn btn-outline-secondary w-50"
         id="resetBtn">
-
 
 <i class="fas fa-refresh"></i>
 
 Reset
 
-
 </button>
 
-
 </div>
 
-
-
 </div>
-
 
 </section>
-
-
-
-
-
-
-
-
-
-<!-- Table -->
-
+<!-- ================= Table ================= -->
 
 <section class="table-card">
 
-
 <div class="table-header">
-
 
 <h3>
 
@@ -440,8 +337,6 @@ Class List
 
 </h3>
 
-
-
 <span class="badge bg-primary">
 
 Total Classes :
@@ -450,27 +345,17 @@ Total Classes :
 0
 </span>
 
-
 </span>
-
 
 </div>
 
-
-
-
-
 <div class="table-responsive">
-
 
 <table class="table table-hover align-middle">
 
-
 <thead>
 
-
 <tr>
-
 
 <th>#</th>
 
@@ -490,270 +375,30 @@ Total Classes :
 Actions
 </th>
 
-
 </tr>
-
 
 </thead>
 
-
-
 <tbody id="classTableBody">
-
 
 </tbody>
 
-
-
 </table>
 
-
 </div>
-
 
 </section>
 
-
-
-
-
-
-
-
-
-<!-- ================= Add Class Modal ================= -->
-
-
-<div class="modal fade"
-     id="addClassModal">
-
-
-<div class="modal-dialog modal-lg">
-
-
-<div class="modal-content">
-
-
-<div class="modal-header">
-
-
-<h4 class="modal-title">
-
-<i class="fas fa-school"></i>
-
-Add New Class
-
-</h4>
-
-
-<button class="btn-close"
-        data-bs-dismiss="modal">
-
-</button>
-
-
-</div>
-
-
-
-
-
-<div class="modal-body">
-
-
-<form id="addClassForm">
-
-
-<div class="row">
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="form-label">
-Class Name
-</label>
-
-
-<input type="text"
-       id="className"
-       class="form-control"
-       required>
-
-
-</div>
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="form-label">
-Program
-</label>
-
-
-<input type="text"
-       id="program"
-       class="form-control"
-       required>
-
-
-</div>
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="form-label">
-Year
-</label>
-
-
-<input type="number"
-       id="year"
-       class="form-control"
-       required>
-
-
-</div>
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="form-label">
-Stream
-</label>
-
-
-<input type="text"
-       id="stream"
-       class="form-control"
-       required>
-
-
-</div>
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="form-label">
-Semester
-</label>
-
-
-<input type="number"
-       id="semester"
-       class="form-control"
-       required>
-
-
-</div>
-
-
-
-
-
-<div class="col-md-6 mb-3">
-
-
-<label class="form-label">
-Academic Year
-</label>
-
-
-<input type="text"
-       id="academicYear"
-       class="form-control"
-       required>
-
-
-</div>
-
-
-
-</div>
-
-
-</form>
-
-
-</div>
-
-
-
-
-
-<div class="modal-footer">
-
-
-<button class="btn btn-secondary"
-        data-bs-dismiss="modal">
-
-Cancel
-
-</button>
-
-
-
-<button class="btn btn-primary"
-        form="addClassForm">
-
-<i class="fas fa-save"></i>
-
-Save Class
-
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- View Class Modal -->
-
+<!-- ================= View Class Modal ================= -->
 
 <div class="modal fade"
      id="viewClassModal">
 
-
 <div class="modal-dialog">
-
 
 <div class="modal-content">
 
-
 <div class="modal-header">
-
 
 <h5 class="modal-title">
 
@@ -761,184 +406,128 @@ Class Details
 
 </h5>
 
-
 <button class="btn-close"
         data-bs-dismiss="modal">
 
 </button>
 
-
 </div>
 
-
-
 <div class="modal-body">
-
 
 <p>
 <b>Class Name:</b>
 <span id="viewClassName"></span>
 </p>
 
-
 <p>
 <b>Program:</b>
 <span id="viewProgram"></span>
 </p>
-
 
 <p>
 <b>Year:</b>
 <span id="viewYear"></span>
 </p>
 
-
 <p>
 <b>Stream:</b>
 <span id="viewStream"></span>
 </p>
-
 
 <p>
 <b>Semester:</b>
 <span id="viewSemester"></span>
 </p>
 
-
 <p>
 <b>Academic Year:</b>
 <span id="viewAcademicYear"></span>
 </p>
 
+</div>
 
 </div>
 
-
 </div>
 
-
 </div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-<!-- Delete Modal -->
-
+<!-- ================= Delete Class Modal ================= -->
 
 <div class="modal fade"
      id="deleteClassModal">
 
+    <div class="modal-dialog">
 
-<div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-header bg-danger text-white">
 
-<div class="modal-content">
+                <h5 class="modal-title">
 
+                    <i class="fas fa-trash"></i>
 
-<div class="modal-header bg-danger text-white">
+                    Delete Class
 
+                </h5>
 
-<h5 class="modal-title">
+                <button class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
 
-<i class="fas fa-trash"></i>
+            </div>
 
-Delete Class
+            <div class="modal-body text-center">
 
-</h5>
+                <i class="fas fa-circle-exclamation text-danger"
+                   style="font-size:60px;"></i>
 
+                <h4 class="mt-3">
+                    Are you sure?
+                </h4>
 
-<button class="btn-close btn-close-white"
-        data-bs-dismiss="modal">
+                <p>
+                    This class will be permanently deleted.
+                </p>
 
-</button>
+                <strong id="deleteClassName"></strong>
 
+            </div>
 
-</div>
+            <div class="modal-footer">
 
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
 
+                    Cancel
 
+                </button>
 
-<div class="modal-body text-center">
+                <button class="btn btn-danger"
+                        id="confirmDeleteBtn">
 
+                    Delete
 
-<i class="fas fa-circle-exclamation text-danger"
-style="font-size:60px;">
-</i>
+                </button>
 
+            </div>
 
-<h4 class="mt-3">
-Are you sure?
-</h4>
+        </div>
 
-
-<p>
-This class will be permanently deleted.
-</p>
-
-
-<strong id="deleteClassName"></strong>
-
-
-</div>
-
-
-
-
-
-<div class="modal-footer">
-
-
-<button class="btn btn-secondary"
-        data-bs-dismiss="modal">
-
-Cancel
-
-</button>
-
-
-<button class="btn btn-danger"
-        id="confirmDeleteBtn">
-
-Delete
-
-</button>
-
+    </div>
 
 </div>
 
-
-
-</div>
-
+</main>
 
 </div>
 
-
-</div>
-
-
-
-
-
-
-
-
+<!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
+<!-- Custom JS -->
 <script src="/js/classes.js"></script>
 
-
 </body>
-
 
 </html>
