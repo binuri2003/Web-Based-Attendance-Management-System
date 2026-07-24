@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "attendance")
-
 public class Attendance {
 
     @Id

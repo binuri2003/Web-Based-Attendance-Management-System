@@ -2,6 +2,7 @@ package com.attendance.demo.entity;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,13 +11,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 @Entity
 @Table(name = "attendance_session")
-
 public class AttendanceSession {
 
     @Id
@@ -47,6 +46,9 @@ public class AttendanceSession {
     @ManyToOne
     @JoinColumn(name = "class_id")
     private ClassEntity classEntity;
+
+    @OneToMany(mappedBy = "attendanceSession")
+    private List<Attendance> attendanceList;
 
     public AttendanceSession() {
     }
@@ -113,5 +115,13 @@ public class AttendanceSession {
 
     public void setClassEntity(ClassEntity classEntity) {
         this.classEntity = classEntity;
+    }
+
+    public List<Attendance> getAttendanceList() {
+        return attendanceList;
+    }
+
+    public void setAttendanceList(List<Attendance> attendanceList) {
+        this.attendanceList = attendanceList;
     }
 }

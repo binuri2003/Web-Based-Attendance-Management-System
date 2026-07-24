@@ -1,6 +1,7 @@
 package com.attendance.demo.entity;
 
 
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name="subject")
@@ -35,8 +38,16 @@ public class Subject {
 
 
     @ManyToOne
-    @JoinColumn(name="lecturer_id")
+    @JoinColumn(name="lecturer_id", nullable = true)
     private Lecturer lecturer;
+
+
+
+    // One subject has many attendance sessions
+
+    @OneToMany(mappedBy="subject")
+    private List<AttendanceSession> sessions;
+
 
 
 
@@ -56,7 +67,6 @@ public class Subject {
     }
 
 
-
     public String getSubjectCode() {
         return subjectCode;
     }
@@ -65,7 +75,6 @@ public class Subject {
     public void setSubjectCode(String subjectCode) {
         this.subjectCode = subjectCode;
     }
-
 
 
     public String getSubjectName() {
@@ -78,7 +87,6 @@ public class Subject {
     }
 
 
-
     public int getCredits() {
         return credits;
     }
@@ -89,7 +97,6 @@ public class Subject {
     }
 
 
-
     public Lecturer getLecturer() {
         return lecturer;
     }
@@ -97,6 +104,16 @@ public class Subject {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+
+    public List<AttendanceSession> getSessions() {
+        return sessions;
+    }
+
+
+    public void setSessions(List<AttendanceSession> sessions) {
+        this.sessions = sessions;
     }
 
 }
