@@ -18,10 +18,13 @@ import com.attendance.demo.entity.AttendanceStatus;
 import com.attendance.demo.entity.Student;
 import com.attendance.demo.entity.User;
 import com.attendance.demo.repository.StudentRepository;
+import com.attendance.demo.repository.StudentSubjectRepository;
 import com.attendance.demo.service.AttendanceService;
 import com.attendance.demo.service.AttendanceSessionService;
-import jakarta.servlet.http.HttpSession;
 import com.attendance.demo.dto.AttendancePercentageDTO;
+import com.attendance.demo.entity.StudentSubject;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class StudentController {
@@ -34,6 +37,9 @@ public class StudentController {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentSubjectRepository studentSubjectRepository;
 
     @GetMapping("/student/dashboard")
     public String studentDashboard() {
@@ -138,6 +144,23 @@ public class StudentController {
         model.addAttribute("attendanceSession", attendanceSession);
 
         return "student/enter_session_code";
+    }
+
+    @GetMapping("/student/subjects")
+    public String viewSubjects(HttpSession session, Model model) {
+
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/";
+        }
+
+        List<StudentSubject> subjectList = studentSubjectRepository.findByStudent_UserId(
+                loggedUser.getUserId());
+
+        model.addAttribute("subjectList", subjectList);
+
+        return "student/subjects";
     }
 
 }

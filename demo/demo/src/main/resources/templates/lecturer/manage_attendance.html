@@ -1,405 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Manage Attendance</title>
 
-    <link rel="stylesheet" href="/css/lecturer.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
-</head>
+    <link rel="stylesheet" href="/css/lecturer.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
 
-<div class="wrapper">
-
-    <!-- Sidebar -->
-
-    <aside class="sidebar">
-
+      <aside class="sidebar">
         <div class="logo">
+          <img src="/images/logo.PNG" alt="Logo" />
 
-            <img src="/images/logo.PNG" alt="Logo">
+          <h2>AMS</h2>
 
-            <h2>AMS</h2>
-
-            <p>Lecturer Panel</p>
-
+          <p>Lecturer Panel</p>
         </div>
 
         <nav>
+          <ul>
+            <li>
+              <a href="/lecturer/dashboard"> <i class="fas fa-house"></i>  Dashboard </a>
+            </li>
 
-            <ul>
+            <li>
+              <a href="/lecturer/create_session">
+                <i class="fas fa-calendar-plus"></i> Create Attendance Session
+              </a>
+            </li>
 
-                <li>
+            <li class="active">
+              <a href="/lecturer/manage_attendance"> <i class="fas fa-user-check"></i> Manage Attendance </a>
+            </li>
 
-                    <a href="/lecturer/dashboard">
-                        🏠 Dashboard
-                    </a>
+            <li>
+              <a href="/lecturer/view_attendance"> <i class="fas fa-clipboard-list"></i> View Attendance </a>
+            </li>
 
-                </li>
+            <li>
+              <a href="#"> 📄 Attendance Reports </a>
+            </li>
 
-                <li>
-
-                    <a href="#">
-                        📚 My Subjects
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="/lecturer/create_session">
-                        📅 Create Attendance Session
-                    </a>
-
-                </li>
-
-                <li class="active">
-
-                    <a href="/lecturer/manage_attendance">
-                        ✅ Manage Attendance
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="#">
-                        📊 View Attendance
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="#">
-                        📄 Attendance Reports
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="/logout">
-                        🚪 Logout
-                    </a>
-
-                </li>
-
-            </ul>
-
+            <li>
+              <a href="/logout"> <i class="fas fa-right-from-bracket"></i> Logout </a>
+            </li>
+          </ul>
         </nav>
+      </aside>
 
-    </aside>
+      <!-- Main Content -->
 
-    <!-- Main Content -->
-
-    <main class="main-content">
-
+      <main class="main-content">
         <header class="header">
+          <h1>Manage Attendance</h1>
 
-            <h1>
-                Manage Attendance
-            </h1>
-
-            <p>
-                View and edit attendance records for attendance sessions.
-            </p>
-
+          <p>View and edit attendance records for attendance sessions.</p>
         </header>
 
         <!-- Session Selection -->
 
         <section class="info-section">
+          <div class="info-card">
+            <h4>Select Attendance Session</h4>
 
-            <div class="info-card">
+            <br />
 
-                <h4>Select Attendance Session</h4>
+            <table>
+              <tr>
+                <td>Subject</td>
 
-                <br>
+                <td>
+                  <select>
+                    <option>Object Oriented Programming</option>
+                    <option>Database Systems</option>
+                  </select>
+                </td>
+              </tr>
 
-                <table>
+              <tr>
+                <td>Class</td>
 
-                    <tr>
+                <td>
+                  <select>
+                    <option>Y2S1</option>
+                  </select>
+                </td>
+              </tr>
 
-                        <td>Subject</td>
+              <tr>
+                <td>Session</td>
 
-                        <td>
+                <td>
+                  <select>
+                    <option>Session 01</option>
+                    <option>Session 02</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
 
-                            <select>
+            <br />
 
-                                <option>Object Oriented Programming</option>
-                                <option>Database Systems</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Class</td>
-
-                        <td>
-
-                            <select>
-
-                                <option>Y2S1</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Session</td>
-
-                        <td>
-
-                            <select>
-
-                                <option>Session 01</option>
-                                <option>Session 02</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                </table>
-
-                <br>
-
-                <button>
-
-                    Load Attendance
-
-                </button>
-
-            </div>
-
+            <button>Load Attendance</button>
+          </div>
         </section>
 
         <!-- Summary -->
 
         <section class="dashboard-cards">
+          <div class="card">
+            <div class="icon">✅</div>
 
-            <div class="card">
+            <h3>35</h3>
 
-                <div class="icon">
-                    ✅
-                </div>
+            <p>Present</p>
+          </div>
 
-                <h3>35</h3>
+          <div class="card">
+            <div class="icon">❌</div>
 
-                <p>Present</p>
+            <h3>4</h3>
 
-            </div>
+            <p>Absent</p>
+          </div>
 
-            <div class="card">
+          <div class="card">
+            <div class="icon">⏳</div>
 
-                <div class="icon">
-                    ❌
-                </div>
+            <h3>2</h3>
 
-                <h3>4</h3>
-
-                <p>Absent</p>
-
-            </div>
-
-            <div class="card">
-
-                <div class="icon">
-                    ⏳
-                </div>
-
-                <h3>2</h3>
-
-                <p>Pending</p>
-
-            </div>
-
+            <p>Pending</p>
+          </div>
         </section>
 
         <!-- Attendance Table -->
 
         <section class="info-section">
+          <div class="info-card">
+            <h4>Student Attendance</h4>
 
-            <div class="info-card">
+            <br />
 
-                <h4>Student Attendance</h4>
+            <table>
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Current Status</th>
+                <th>Change Status</th>
+              </tr>
 
-                <br>
+              <tr>
+                <td>IT220001</td>
 
-                <table>
+                <td>John Silva</td>
 
-                    <tr>
+                <td>
+                  <span class="status present">Present</span>
+                </td>
 
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <th>Current Status</th>
-                        <th>Change Status</th>
+                <td>
+                  <select>
+                    <option selected>Present</option>
+                    <option>Absent</option>
+                    <option>Pending</option>
+                  </select>
+                </td>
+              </tr>
 
-                    </tr>
+              <tr>
+                <td>IT220002</td>
 
-                    <tr>
+                <td>Jane Perera</td>
 
-                        <td>IT220001</td>
+                <td>
+                  <span class="status pending">Pending</span>
+                </td>
 
-                        <td>John Silva</td>
+                <td>
+                  <select>
+                    <option>Present</option>
+                    <option>Absent</option>
+                    <option selected>Pending</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>IT220003</td>
 
-                        <td>
-                            <span class="status present">Present</span>
-                        </td>
+                <td>Kasun Fernando</td>
 
-                        <td>
+                <td>
+                  <span class="status absent">Absent</span>
+                </td>
 
-                            <select>
+                <td>
+                  <select>
+                    <option>Present</option>
+                    <option selected>Absent</option>
+                    <option>Pending</option>
+                  </select>
+                </td>
+              </tr>
 
-                                <option selected>Present</option>
-                                <option>Absent</option>
-                                <option>Pending</option>
+              <tr>
+                <td>IT220004</td>
 
-                            </select>
+                <td>Nimal Perera</td>
 
-                        </td>
+                <td>Present</td>
 
-                    </tr>
+                <td>
+                  <select>
+                    <option selected>Present</option>
+                    <option>Absent</option>
+                    <option>Pending</option>
+                  </select>
+                </td>
+              </tr>
 
-                    <tr>
+              <tr>
+                <td>IT220005</td>
 
-                        <td>IT220002</td>
+                <td>Sachini Fernando</td>
 
-                        <td>Jane Perera</td>
+                <td>Pending</td>
 
-                        <td>
-                            <span class="status pending">Pending</span>
-                        </td>
+                <td>
+                  <select>
+                    <option>Present</option>
+                    <option>Absent</option>
+                    <option selected>Pending</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
 
-                        <td>
+            <br />
 
-                            <select>
+            <div style="display: flex; gap: 15px">
+              <button>💾 Save Changes</button>
 
-                                <option>Present</option>
-                                <option>Absent</option>
-                                <option selected>Pending</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-                                        <tr>
-
-                        <td>IT220003</td>
-
-                        <td>Kasun Fernando</td>
-
-                        <td>
-                            <span class="status absent">Absent</span>
-                        </td>
-
-                        <td>
-
-                            <select>
-
-                                <option>Present</option>
-                                <option selected>Absent</option>
-                                <option>Pending</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>IT220004</td>
-
-                        <td>Nimal Perera</td>
-
-                        <td>Present</td>
-
-                        <td>
-
-                            <select>
-
-                                <option selected>Present</option>
-                                <option>Absent</option>
-                                <option>Pending</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>IT220005</td>
-
-                        <td>Sachini Fernando</td>
-
-                        <td>Pending</td>
-
-                        <td>
-
-                            <select>
-
-                                <option>Present</option>
-                                <option>Absent</option>
-                                <option selected>Pending</option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                </table>
-
-                <br>
-
-                <div style="display:flex; gap:15px;">
-
-                    <button>
-                        💾 Save Changes
-                    </button>
-
-                    <button>
-                        ❌ Cancel
-                    </button>
-
-                </div>
-
+              <button>❌ Cancel</button>
             </div>
-
+          </div>
         </section>
 
         <footer>
-
-            © 2026 Attendance Management System |
-            Department of Computer Science |
-            University of Sri Jayewardenepura
-
+          © 2026 Attendance Management System | Department of Computer Science |
+          University of Sri Jayewardenepura
         </footer>
+      </main>
+    </div>
 
-    </main>
-
-</div>
-
-<script src="/js/lecturer.js"></script>
-
-</body>
-
+    <script src="/js/lecturer.js"></script>
+  </body>
 </html>

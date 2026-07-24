@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2026 at 05:57 PM
+-- Generation Time: Jul 24, 2026 at 09:45 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`admin_id`, `admin_name`, `email`) VALUES
 (1, 'Nimal Perera', 'nimal@usjp.lk'),
-(2, 'Kamal Silva', 'kamal@usjp.lk');
+(2, 'Kamal Silva', 'kamal@usjp.lk'),
+(18, 'Saman Jayawardena', 'saman@usjp.lk');
 
 -- --------------------------------------------------------
 
@@ -51,7 +52,7 @@ CREATE TABLE `attendance` (
   `attendance_id` int(11) NOT NULL,
   `session_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `status` enum('Pending','Present','Absent') NOT NULL DEFAULT 'Pending',
+  `status` enum('Pending','Present','Absent') DEFAULT 'Pending',
   `marked_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -64,7 +65,72 @@ INSERT INTO `attendance` (`attendance_id`, `session_id`, `student_id`, `status`,
 (2, 2, 5, 'Present', '2026-07-21 08:31:05'),
 (3, 5, 5, 'Absent', NULL),
 (4, 3, 17, 'Present', '2026-07-20 10:32:50'),
-(5, 4, 17, 'Absent', NULL);
+(5, 4, 17, 'Absent', NULL),
+(6, 6, 19, 'Present', '2026-07-24 08:15:00'),
+(7, 6, 20, 'Absent', NULL),
+(8, 6, 5, 'Present', '2026-07-24 08:20:00'),
+(9, 7, 19, 'Present', '2026-07-24 10:40:00'),
+(10, 7, 20, 'Present', '2026-07-24 10:42:00'),
+(11, 8, 21, 'Present', '2026-07-25 10:45:00'),
+(12, 8, 22, 'Absent', NULL),
+(13, 8, 17, 'Present', '2026-07-25 10:50:00'),
+(14, 9, 19, 'Absent', NULL),
+(15, 9, 20, 'Present', '2026-07-26 01:45:00'),
+(16, 10, 5, 'Present', '2026-07-27 08:15:00'),
+(17, 10, 19, 'Present', '2026-07-27 08:17:00'),
+(18, 10, 20, 'Absent', NULL),
+(19, 11, 5, 'Present', '2026-07-29 08:10:00'),
+(20, 11, 19, 'Absent', NULL),
+(21, 11, 20, 'Present', '2026-07-29 08:20:00'),
+(22, 12, 5, 'Present', '2026-07-28 10:45:00'),
+(23, 12, 19, 'Present', '2026-07-28 10:50:00'),
+(24, 12, 20, 'Present', '2026-07-28 10:52:00'),
+(25, 13, 5, 'Absent', NULL),
+(26, 13, 19, 'Present', '2026-07-30 10:40:00'),
+(27, 13, 20, 'Present', '2026-07-30 10:42:00'),
+(28, 14, 17, 'Present', '2026-07-28 10:45:00'),
+(29, 14, 21, 'Present', '2026-07-28 10:50:00'),
+(30, 14, 22, 'Absent', NULL),
+(31, 15, 17, 'Absent', NULL),
+(32, 15, 21, 'Present', '2026-07-31 10:55:00'),
+(33, 15, 22, 'Present', '2026-07-31 10:58:00'),
+(34, 16, 5, 'Present', '2026-08-01 01:40:00'),
+(35, 16, 19, 'Absent', NULL),
+(36, 16, 20, 'Present', '2026-08-01 01:45:00'),
+(37, 17, 5, 'Present', '2026-08-03 01:35:00'),
+(38, 17, 19, 'Present', '2026-08-03 01:38:00'),
+(39, 17, 20, 'Absent', NULL),
+(40, 18, 5, 'Present', '2026-08-04 08:15:00'),
+(41, 18, 19, 'Present', '2026-08-04 08:20:00'),
+(42, 19, 5, 'Absent', NULL),
+(43, 19, 20, 'Present', '2026-08-05 10:20:00'),
+(44, 20, 5, 'Present', '2026-08-06 08:15:00'),
+(45, 20, 19, 'Absent', NULL),
+(46, 20, 20, 'Present', '2026-08-06 08:20:00'),
+(47, 21, 5, 'Present', '2026-08-07 10:15:00'),
+(48, 21, 19, 'Present', '2026-08-07 10:20:00'),
+(49, 21, 20, 'Absent', NULL),
+(50, 22, 5, 'Absent', NULL),
+(51, 22, 19, 'Present', '2026-08-08 01:45:00'),
+(52, 22, 20, 'Present', '2026-08-08 01:50:00'),
+(53, 23, 5, 'Present', '2026-08-10 08:10:00'),
+(54, 23, 19, 'Absent', NULL),
+(55, 23, 20, 'Present', '2026-08-10 08:18:00'),
+(56, 24, 5, 'Present', '2026-08-11 10:15:00'),
+(57, 24, 19, 'Present', '2026-08-11 10:20:00'),
+(58, 24, 20, 'Absent', NULL),
+(59, 25, 5, 'Absent', NULL),
+(60, 25, 19, 'Present', '2026-08-12 01:45:00'),
+(61, 25, 20, 'Present', '2026-08-12 01:50:00'),
+(62, 26, 5, 'Present', '2026-08-13 08:10:00'),
+(63, 26, 19, 'Present', '2026-08-13 08:15:00'),
+(64, 26, 20, 'Absent', NULL),
+(65, 27, 5, 'Present', '2026-08-14 10:15:00'),
+(66, 27, 19, 'Absent', NULL),
+(67, 27, 20, 'Present', '2026-08-14 10:20:00'),
+(68, 28, 5, 'Absent', NULL),
+(69, 28, 19, 'Present', '2026-08-15 01:45:00'),
+(70, 28, 20, 'Present', '2026-08-15 01:50:00');
 
 -- --------------------------------------------------------
 
@@ -74,7 +140,7 @@ INSERT INTO `attendance` (`attendance_id`, `session_id`, `student_id`, `status`,
 
 CREATE TABLE `attendance_session` (
   `session_id` int(11) NOT NULL,
-  `session_code` varchar(20) NOT NULL,
+  `session_code` varchar(255) DEFAULT NULL,
   `session_date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time NOT NULL,
@@ -92,7 +158,30 @@ INSERT INTO `attendance_session` (`session_id`, `session_code`, `session_date`, 
 (2, 'CS101-002', '2026-07-21', '08:00:00', '10:15:00', 11, 1, 1),
 (3, 'CS105-001', '2026-07-20', '10:30:00', '12:00:00', 9, 5, 3),
 (4, 'CS105-002', '2026-07-22', '10:30:00', '12:00:00', 9, 5, 3),
-(5, 'CS107-001', '2026-07-23', '01:30:00', '03:30:00', 11, 7, 1);
+(5, 'CS107-001', '2026-07-23', '01:30:00', '03:30:00', 11, 7, 1),
+(6, 'CS101-003', '2026-07-24', '08:00:00', '10:00:00', 11, 1, 1),
+(7, 'CS102-001', '2026-07-24', '10:30:00', '12:00:00', 4, 2, 1),
+(8, 'CS105-003', '2026-07-25', '10:30:00', '12:00:00', 9, 5, 3),
+(9, 'CS107-002', '2026-07-26', '01:30:00', '03:30:00', 11, 7, 1),
+(10, 'CS101-004', '2026-07-27', '08:00:00', '10:00:00', 11, 1, 1),
+(11, 'CS101-005', '2026-07-29', '08:00:00', '10:00:00', 11, 1, 1),
+(12, 'CS102-002', '2026-07-28', '10:30:00', '12:00:00', 4, 2, 1),
+(13, 'CS102-003', '2026-07-30', '10:30:00', '12:00:00', 4, 2, 1),
+(14, 'CS105-004', '2026-07-28', '10:30:00', '12:00:00', 9, 5, 3),
+(15, 'CS105-005', '2026-07-31', '10:30:00', '12:00:00', 9, 5, 3),
+(16, 'CS107-003', '2026-08-01', '01:30:00', '03:30:00', 11, 7, 1),
+(17, 'CS107-004', '2026-08-03', '01:30:00', '03:30:00', 11, 7, 1),
+(18, 'CS103-001', '2026-08-04', '08:00:00', '10:00:00', 7, 3, 1),
+(19, 'CS104-001', '2026-08-05', '10:00:00', '12:00:00', 8, 4, 1),
+(20, 'CS108-001', '2026-08-06', '08:00:00', '10:00:00', 12, 8, 1),
+(21, 'CS109-001', '2026-08-07', '10:00:00', '12:00:00', 13, 9, 1),
+(22, 'CS110-001', '2026-08-08', '01:30:00', '03:30:00', 14, 10, 1),
+(23, 'CS111-001', '2026-08-10', '08:00:00', '10:00:00', 15, 11, 1),
+(24, 'CS112-001', '2026-08-11', '10:30:00', '12:00:00', 16, 12, 1),
+(25, 'CS113-001', '2026-08-12', '01:30:00', '03:30:00', 7, 13, 1),
+(26, 'CS114-001', '2026-08-13', '08:00:00', '10:00:00', 8, 14, 1),
+(27, 'CS115-001', '2026-08-14', '10:30:00', '12:00:00', 9, 15, 1),
+(28, 'CS116-001', '2026-08-15', '01:30:00', '03:30:00', 10, 16, 1);
 
 -- --------------------------------------------------------
 
@@ -143,7 +232,11 @@ CREATE TABLE `enrollment` (
 
 INSERT INTO `enrollment` (`enrollment_id`, `student_id`, `class_id`, `enroll_date`) VALUES
 (1, 5, 1, '2026-01-15'),
-(2, 17, 3, '2026-01-18');
+(2, 17, 3, '2026-01-18'),
+(3, 19, 1, '2026-01-20'),
+(4, 20, 1, '2026-01-20'),
+(5, 21, 3, '2026-01-22'),
+(6, 22, 3, '2026-01-22');
 
 -- --------------------------------------------------------
 
@@ -195,7 +288,11 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`student_id`, `registration_no`, `student_name`, `email`, `class_id`) VALUES
 (5, 'AS20240001', 'Binuri Vihangi', 'binuri@sjp.ac.lk', 1),
-(17, 'AS2023530', 'Gagan Kavishka', 'gagan.kavishka@gmail.com', 3);
+(17, 'AS2023530', 'Gagan Kavishka', 'gagan.kavishka@gmail.com', 3),
+(19, 'AS20240003', 'Kasun Perera', 'kasun.perera@sjp.ac.lk', 1),
+(20, 'AS20240004', 'Amaya Fernando', 'amaya.fernando@sjp.ac.lk', 1),
+(21, 'AS20240005', 'Tharindu Silva', 'tharindu.silva@sjp.ac.lk', 3),
+(22, 'AS20240006', 'Nethmi Jayasinghe', 'nethmi.jayasinghe@sjp.ac.lk', 3);
 
 -- --------------------------------------------------------
 
@@ -221,10 +318,51 @@ INSERT INTO `student_subject` (`student_subject_id`, `student_id`, `subject_id`)
 (5, 5, 5),
 (6, 5, 6),
 (7, 5, 7),
-(8, 17, 5),
-(9, 17, 6),
-(10, 17, 7),
-(11, 17, 8);
+(8, 5, 8),
+(9, 5, 9),
+(10, 5, 10),
+(11, 5, 11),
+(12, 5, 12),
+(13, 5, 13),
+(14, 5, 14),
+(15, 5, 15),
+(16, 5, 16),
+(17, 17, 5),
+(18, 17, 6),
+(19, 17, 7),
+(20, 17, 8),
+(21, 17, 9),
+(22, 17, 10),
+(23, 17, 11),
+(24, 17, 12),
+(25, 19, 1),
+(26, 19, 2),
+(27, 19, 3),
+(28, 19, 5),
+(29, 19, 8),
+(30, 19, 9),
+(31, 19, 10),
+(32, 19, 11),
+(33, 19, 12),
+(34, 20, 1),
+(35, 20, 4),
+(36, 20, 6),
+(37, 20, 8),
+(38, 20, 10),
+(39, 20, 12),
+(40, 21, 5),
+(41, 21, 6),
+(42, 21, 7),
+(43, 21, 9),
+(44, 21, 11),
+(45, 21, 13),
+(46, 21, 14),
+(47, 22, 5),
+(48, 22, 8),
+(49, 22, 10),
+(50, 22, 12),
+(51, 22, 15),
+(52, 22, 16);
 
 -- --------------------------------------------------------
 
@@ -295,7 +433,12 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `role`) VALUES
 (14, 'dm.fernando', '123453', 'Lecturer'),
 (15, 'pn.jayasinghe', '123454', 'Lecturer'),
 (16, 'hm.wickramasinghe', '123455', 'Lecturer'),
-(17, 'gugu', 'gugu15', 'Student');
+(17, 'gugu', 'gugu15', 'Student'),
+(18, 'admin3', 'admin789', 'Admin'),
+(19, 'student2', 'stud456', 'Student'),
+(20, 'student3', 'stud789', 'Student'),
+(21, 'student4', 'stud999', 'Student'),
+(22, 'student5', 'stud555', 'Student');
 
 --
 -- Indexes for dumped tables
@@ -313,7 +456,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `attendance`
   ADD PRIMARY KEY (`attendance_id`),
-  ADD UNIQUE KEY `uq_session_student` (`session_id`,`student_id`),
+  ADD KEY `fk_attendance_session` (`session_id`),
   ADD KEY `fk_attendance_student` (`student_id`);
 
 --
@@ -337,7 +480,7 @@ ALTER TABLE `class`
 --
 ALTER TABLE `enrollment`
   ADD PRIMARY KEY (`enrollment_id`),
-  ADD UNIQUE KEY `uq_student_class` (`student_id`,`class_id`),
+  ADD KEY `fk_enrollment_student` (`student_id`),
   ADD KEY `fk_enrollment_class` (`class_id`);
 
 --
@@ -361,7 +504,7 @@ ALTER TABLE `student`
 --
 ALTER TABLE `student_subject`
   ADD PRIMARY KEY (`student_subject_id`),
-  ADD UNIQUE KEY `uq_student_subject` (`student_id`,`subject_id`),
+  ADD KEY `fk_student_subject_student` (`student_id`),
   ADD KEY `fk_student_subject_subject` (`subject_id`);
 
 --
@@ -387,13 +530,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `attendance_session`
 --
 ALTER TABLE `attendance_session`
-  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `class`
@@ -405,25 +548,25 @@ ALTER TABLE `class`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student_subject`
 --
 ALTER TABLE `student_subject`
-  MODIFY `student_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `student_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -439,23 +582,23 @@ ALTER TABLE `admin`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `fk_attendance_session` FOREIGN KEY (`session_id`) REFERENCES `attendance_session` (`session_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_attendance_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_attendance_session` FOREIGN KEY (`session_id`) REFERENCES `attendance_session` (`session_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_attendance_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `attendance_session`
 --
 ALTER TABLE `attendance_session`
-  ADD CONSTRAINT `fk_session_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_session_lecturer` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_session_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_session_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`),
+  ADD CONSTRAINT `fk_session_lecturer` FOREIGN KEY (`lecturer_id`) REFERENCES `lecturer` (`lecturer_id`),
+  ADD CONSTRAINT `fk_session_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`);
 
 --
 -- Constraints for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  ADD CONSTRAINT `fk_enrollment_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_enrollment_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_enrollment_class` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_enrollment_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `lecturer`
@@ -474,8 +617,8 @@ ALTER TABLE `student`
 -- Constraints for table `student_subject`
 --
 ALTER TABLE `student_subject`
-  ADD CONSTRAINT `fk_student_subject_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_student_subject_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_student_subject_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_student_subject_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `subject`

@@ -18,6 +18,9 @@ import com.attendance.demo.repository.LecturerRepository;
 import com.attendance.demo.repository.SubjectRepository;
 import com.attendance.demo.service.AttendanceService;
 import com.attendance.demo.service.AttendanceSessionService;
+import com.attendance.demo.entity.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/lecturer")
@@ -54,7 +57,8 @@ public class LecturerController {
     public String startSession(
             @RequestParam int subjectId,
             @RequestParam int classId,
-            Model model) {
+            Model model,
+            HttpSession httpSession) {
 
         Subject subject = subjectRepository.findById(subjectId).orElse(null);
         ClassEntity classEntity = classRepository.findById(classId).orElse(null);
@@ -70,7 +74,21 @@ public class LecturerController {
         session.setClassEntity(classEntity);
 
         // Temporary lecturer
-        Lecturer lecturer = lecturerRepository.findById(3).orElse(null);
+        User loggedUser = (User) httpSession.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/";
+        }
+
+        Lecturer lecturer = lecturerRepository
+                .findByUsername(loggedUser.getUsername())
+                .orElse(null);
+
+        if (lecturer == null) {
+            model.addAttribute("error", "Lecturer not found.");
+            return "lecturer/create_session";
+        }
+
         session.setLecturer(lecturer);
 
         session.setSessionCode(generateSessionCode());

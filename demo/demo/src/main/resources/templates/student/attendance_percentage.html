@@ -1,195 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Attendance Percentage</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/student.css">
-</head>
+    <link rel="stylesheet" href="/css/student.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="wrapper">
+      <!-- ================= Sidebar ================= -->
 
-<div class="wrapper">
-
-    <!-- ================= Sidebar ================= -->
-
-    <aside class="sidebar">
-
+      <aside class="sidebar">
         <div class="logo">
-            <img src="/images/logo.PNG" alt="Logo">
-            <h2>AMS</h2>
-            <p>Student Panel</p>
+          <img src="/images/logo.PNG" alt="Logo" />
+          <h2>AMS</h2>
+          <p>Student Panel</p>
         </div>
 
         <ul>
+          <li>
+            <a href="/student/dashboard">
+              <i class="fas fa-house"></i>
+              Dashboard
+            </a>
+          </li>
 
-            <li>
-                <a href="/student/dashboard">
-                    <i class="fas fa-house"></i>
-                    Dashboard
-                </a>
-            </li>
+          <li>
+            <a href="/student/enter_session_code">
+              <i class="fas fa-key"></i>
+              Enter Session Code
+            </a>
+          </li>
 
-            <li>
-                <a href="/student/enter_session_code">
-                    <i class="fas fa-key"></i>
-                    Enter Session Code
-                </a>
-            </li>
+          <li>
+            <a href="/student/subjects">
+              <i class="fas fa-book"></i>
+              My Subjects
+            </a>
+          </li>
 
-            <li>
-                <a href="#">
-                    <i class="fas fa-book"></i>
-                    My Subjects
-                </a>
-            </li>
+          <li>
+            <a href="/student/attendance_history">
+              <i class="fas fa-clipboard"></i>
+              Attendance History
+            </a>
+          </li>
 
-            <li>
-                <a href="/student/attendance_history">
-                    <i class="fas fa-clipboard"></i>
-                    Attendance History
-                </a>
-            </li>
+          <li class="active">
+            <a href="/student/attendance_percentage">
+              <i class="fas fa-chart-bar"></i>
+              Attendance Percentage
+            </a>
+          </li>
 
-            <li class="active">
-                <a href="/student/attendance_percentage">
-                    <i class="fas fa-chart-bar"></i>
-                    Attendance Percentage
-                </a>
-            </li>
-
-            <li>
-                <a href="/logout">
-                    <i class="fas fa-right-from-bracket"></i>
-                    Logout
-                </a>
-            </li>
-
+          <li>
+            <a href="/logout">
+              <i class="fas fa-right-from-bracket"></i>
+              Logout
+            </a>
+          </li>
         </ul>
+      </aside>
 
-    </aside>
+      <!-- ================= Main Content ================= -->
 
-    <!-- ================= Main Content ================= -->
-
-    <main class="main-content">
-
+      <main class="main-content">
         <!-- Header -->
 
         <header class="header">
-            <h1>Attendance Percentage</h1>
+          <h1>Attendance Percentage</h1>
 
-            <p>
-                Attendance Management System
-                <br>
-                University of Sri Jayewardenepura
-            </p>
-
+          <p>
+            Attendance Management System
+            <br />
+            University of Sri Jayewardenepura
+          </p>
         </header>
-
-        <!-- ================= Overall Attendance ================= -->
-
-        <section class="info-section">
-
-            <div class="info-card">
-
-                <h4>Overall Attendance</h4>
-
-                <div class="percentage-container">
-
-                    <h2 class="percentage-value">--</h2>
-
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width:0%;"></div>
-                    </div>
-
-                    <p class="percentage-text">
-                        Overall attendance will be available soon.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
 
         <!-- ================= Subject-wise Attendance ================= -->
 
         <section class="info-section">
+          <div class="info-card">
+            <h4>Attendance by Subject</h4>
 
-            <div class="info-card">
+            <table>
+              <tr>
+                <th>Subject</th>
+                <th>Total Sessions</th>
+                <th>Present</th>
+                <th>Percentage</th>
+              </tr>
 
-                <h4>Attendance by Subject</h4>
+              <tr th:if="${#lists.isEmpty(percentageList)}">
+                <td colspan="4" style="text-align: center">
+                  No attendance records found.
+                </td>
+              </tr>
 
-                <table>
-
-                    <tr>
-                        <th>Subject</th>
-                        <th>Total Sessions</th>
-                        <th>Present</th>
-                        <th>Percentage</th>
-                    </tr>
-
-                    <tr th:if="${#lists.isEmpty(percentageList)}">
-                        <td colspan="4" style="text-align:center;">
-                            No attendance records found.
-                        </td>
-                    </tr>
-
-                    <tr th:each="item : ${percentageList}">
-                        <td th:text="${item.subjectName}"></td>
-                        <td th:text="${item.totalSessions}"></td>
-                        <td th:text="${item.presentCount}"></td>
-                        <td th:text="${#numbers.formatDecimal(item.percentage,1,2)} + '%'"></td>
-                    </tr>
-
-                </table>
-
-            </div>
-
-        </section>
-
-        <!-- ================= Attendance Status ================= -->
-
-        <section class="info-section">
-
-            <div class="info-card">
-
-                <h4>Attendance Status</h4>
-
-                <div class="status-container">
-
-                    <span class="eligible">
-                        <i class="fas fa-circle-check"></i>
-                        Eligible for Final Examination
-                    </span>
-
-                </div>
-
-            </div>
-
+              <tr th:each="item : ${percentageList}">
+                <td th:text="${item.subjectName}"></td>
+                <td th:text="${item.totalSessions}"></td>
+                <td th:text="${item.presentCount}"></td>
+                <td
+                  th:text="${#numbers.formatDecimal(item.percentage,1,2)} + '%'"
+                ></td>
+              </tr>
+            </table>
+          </div>
         </section>
 
         <!-- Footer -->
 
         <footer>
-            © 2026 Attendance Management System |
-            Department of Computer Science | USJ
+          © 2026 Attendance Management System | Department of Computer Science |
+          USJ
         </footer>
+      </main>
+    </div>
 
-    </main>
-
-</div>
-
-<script src="/js/student.js"></script>
-
-</body>
-
+    <script src="/js/student.js"></script>
+  </body>
 </html>

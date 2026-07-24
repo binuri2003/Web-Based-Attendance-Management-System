@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.attendance.demo.dto.LoginRequest;
 import com.attendance.demo.entity.User;
@@ -22,7 +23,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody LoginRequest request,
-                                     HttpSession session) {
+            HttpSession session) {
 
         User user = loginService.login(
                 request.getUsername(),
@@ -44,5 +45,4 @@ public class LoginController {
 
         return response;
     }
-
 }
