@@ -13,16 +13,20 @@ import com.attendance.demo.entity.Student;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
 
-    // Your methods
+
     Optional<Attendance> findByAttendanceSessionSessionIdAndStudentUserId(
             Integer sessionId,
             Integer userId);
 
     List<Attendance> findByStudentUserId(Integer userId);
 
+    List<Attendance> findByStudentUserIdAndAttendanceSessionSubjectSubjectId(
+        Integer userId,
+        Integer subjectId);
+
     List<Attendance> findByAttendanceSessionSessionId(Integer sessionId);
 
-    // Partner's methods (updated to match attendanceSession field)
+
     List<Attendance> findByStudent(Student student);
 
     List<Attendance> findByAttendanceSession(AttendanceSession attendanceSession);

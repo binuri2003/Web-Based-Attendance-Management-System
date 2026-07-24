@@ -95,15 +95,21 @@
           <div class="info-card">
             <h4>Filter Attendance Records</h4>
 
-            <form>
+            <form th:action="@{/student/attendance_history}" method="get">
               <div class="form-group">
                 <label>Select Subject</label>
 
-                <select name="subject">
-                  <option>All Subjects</option>
-                  <option>Object Oriented Programming</option>
-                  <option>Database Management Systems</option>
-                  <option>Statistics</option>
+                <select name="subjectId">
+                  <option value="" th:selected="${selectedSubject == null}">
+                    All Subjects
+                  </option>
+
+                  <option
+                    th:each="studentSubject : ${subjectList}"
+                    th:value="${studentSubject.subject.subjectId}"
+                    th:text="${studentSubject.subject.subjectName}"
+                    th:selected="${selectedSubject == studentSubject.subject.subjectId}"
+                  ></option>
                 </select>
               </div>
 
@@ -179,26 +185,34 @@
 
               <tr>
                 <td>Total Sessions</td>
-                <td>15</td>
+                <td th:text="${totalSessions}"></td>
               </tr>
 
               <tr>
                 <td>Present</td>
                 <td>
-                  <span class="present"> 13 Sessions </span>
+                  <span
+                    class="present"
+                    th:text="${presentSessions + ' Sessions'}"
+                  ></span>
                 </td>
               </tr>
 
               <tr>
                 <td>Absent</td>
                 <td>
-                  <span class="absent"> 2 Sessions </span>
+                  <span
+                    class="absent"
+                    th:text="${absentSessions + ' Sessions'}"
+                  ></span>
                 </td>
               </tr>
 
               <tr>
                 <td>Attendance Percentage</td>
-                <td>86.67%</td>
+                <td
+                  th:text="${#numbers.formatDecimal(attendancePercentage,1,2) + '%'}"
+                ></td>
               </tr>
             </table>
           </div>

@@ -45,6 +45,11 @@ public class AttendanceService {
         return attendanceRepository.findByStudentUserId(userId);
     }
 
+    public List<Attendance> getAttendanceByStudentAndSubject(Integer userId, Integer subjectId) {
+    return attendanceRepository.findByStudentUserIdAndAttendanceSessionSubjectSubjectId(
+            userId, subjectId);
+    }
+
     public List<AttendancePercentageDTO> getAttendancePercentage(Integer userId) {
 
         List<Attendance> attendanceList = attendanceRepository.findByStudentUserId(userId);

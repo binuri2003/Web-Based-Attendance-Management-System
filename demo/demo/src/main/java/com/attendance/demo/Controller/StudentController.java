@@ -52,7 +52,10 @@ public class StudentController {
     }
 
     @GetMapping("/student/attendance_history")
-    public String attendanceHistory(HttpSession session, Model model) {
+    public String attendanceHistory(
+            @RequestParam(required = false) Integer subjectId,
+            HttpSession session,
+            Model model) {
 
         User loggedUser = (User) session.getAttribute("loggedUser");
 
@@ -60,9 +63,37 @@ public class StudentController {
             return "redirect:/";
         }
 
-        List<Attendance> attendanceList = attendanceService.getAttendanceByStudent(loggedUser.getUserId());
+        List<StudentSubject> subjectList = studentSubjectRepository.findByStudent_UserId(loggedUser.getUserId());
+
+        model.addAttribute("subjectList", subjectList);
+
+        List<Attendance> attendanceList;
+
+        if (subjectId == null) {
+            attendanceList = attendanceService.getAttendanceByStudent(loggedUser.getUserId());
+        } else {
+            attendanceList = attendanceService.getAttendanceByStudentAndSubject(
+                    loggedUser.getUserId(), subjectId);
+        }
 
         model.addAttribute("attendanceList", attendanceList);
+
+        int total = attendanceList.size();
+
+        long present = attendanceList.stream()
+                .filter(a -> a.getStatus().name().equals("Present"))
+                .count();
+
+        long absent = total - present;
+
+        double percentage = total == 0 ? 0 : (present * 100.0) / total;
+
+        model.addAttribute("totalSessions", total);
+        model.addAttribute("presentSessions", present);
+        model.addAttribute("absentSessions", absent);
+        model.addAttribute("attendancePercentage", percentage);
+
+        model.addAttribute("selectedSubject", subjectId);
 
         return "student/attendance_history";
     }
