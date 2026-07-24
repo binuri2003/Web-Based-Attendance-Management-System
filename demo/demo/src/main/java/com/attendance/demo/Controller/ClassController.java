@@ -1,8 +1,5 @@
 package com.attendance.demo.Controller;
 
-
-
-
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -20,103 +17,67 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attendance.demo.entity.ClassEntity;
 import com.attendance.demo.service.ClassService;
 
-
-
 @RestController
 @RequestMapping("/api/classes")
 @CrossOrigin
 public class ClassController {
 
-
     private final ClassService classService;
 
-
-
-    public ClassController(ClassService classService){
+    public ClassController(ClassService classService) {
 
         this.classService = classService;
 
     }
 
-
-
-
-    // Get all classes
-
     @GetMapping
-    public List<ClassEntity> getAll(){
+    public List<ClassEntity> getAll() {
 
         return classService.getAllClasses();
 
     }
 
-
-
-
-    // Search/filter
-
     @GetMapping("/search")
     public List<ClassEntity> search(
 
-            @RequestParam(required=false) String name,
+            @RequestParam(required = false) String name,
 
-            @RequestParam(required=false) Integer year,
+            @RequestParam(required = false) Integer year,
 
-            @RequestParam(required=false) String stream
+            @RequestParam(required = false) String stream
 
-    ){
+    ) {
 
         return classService.searchClass(
                 name,
                 year,
-                stream
-        );
+                stream);
 
     }
 
-
-
-
-    // View single class
-
     @GetMapping("/{id}")
     public ResponseEntity<ClassEntity> getById(
-            @PathVariable Integer id
-    ){
+            @PathVariable Integer id) {
 
-        ClassEntity cls =
-                classService.getClassById(id);
+        ClassEntity cls = classService.getClassById(id);
 
-
-        if(cls == null){
+        if (cls == null) {
 
             return ResponseEntity.notFound().build();
 
         }
 
-
         return ResponseEntity.ok(cls);
 
     }
 
-
-
-
-    // Add
-
     @PostMapping
     public ClassEntity add(
-            @RequestBody ClassEntity classEntity
-    ){
+            @RequestBody ClassEntity classEntity) {
 
         return classService.saveClass(classEntity);
 
     }
-
-
-
-
-    // Edit
 
     @PutMapping("/{id}")
     public ResponseEntity<ClassEntity> update(
@@ -125,48 +86,34 @@ public class ClassController {
 
             @RequestBody ClassEntity classEntity
 
-    ){
+    ) {
 
+        ClassEntity updated = classService.updateClass(
+                id,
+                classEntity);
 
-        ClassEntity updated =
-                classService.updateClass(
-                        id,
-                        classEntity
-                );
-
-
-        if(updated == null){
+        if (updated == null) {
 
             return ResponseEntity.notFound().build();
 
         }
 
-
         return ResponseEntity.ok(updated);
 
     }
-
-
-
-
-
-    // Delete
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(
 
             @PathVariable Integer id
 
-    ){
+    ) {
 
         classService.deleteClass(id);
 
-
         return ResponseEntity.ok(
-                "Class deleted successfully"
-        );
+                "Class deleted successfully");
 
     }
-
 
 }

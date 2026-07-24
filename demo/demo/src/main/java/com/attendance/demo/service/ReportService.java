@@ -23,13 +23,9 @@ import com.attendance.demo.repository.SubjectRepository;
 public class ReportService {
 
     private final AttendanceRepository attendanceRepository;
-
     private final AttendanceSessionRepository sessionRepository;
-
     private final StudentRepository studentRepository;
-
     private final StudentSubjectRepository studentSubjectRepository;
-
     private final SubjectRepository subjectRepository;
 
     public ReportService(
@@ -44,13 +40,9 @@ public class ReportService {
         this.studentRepository = studentRepository;
         this.studentSubjectRepository = studentSubjectRepository;
         this.subjectRepository = subjectRepository;
-
     }
 
-    // =================================================
-    // 1. STUDENT ATTENDANCE REPORT
-    // =================================================
-
+    // Student Report
     public List<StudentAttendanceReportResponse> getStudentAttendanceReport(
             String keyword,
             Integer subjectId) {
@@ -63,149 +55,98 @@ public class ReportService {
                         keyword,
                         keyword);
 
+        Subject subject = subjectRepository.findById(subjectId).orElse(null);
+
         for (Student student : students) {
 
-            List<Attendance> attendanceList = attendanceRepository.findByStudentAndAttendanceSession_Subject_SubjectId(
-                    student,
-                    subjectId);
+            List<Attendance> attendanceList =
+                    attendanceRepository.findByStudentAndAttendanceSession_Subject_SubjectId(
+                            student,
+                            subjectId);
 
             int present = 0;
-
             int absent = 0;
 
             for (Attendance attendance : attendanceList) {
 
                 if (attendance.getStatus().toString().equals("Present")) {
-
                     present++;
-
-                } else if (attendance.getStatus().toString().equals("Absent")) {
-
+                } else {
                     absent++;
-
                 }
-
             }
 
             int total = present + absent;
 
-            double percentage = 0;
-
-            if (total > 0) {
-
-                percentage = ((double) present / total) * 100;
-
-            }
-
-            Subject subject = subjectRepository
-                    .findById(subjectId)
-                    .get();
+            double percentage = total == 0
+                    ? 0
+                    : (present * 100.0) / total;
 
             result.add(
-
                     new StudentAttendanceReportResponse(
-
                             student.getRegistrationNo(),
-
                             student.getStudentName(),
-
-                            subject.getSubjectCode()
-                                    + " - " +
-                                    subject.getSubjectName(),
-
+                            subject == null
+                                    ? ""
+                                    : subject.getSubjectCode() + " - " + subject.getSubjectName(),
                             present,
-
                             absent,
-
                             total,
-
-                            percentage
-
-                    )
-
-            );
-
+                            percentage));
         }
 
         return result;
-
     }
 
-    // =================================================
-    // 2. SUBJECT WISE ATTENDANCE REPORT
-    // =================================================
-
-    public List<SubjectAttendanceReportResponse> getSubjectAttendanceReport(Integer subjectId) {
+    // Subject Report
+    public List<SubjectAttendanceReportResponse> getSubjectAttendanceReport(
+            Integer subjectId) {
 
         List<SubjectAttendanceReportResponse> result = new ArrayList<>();
 
-        List<StudentSubject> students = studentSubjectRepository
-                .findBySubject_SubjectId(subjectId);
+        List<StudentSubject> students =
+                studentSubjectRepository.findBySubject_SubjectId(subjectId);
 
         for (StudentSubject studentSubject : students) {
 
             Student student = studentSubject.getStudent();
 
-            List<Attendance> attendanceList = attendanceRepository.findByStudentAndAttendanceSession_Subject_SubjectId(
-                    student,
-                    subjectId);
+            List<Attendance> attendanceList =
+                    attendanceRepository.findByStudentAndAttendanceSession_Subject_SubjectId(
+                            student,
+                            subjectId);
 
             int present = 0;
-
             int absent = 0;
 
             for (Attendance attendance : attendanceList) {
 
                 if (attendance.getStatus().toString().equals("Present")) {
-
                     present++;
-
-                } else if (attendance.getStatus().toString().equals("Absent")) {
-
+                } else {
                     absent++;
-
                 }
-
             }
 
             int total = present + absent;
 
-            double percentage = 0;
-
-            if (total > 0) {
-
-                percentage = ((double) present / total) * 100;
-
-            }
+            double percentage = total == 0
+                    ? 0
+                    : (present * 100.0) / total;
 
             result.add(
-
                     new SubjectAttendanceReportResponse(
-
                             student.getStudentName(),
-
                             student.getRegistrationNo(),
-
                             present,
-
                             absent,
-
-                            percentage
-
-                    )
-
-            );
-
+                            percentage));
         }
 
         return result;
-
     }
 
-    // =================================================
-    // 3. SUBJECT SESSION REPORT
-    // =================================================
-
+    // Session Report
     public List<SubjectSessionReportResponse> getSubjectSessionReport() {
 
         List<SubjectSessionReportResponse> result = new ArrayList<>();
@@ -214,39 +155,24 @@ public class ReportService {
 
         for (Subject subject : subjects) {
 
-            List<AttendanceSession> sessions = sessionRepository
-                    .findBySubject_SubjectId(
+            List<AttendanceSession> sessions =
+                    sessionRepository.findBySubject_SubjectId(
                             subject.getSubjectId());
 
             String lecturer = "Not Assigned";
 
             if (subject.getLecturer() != null) {
-
-                lecturer = subject.getLecturer()
-                        .getLecturerName();
-
+                lecturer = subject.getLecturer().getLecturerName();
             }
 
             result.add(
-
                     new SubjectSessionReportResponse(
-
                             subject.getSubjectCode(),
-
                             subject.getSubjectName(),
-
                             lecturer,
-
-                            sessions.size()
-
-                    )
-
-            );
-
+                            sessions.size()));
         }
 
         return result;
-
     }
-
 }

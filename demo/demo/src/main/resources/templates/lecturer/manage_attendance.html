@@ -30,7 +30,9 @@
         <nav>
           <ul>
             <li>
-              <a href="/lecturer/dashboard"> <i class="fas fa-house"></i>  Dashboard </a>
+              <a href="/lecturer/dashboard">
+                <i class="fas fa-house"></i> Dashboard
+              </a>
             </li>
 
             <li>
@@ -40,15 +42,21 @@
             </li>
 
             <li class="active">
-              <a href="/lecturer/manage_attendance"> <i class="fas fa-user-check"></i> Manage Attendance </a>
+              <a href="/lecturer/manage_attendance">
+                <i class="fas fa-user-check"></i> Manage Attendance
+              </a>
             </li>
 
             <li>
-              <a href="/lecturer/view_attendance"> <i class="fas fa-clipboard-list"></i> View Attendance </a>
+              <a href="/lecturer/view_attendance">
+                <i class="fas fa-clipboard-list"></i> View Attendance
+              </a>
             </li>
 
             <li>
-              <a href="/logout"> <i class="fas fa-right-from-bracket"></i> Logout </a>
+              <a href="/logout">
+                <i class="fas fa-right-from-bracket"></i> Logout
+              </a>
             </li>
           </ul>
         </nav>
@@ -71,43 +79,75 @@
 
             <br />
 
-            <table>
-              <tr>
-                <td>Subject</td>
+            <form th:action="@{/lecturer/manage_attendance}" method="get">
+              <table>
+                <tr>
+                  <td>Subject</td>
 
-                <td>
-                  <select>
-                    <option>Object Oriented Programming</option>
-                    <option>Database Systems</option>
-                  </select>
-                </td>
-              </tr>
+                  <td>
+                    <select
+                      class="attendance-select"
+                      name="subjectId"
+                      onchange="this.form.submit()"
+                    >
+                      <option value="">Select Subject</option>
 
-              <tr>
-                <td>Class</td>
+                      <option
+                        th:each="subject : ${subjectList}"
+                        th:value="${subject.subjectId}"
+                        th:text="${subject.subjectCode + ' - ' + subject.subjectName}"
+                        th:selected="${subject.subjectId == selectedSubject}"
+                      ></option>
+                    </select>
+                  </td>
+                </tr>
 
-                <td>
-                  <select>
-                    <option>Y2S1</option>
-                  </select>
-                </td>
-              </tr>
+                <tr>
+                  <td>Class</td>
 
-              <tr>
-                <td>Session</td>
+                  <td>
+                    <select
+                      class="attendance-select"
+                      name="classId"
+                      onchange="this.form.submit()"
+                    >
+                      <option value="">Select Class</option>
 
-                <td>
-                  <select>
-                    <option>Session 01</option>
-                    <option>Session 02</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
+                      <option
+                        th:each="classItem : ${classList}"
+                        th:value="${classItem.classId}"
+                        th:text="${classItem.className}"
+                        th:selected="${classItem.classId == selectedClass}"
+                      ></option>
+                    </select>
+                  </td>
+                </tr>
 
-            <br />
+                <tr>
+                  <td>Session</td>
 
-            <button>Load Attendance</button>
+                  <td>
+                    <select class="attendance-select" name="sessionId">
+                      <option value="">Select Session</option>
+
+                      <option
+                        th:each="attendanceSession : ${sessionList}"
+                        th:value="${attendanceSession.sessionId}"
+                        th:selected="${attendanceSession.sessionId == selectedSession}"
+                        th:text="${attendanceSession.subject.subjectCode + ' | ' +
+                                    attendanceSession.classEntity.className + ' | ' +
+                                    attendanceSession.sessionDate + ' | ' +
+                                    attendanceSession.sessionCode}"
+                      ></option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+
+              <br />
+
+              <button type="submit">Load Attendance</button>
+            </form>
           </div>
         </section>
 
@@ -117,7 +157,7 @@
           <div class="card">
             <div class="icon">✅</div>
 
-            <h3>35</h3>
+            <h3 th:text="${presentCount}"></h3>
 
             <p>Present</p>
           </div>
@@ -125,7 +165,7 @@
           <div class="card">
             <div class="icon">❌</div>
 
-            <h3>4</h3>
+            <h3 th:text="${absentCount}"></h3>
 
             <p>Absent</p>
           </div>
@@ -133,8 +173,7 @@
           <div class="card">
             <div class="icon">⏳</div>
 
-            <h3>2</h3>
-
+            <h3 th:text="${pendingCount}"></h3>
             <p>Pending</p>
           </div>
         </section>
@@ -147,110 +186,81 @@
 
             <br />
 
-            <table>
-              <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Current Status</th>
-                <th>Change Status</th>
-              </tr>
+            <form th:action="@{/lecturer/save-attendance}" method="post">
+              <input
+                type="hidden"
+                name="sessionId"
+                th:value="${selectedSession}"
+              />
 
-              <tr>
-                <td>IT220001</td>
+              <table>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Student Name</th>
+                  <th>Current Status</th>
+                  <th>Change Status</th>
+                </tr>
 
-                <td>John Silva</td>
+                <tr th:if="${#lists.isEmpty(attendanceList)}">
+                  <td colspan="4" style="text-align: center">
+                    No attendance records found.
+                  </td>
+                </tr>
 
-                <td>
-                  <span class="status present">Present</span>
-                </td>
+                <tr th:each="attendance : ${attendanceList}">
+                  <input
+                    type="hidden"
+                    name="attendanceIds"
+                    th:value="${attendance.attendanceId}"
+                  />
 
-                <td>
-                  <select>
-                    <option selected>Present</option>
-                    <option>Absent</option>
-                    <option>Pending</option>
-                  </select>
-                </td>
-              </tr>
+                  <td th:text="${attendance.student.registrationNo}"></td>
 
-              <tr>
-                <td>IT220002</td>
+                  <td th:text="${attendance.student.studentName}"></td>
 
-                <td>Jane Perera</td>
+                  <td>
+                    <span class="status" th:text="${attendance.status}"> </span>
+                  </td>
 
-                <td>
-                  <span class="status pending">Pending</span>
-                </td>
+                  <td>
+                    <select class="status-select" name="statuses">
+                      <option
+                        value="Present"
+                        th:selected="${attendance.status.name()=='Present'}"
+                      >
+                        Present
+                      </option>
 
-                <td>
-                  <select>
-                    <option>Present</option>
-                    <option>Absent</option>
-                    <option selected>Pending</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>IT220003</td>
+                      <option
+                        value="Absent"
+                        th:selected="${attendance.status.name()=='Absent'}"
+                      >
+                        Absent
+                      </option>
 
-                <td>Kasun Fernando</td>
+                      <option
+                        value="Pending"
+                        th:selected="${attendance.status.name()=='Pending'}"
+                      >
+                        Pending
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
 
-                <td>
-                  <span class="status absent">Absent</span>
-                </td>
+              <br />
 
-                <td>
-                  <select>
-                    <option>Present</option>
-                    <option selected>Absent</option>
-                    <option>Pending</option>
-                  </select>
-                </td>
-              </tr>
+              <div style="display: flex; gap: 15px">
+                <button type="submit">💾 Save Changes</button>
 
-              <tr>
-                <td>IT220004</td>
-
-                <td>Nimal Perera</td>
-
-                <td>Present</td>
-
-                <td>
-                  <select>
-                    <option selected>Present</option>
-                    <option>Absent</option>
-                    <option>Pending</option>
-                  </select>
-                </td>
-              </tr>
-
-              <tr>
-                <td>IT220005</td>
-
-                <td>Sachini Fernando</td>
-
-                <td>Pending</td>
-
-                <td>
-                  <select>
-                    <option>Present</option>
-                    <option>Absent</option>
-                    <option selected>Pending</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-
-            <br />
-
-            <div style="display: flex; gap: 15px">
-              <button>💾 Save Changes</button>
-
-              <button>❌ Cancel</button>
-            </div>
+                <button type="button" onclick="window.location.reload()">
+                  ❌ Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </section>
-
         <footer>
           © 2026 Attendance Management System | Department of Computer Science |
           University of Sri Jayewardenepura

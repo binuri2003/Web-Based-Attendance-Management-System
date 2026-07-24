@@ -13,4 +13,8 @@ public interface AttendanceSessionRepository extends JpaRepository<AttendanceSes
     AttendanceSession findBySessionCode(String sessionCode);
 
     List<AttendanceSession> findBySubject_SubjectId(Integer subjectId);
+
+    List<AttendanceSession> findBySubject_SubjectIdAndClassEntity_ClassId(
+        Integer subjectId,
+        Integer classId);
 }

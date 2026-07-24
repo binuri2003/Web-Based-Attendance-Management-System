@@ -1,6 +1,8 @@
 package com.attendance.demo.Controller;
 
 import java.util.Random;
+import java.util.List; 
+import java.util.ArrayList; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import com.attendance.demo.repository.SubjectRepository;
 import com.attendance.demo.service.AttendanceService;
 import com.attendance.demo.service.AttendanceSessionService;
 import com.attendance.demo.entity.User;
+import com.attendance.demo.repository.AttendanceSessionRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -41,16 +44,42 @@ public class LecturerController {
     @Autowired
     private AttendanceService attendanceService;
 
+    @Autowired
+    private AttendanceSessionRepository attendanceSessionRepository;
+
     @GetMapping("/dashboard")
     public String lecturerDashboard() {
         return "lecturer/dashboard";
     }
 
     @GetMapping("/create_session")
-    public String createSessionPage() {
+    public String createSessionPage(Model model, HttpSession httpSession) {
+
+        User loggedUser = (User) httpSession.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/";
+        }
+
+        Lecturer lecturer = lecturerRepository
+                .findByUsername(loggedUser.getUsername())
+                .orElse(null);
+
+        if (lecturer == null) {
+            return "redirect:/";
+        }
+
+        // Show all subjects
+        model.addAttribute(
+                "subjectList",
+                subjectRepository.findAll());
+
+        // Show all classes
+        model.addAttribute(
+                "classList",
+                classRepository.findAll());
 
         return "lecturer/create_session";
-
     }
 
     @PostMapping("/start-session")
@@ -134,9 +163,70 @@ public class LecturerController {
     }
 
     @GetMapping("/manage_attendance")
-    public String manageAttendance() {
-        return "lecturer/manage_attendance";
+public String manageAttendance(
+
+        @RequestParam(required = false) Integer subjectId,
+        @RequestParam(required = false) Integer classId,
+        @RequestParam(required = false) Integer sessionId,
+
+        Model model) {
+
+    // Load dropdowns
+    model.addAttribute("subjectList", subjectRepository.findAll());
+    model.addAttribute("classList", classRepository.findAll());
+
+    // Load sessions
+    if (subjectId != null && classId != null) {
+        model.addAttribute(
+                "sessionList",
+                attendanceSessionRepository
+                        .findBySubject_SubjectIdAndClassEntity_ClassId(
+                                subjectId,
+                                classId));
+    } else {
+        model.addAttribute("sessionList", java.util.Collections.emptyList());
     }
+
+    // Remember selected values
+    model.addAttribute("selectedSubject", subjectId);
+    model.addAttribute("selectedClass", classId);
+    model.addAttribute("selectedSession", sessionId);
+
+    // Load attendance
+    if (sessionId != null) {
+
+        List<Attendance> attendanceList =
+                attendanceService.getAttendanceBySession(sessionId);
+
+        model.addAttribute("attendanceList", attendanceList);
+
+        long present = attendanceList.stream()
+                .filter(a -> a.getStatus() == AttendanceStatus.Present)
+                .count();
+
+        long absent = attendanceList.stream()
+                .filter(a -> a.getStatus() == AttendanceStatus.Absent)
+                .count();
+
+        long pending = attendanceList.stream()
+                .filter(a -> a.getStatus() == AttendanceStatus.Pending)
+                .count();
+
+        model.addAttribute("presentCount", present);
+        model.addAttribute("absentCount", absent);
+        model.addAttribute("pendingCount", pending);
+
+    } else {
+
+        model.addAttribute("attendanceList", java.util.Collections.emptyList());
+
+        model.addAttribute("presentCount", 0);
+        model.addAttribute("absentCount", 0);
+        model.addAttribute("pendingCount", 0);
+    }
+
+    return "lecturer/manage_attendance";
+}
 
     @GetMapping("/view_attendance")
     public String viewAttendance(Model model) {
@@ -180,5 +270,33 @@ public class LecturerController {
 
         return "redirect:/lecturer/view_attendance";
     }
+
+    @PostMapping("/save-attendance")
+public String saveAttendance(
+
+        @RequestParam Integer sessionId,
+
+        @RequestParam("attendanceIds") List<Integer> attendanceIds,
+
+        @RequestParam("statuses") List<AttendanceStatus> statuses) {
+
+    for (int i = 0; i < attendanceIds.size(); i++) {
+
+        attendanceService.updateAttendance(
+                attendanceIds.get(i),
+                statuses.get(i));
+
+    }
+
+    AttendanceSession session =
+            attendanceSessionService.getSessionById(sessionId);
+
+    return "redirect:/lecturer/manage_attendance?subjectId="
+            + session.getSubject().getSubjectId()
+            + "&classId="
+            + session.getClassEntity().getClassId()
+            + "&sessionId="
+            + sessionId;
+}
 
 }

@@ -27,20 +27,12 @@ public class StudentsController {
     @Autowired
     private StudentService studentService;
 
-    // ============================
-    // GET ALL STUDENTS
-    // ============================
-
     @GetMapping
     public List<StudentResponse> getAllStudents() {
 
         return studentService.getAllStudents();
 
     }
-
-    // ============================
-    // ADD STUDENT
-    // ============================
 
     @PostMapping
     public Student addStudent(
@@ -49,10 +41,6 @@ public class StudentsController {
         return studentService.addStudent(request);
 
     }
-
-    // ============================
-    // UPDATE STUDENT
-    // ============================
 
     @PutMapping("/{id}")
     public Student updateStudent(
@@ -65,10 +53,6 @@ public class StudentsController {
 
     }
 
-    // ============================
-    // DELETE STUDENT
-    // ============================
-
     @DeleteMapping("/{id}")
     public String deleteStudent(
             @PathVariable Integer id) {
@@ -79,10 +63,6 @@ public class StudentsController {
 
     }
 
-    // ============================
-    // SEARCH NAME / REGISTRATION / USERNAME
-    // ============================
-
     @GetMapping("/search")
     public List<StudentResponse> searchStudents(
             @RequestParam String keyword) {
@@ -91,10 +71,6 @@ public class StudentsController {
                 keyword);
 
     }
-
-    // ============================
-    // SEARCH BY CLASS
-    // ============================
 
     @GetMapping("/search/class")
     public List<StudentResponse> searchByClass(
@@ -105,10 +81,6 @@ public class StudentsController {
 
     }
 
-    // ============================
-    // SEARCH BY STREAM
-    // ============================
-
     @GetMapping("/search/stream")
     public List<StudentResponse> searchByStream(
             @RequestParam String stream) {
@@ -117,7 +89,5 @@ public class StudentsController {
                 stream);
 
     }
-
-    
 
 }

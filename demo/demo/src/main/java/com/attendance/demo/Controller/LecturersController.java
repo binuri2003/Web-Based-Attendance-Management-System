@@ -1,8 +1,5 @@
 package com.attendance.demo.Controller;
 
-
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,54 +20,32 @@ import com.attendance.demo.dto.LecturerResponse;
 import com.attendance.demo.entity.Lecturer;
 import com.attendance.demo.service.LecturerService;
 
-
-
 @RestController
 @RequestMapping("/api/lecturers")
 @CrossOrigin
 public class LecturersController {
 
-
-
     @Autowired
     private LecturerService lecturerService;
 
-
-
-
-
-    // GET ALL LECTURERS
-
     @GetMapping
-    public List<LecturerResponse> getAllLecturers(){
+    public List<LecturerResponse> getAllLecturers() {
 
         return lecturerService.getAllLecturers();
 
     }
 
-
-
-
-
-
-    // ADD LECTURER
-
     @PostMapping
     public ResponseEntity<?> addLecturer(
-            @RequestBody LecturerRequest request
-    ){
+            @RequestBody LecturerRequest request) {
 
-        try{
+        try {
 
-            Lecturer lecturer =
-                    lecturerService.addLecturer(request);
-
+            Lecturer lecturer = lecturerService.addLecturer(request);
 
             return ResponseEntity.ok(lecturer);
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
             return ResponseEntity
                     .badRequest()
@@ -79,31 +54,19 @@ public class LecturersController {
         }
 
     }
-
-
-
-
-
-
-    // UPDATE LECTURER
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateLecturer(
             @PathVariable Integer id,
-            @RequestBody LecturerRequest request
-    ){
+            @RequestBody LecturerRequest request) {
 
-        try{
+        try {
 
-            Lecturer lecturer =
-                    lecturerService.updateLecturer(id, request);
-
+            Lecturer lecturer = lecturerService.updateLecturer(id, request);
 
             return ResponseEntity.ok(lecturer);
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
             return ResponseEntity
                     .badRequest()
@@ -112,32 +75,19 @@ public class LecturersController {
         }
 
     }
-
-
-
-
-
-
-
-    // DELETE LECTURER
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteLecturer(
-            @PathVariable Integer id
-    ){
+            @PathVariable Integer id) {
 
-        try{
+        try {
 
             lecturerService.deleteLecturer(id);
 
-
             return ResponseEntity.ok(
-                    "Lecturer deleted successfully"
-            );
+                    "Lecturer deleted successfully");
 
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
             return ResponseEntity
                     .badRequest()
@@ -147,39 +97,20 @@ public class LecturersController {
 
     }
 
-
-
-
-
-
-
-    // SEARCH LECTURER
-
     @GetMapping("/search")
     public List<LecturerResponse> searchLecturer(
-            @RequestParam String keyword
-    ){
+            @RequestParam String keyword) {
 
         return lecturerService.searchLecturer(keyword);
 
     }
 
-
-
-
-
-
-
-    // SEARCH BY SUBJECT
-
     @GetMapping("/search/subject")
     public List<LecturerResponse> searchBySubject(
-            @RequestParam String subject
-    ){
+            @RequestParam String subject) {
 
         return lecturerService.searchBySubject(subject);
 
     }
-
 
 }

@@ -1,101 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("Admin Dashboard Loaded Successfully");
 
-    // -------------------------------
-    // Welcome message
-    // -------------------------------
-    console.log("Admin Dashboard Loaded Successfully");
+  const currentPage = window.location.pathname;
+  const menuLinks = document.querySelectorAll(".menu a");
 
-    // -------------------------------
-    // Highlight active menu
-    // -------------------------------
-    const currentPage = window.location.pathname;
-    const menuLinks = document.querySelectorAll(".menu a");
+  menuLinks.forEach((link) => {
+    if (link.getAttribute("href") === currentPage) {
+      link.parentElement.classList.add("active");
+    }
+  });
 
-    menuLinks.forEach(link => {
+  const cards = document.querySelectorAll(".dashboard-card");
 
-        if (link.getAttribute("href") === currentPage) {
-            link.parentElement.classList.add("active");
-        }
-
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      card.style.transform = "translateY(-8px)";
     });
 
-    // -------------------------------
-    // Card hover animation
-    // -------------------------------
-    const cards = document.querySelectorAll(".dashboard-card");
-
-    cards.forEach(card => {
-
-        card.addEventListener("mouseenter", () => {
-
-            card.style.transform = "translateY(-8px)";
-
-        });
-
-        card.addEventListener("mouseleave", () => {
-
-            card.style.transform = "translateY(0px)";
-
-        });
-
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translateY(0px)";
     });
+  });
 
-    // -------------------------------
-    // Logout confirmation
-    // -------------------------------
-    const logoutButtons = document.querySelectorAll('a[href="/logout"]');
+  const logoutButtons = document.querySelectorAll('a[href="/logout"]');
 
-    logoutButtons.forEach(logoutBtn => {
+  logoutButtons.forEach((logoutBtn) => {
+    logoutBtn.addEventListener("click", function (event) {
+      event.preventDefault();
 
-        logoutBtn.addEventListener("click", function (event) {
+      const confirmLogout = confirm("Are you sure you want to logout?");
 
-            event.preventDefault();
+      if (confirmLogout) {
+        fetch("/logout", {
+          method: "GET",
+        })
+          .then(() => {
+            window.location.replace("/");
+          })
+          .catch((error) => {
+            console.error("Logout Error:", error);
 
-            const confirmLogout = confirm("Are you sure you want to logout?");
-
-            if (confirmLogout) {
-
-                fetch("/logout", {
-                    method: "GET"
-                })
-                .then(() => {
-
-                    window.location.replace("/");
-
-                })
-                .catch(error => {
-
-                    console.error("Logout Error:", error);
-
-                    window.location.replace("/");
-
-                });
-
-            }
-
-        });
-
+            window.location.replace("/");
+          });
+      }
     });
+  });
 
-    // -------------------------------
-    // Button click effect
-    // -------------------------------
-    const buttons = document.querySelectorAll(".btn");
+  const buttons = document.querySelectorAll(".btn");
 
-    buttons.forEach(button => {
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      this.style.opacity = "0.8";
 
-        button.addEventListener("click", function () {
-
-            this.style.opacity = "0.8";
-
-            setTimeout(() => {
-
-                this.style.opacity = "1";
-
-            }, 150);
-
-        });
-
+      setTimeout(() => {
+        this.style.opacity = "1";
+      }, 150);
     });
-
+  });
 });

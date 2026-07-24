@@ -46,8 +46,8 @@ public class AttendanceService {
     }
 
     public List<Attendance> getAttendanceByStudentAndSubject(Integer userId, Integer subjectId) {
-    return attendanceRepository.findByStudentUserIdAndAttendanceSessionSubjectSubjectId(
-            userId, subjectId);
+        return attendanceRepository.findByStudentUserIdAndAttendanceSessionSubjectSubjectId(
+                userId, subjectId);
     }
 
     public List<AttendancePercentageDTO> getAttendancePercentage(Integer userId) {
@@ -66,10 +66,10 @@ public class AttendanceService {
 
             int[] counts = subjectData.get(subjectName);
 
-            // Total sessions
+            
             counts[1]++;
 
-            // Present sessions
+            
             if (attendance.getStatus() == AttendanceStatus.Present) {
                 counts[0]++;
             }

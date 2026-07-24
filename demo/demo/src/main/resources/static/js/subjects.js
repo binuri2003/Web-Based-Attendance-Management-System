@@ -1,6 +1,3 @@
-// ===============================
-// Manage Subjects JS
-// ===============================
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -42,9 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// ===============================
-// Load Subjects
-// ===============================
+
 
 function loadSubjects(){
 
@@ -123,7 +118,6 @@ function loadSubjects(){
         });
 
 
-<<<<<<< HEAD
 
     })
 
@@ -132,9 +126,6 @@ function loadSubjects(){
     console.error("Subject Loading Error:", error);
 
 });
-=======
-    });
->>>>>>> Binuri
 
 
 }

@@ -1,8 +1,6 @@
 package com.attendance.demo.dto;
 
-
 public class StudentAttendanceReportResponse {
-
 
     private String regNo;
 
@@ -18,13 +16,9 @@ public class StudentAttendanceReportResponse {
 
     private double percentage;
 
-
-
     public StudentAttendanceReportResponse() {
 
     }
-
-
 
     public StudentAttendanceReportResponse(
             String regNo,
@@ -33,8 +27,7 @@ public class StudentAttendanceReportResponse {
             int present,
             int absent,
             int total,
-            double percentage
-    ) {
+            double percentage) {
 
         this.regNo = regNo;
         this.name = name;
@@ -46,78 +39,57 @@ public class StudentAttendanceReportResponse {
 
     }
 
-
-
     public String getRegNo() {
         return regNo;
     }
-
 
     public void setRegNo(String regNo) {
         this.regNo = regNo;
     }
 
-
-
     public String getName() {
         return name;
     }
-
 
     public void setName(String name) {
         this.name = name;
     }
 
-
-
     public String getSubject() {
         return subject;
     }
-
 
     public void setSubject(String subject) {
         this.subject = subject;
     }
 
-
-
     public int getPresent() {
         return present;
     }
-
 
     public void setPresent(int present) {
         this.present = present;
     }
 
-
-
     public int getAbsent() {
         return absent;
     }
-
 
     public void setAbsent(int absent) {
         this.absent = absent;
     }
 
-
-
     public int getTotal() {
         return total;
     }
-
 
     public void setTotal(int total) {
         this.total = total;
     }
 
-
-
     public double getPercentage() {
         return percentage;
     }
-
 
     public void setPercentage(double percentage) {
         this.percentage = percentage;

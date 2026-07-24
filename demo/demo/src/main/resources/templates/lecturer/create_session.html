@@ -80,42 +80,33 @@
             <h3>Create Attendance Session</h3>
 
             <form th:action="@{/lecturer/start-session}" method="post">
-              <div style="margin-top: 20px; text-align: left">
-                <label><strong>Subject</strong></label>
+              <div class="form-group">
+                <label>Subject</label>
 
-                <select
-                  name="subjectId"
-                  style="width: 100%; padding: 10px; margin-top: 8px"
-                  required
-                >
+                <select name="subjectId" required>
                   <option value="">Select Subject</option>
 
-                  <option value="1">Object Oriented Programming</option>
-
-                  <option value="2">Database Management Systems</option>
-
-                  <option value="3">Software Engineering</option>
+                  <option
+                    th:each="subject : ${subjectList}"
+                    th:value="${subject.subjectId}"
+                    th:text="${subject.subjectCode + ' - ' + subject.subjectName}"
+                  ></option>
                 </select>
               </div>
 
-              <div style="margin-top: 20px; text-align: left">
-                <label><strong>Class</strong></label>
+              <div class="form-group">
+                <label>Class</label>
 
-                <select
-                  name="classId"
-                  style="width: 100%; padding: 10px; margin-top: 8px"
-                  required
-                >
+                <select name="classId" required>
                   <option value="">Select Class</option>
 
-                  <option value="1">Y2S1</option>
-
-                  <option value="2">Y2S2</option>
-
-                  <option value="3">Y3S1</option>
+                  <option
+                    th:each="classItem : ${classList}"
+                    th:value="${classItem.classId}"
+                    th:text="${classItem.className}"
+                  ></option>
                 </select>
               </div>
-
               <div style="margin-top: 30px; text-align: center">
                 <button type="submit">Start Attendance</button>
               </div>

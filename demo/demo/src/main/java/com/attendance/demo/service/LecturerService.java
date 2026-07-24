@@ -1,6 +1,5 @@
 package com.attendance.demo.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,439 +15,202 @@ import com.attendance.demo.repository.LecturerRepository;
 import com.attendance.demo.repository.SubjectRepository;
 import com.attendance.demo.repository.UserRepository;
 
-
 @Service
 public class LecturerService {
 
+        @Autowired
+        private LecturerRepository lecturerRepository;
 
-    @Autowired
-    private LecturerRepository lecturerRepository;
+        @Autowired
+        private UserRepository userRepository;
 
+        @Autowired
+        private SubjectRepository subjectRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+        public List<LecturerResponse> getAllLecturers() {
 
+                List<Lecturer> lecturers = lecturerRepository.findAll();
 
-    @Autowired
-    private SubjectRepository subjectRepository;
+                List<LecturerResponse> response = new ArrayList<>();
 
+                for (Lecturer lecturer : lecturers) {
 
+                        response.add(
+                                        convertToResponse(lecturer));
 
-    // ===============================
-    // GET ALL LECTURERS
-    // ===============================
+                }
 
-    public List<LecturerResponse> getAllLecturers() {
-
-
-        List<Lecturer> lecturers =
-                lecturerRepository.findAll();
-
-
-
-        List<LecturerResponse> response =
-                new ArrayList<>();
-
-
-
-        for(Lecturer lecturer : lecturers){
-
-
-            response.add(
-                    convertToResponse(lecturer)
-            );
-
+                return response;
 
         }
 
+        private LecturerResponse convertToResponse(
+                        Lecturer lecturer) {
 
-        return response;
+                LecturerResponse response = new LecturerResponse();
 
-    }
+                response.setLecturerId(
+                                lecturer.getUserId());
 
+                response.setUsername(
+                                lecturer.getUsername());
 
+                response.setLecturerName(
+                                lecturer.getLecturerName());
 
+                response.setEmail(
+                                lecturer.getEmail());
 
+                List<Subject> subjects = subjectRepository.findByLecturer(lecturer);
 
+                if (subjects.isEmpty()) {
 
+                        response.setSubjects(
+                                        "No Subjects Assigned");
 
-    // ===============================
-    // CONVERT ENTITY TO RESPONSE
-    // ===============================
+                } else {
 
-    private LecturerResponse convertToResponse(
-            Lecturer lecturer
-    ){
+                        String subjectNames = subjects.stream()
+                                        .map(subject -> subject.getSubjectName())
+                                        .collect(Collectors.joining(", "));
 
+                        response.setSubjects(subjectNames);
 
-        LecturerResponse response =
-                new LecturerResponse();
+                }
 
-
-
-        response.setLecturerId(
-                lecturer.getUserId()
-        );
-
-
-        response.setUsername(
-                lecturer.getUsername()
-        );
-
-
-        response.setLecturerName(
-                lecturer.getLecturerName()
-        );
-
-
-        response.setEmail(
-                lecturer.getEmail()
-        );
-
-
-
-        List<Subject> subjects =
-                subjectRepository.findByLecturer(lecturer);
-
-
-
-        if(subjects.isEmpty()){
-
-
-            response.setSubjects(
-                    "No Subjects Assigned"
-            );
-
-
-        }
-        else{
-
-
-            String subjectNames =
-        subjects.stream()
-        .map(subject -> subject.getSubjectName())
-        .collect(Collectors.joining(", "));
-
-
-            response.setSubjects(subjectNames);
-
+                return response;
 
         }
 
+        public Lecturer addLecturer(
+                        LecturerRequest request) {
 
+                if (userRepository.existsByUsername(
+                                request.getUsername())) {
 
-        return response;
+                        throw new RuntimeException(
+                                        "Username already exists");
 
-    }
+                }
 
+                if (lecturerRepository.existsByEmail(
+                                request.getEmail())) {
 
+                        throw new RuntimeException(
+                                        "Email already exists");
 
+                }
 
+                Lecturer lecturer = new Lecturer();
 
+                lecturer.setUsername(
+                                request.getUsername());
 
+                lecturer.setPassword(
+                                request.getPassword());
 
+                lecturer.setLecturerName(
+                                request.getLecturerName());
 
-    // ===============================
-    // ADD LECTURER
-    // ===============================
+                lecturer.setEmail(
+                                request.getEmail());
 
-    public Lecturer addLecturer(
-            LecturerRequest request
-    ){
-
-
-
-        if(userRepository.existsByUsername(
-                request.getUsername()
-        )){
-
-
-            throw new RuntimeException(
-                    "Username already exists"
-            );
-
-        }
-
-
-
-
-        if(lecturerRepository.existsByEmail(
-                request.getEmail()
-        )){
-
-
-            throw new RuntimeException(
-                    "Email already exists"
-            );
-
+                return lecturerRepository.save(lecturer);
 
         }
 
+        public Lecturer updateLecturer(
+                        Integer id,
+                        LecturerRequest request) {
 
+                Lecturer lecturer = lecturerRepository
+                                .findById(id)
+                                .orElseThrow(
+                                                () -> new RuntimeException(
+                                                                "Lecturer not found"));
 
+                lecturer.setUsername(
+                                request.getUsername());
 
+                lecturer.setLecturerName(
+                                request.getLecturerName());
 
-        Lecturer lecturer =
-                new Lecturer();
+                lecturer.setEmail(
+                                request.getEmail());
 
-
-
-
-        // USER TABLE DATA
-
-        lecturer.setUsername(
-                request.getUsername()
-        );
-
-
-        lecturer.setPassword(
-                request.getPassword()
-        );
-
-
-
-
-        // LECTURER TABLE DATA
-
-        lecturer.setLecturerName(
-                request.getLecturerName()
-        );
-
-
-        lecturer.setEmail(
-                request.getEmail()
-        );
-
-
-
-
-        return lecturerRepository.save(lecturer);
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-    // ===============================
-    // UPDATE LECTURER
-    // ===============================
-
-    public Lecturer updateLecturer(
-            Integer id,
-            LecturerRequest request
-    ){
-
-
-        Lecturer lecturer =
-                lecturerRepository
-                .findById(id)
-                .orElseThrow(
-                        () -> new RuntimeException(
-                                "Lecturer not found"
-                        )
-                );
-
-
-
-        lecturer.setUsername(
-                request.getUsername()
-        );
-
-
-        lecturer.setLecturerName(
-                request.getLecturerName()
-        );
-
-
-        lecturer.setEmail(
-                request.getEmail()
-        );
-
-
-
-        return lecturerRepository.save(lecturer);
-
-
-    }
-
-
-
-
-
-
-
-
-
-    // ===============================
-    // DELETE LECTURER
-    // ===============================
-
-    public void deleteLecturer(
-            Integer id
-    ){
-
-
-
-        Lecturer lecturer =
-                lecturerRepository
-                .findById(id)
-                .orElseThrow(
-                        () -> new RuntimeException(
-                                "Lecturer not found"
-                        )
-                );
-
-
-
-
-        // Remove lecturer from subjects
-
-        List<Subject> subjects =
-                subjectRepository.findByLecturer(
-                        lecturer
-                );
-
-
-
-        for(Subject subject : subjects){
-
-
-            subject.setLecturer(null);
-
+                return lecturerRepository.save(lecturer);
 
         }
 
+        public void deleteLecturer(
+                        Integer id) {
 
+                Lecturer lecturer = lecturerRepository
+                                .findById(id)
+                                .orElseThrow(
+                                                () -> new RuntimeException(
+                                                                "Lecturer not found"));
 
-        subjectRepository.saveAll(subjects);
+                List<Subject> subjects = subjectRepository.findByLecturer(
+                                lecturer);
 
+                for (Subject subject : subjects) {
 
+                        subject.setLecturer(null);
 
+                }
 
-        // Delete lecturer
-        lecturerRepository.delete(lecturer);
+                subjectRepository.saveAll(subjects);
 
-
-    }
-
-
-
-
-
-
-
-
-
-
-    // ===============================
-    // SEARCH LECTURER
-    // ===============================
-
-    public List<LecturerResponse> searchLecturer(
-            String keyword
-    ){
-
-
-
-        List<Lecturer> lecturers =
-                lecturerRepository
-                .findByLecturerNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(
-                        keyword,
-                        keyword
-                );
-
-
-
-        List<LecturerResponse> response =
-                new ArrayList<>();
-
-
-
-        for(Lecturer lecturer : lecturers){
-
-
-            response.add(
-                    convertToResponse(lecturer)
-            );
-
+                lecturerRepository.delete(lecturer);
 
         }
 
+        public List<LecturerResponse> searchLecturer(
+                        String keyword) {
 
+                List<Lecturer> lecturers = lecturerRepository
+                                .findByLecturerNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(
+                                                keyword,
+                                                keyword);
 
-        return response;
+                List<LecturerResponse> response = new ArrayList<>();
 
+                for (Lecturer lecturer : lecturers) {
 
-    }
+                        response.add(
+                                        convertToResponse(lecturer));
 
+                }
 
-
-
-
-
-
-
-
-    // ===============================
-    // SEARCH BY SUBJECT
-    // ===============================
-
-    public List<LecturerResponse> searchBySubject(
-            String subjectName
-    ){
-
-
-
-        List<Subject> subjects =
-                subjectRepository
-                .findBySubjectNameContainingIgnoreCase(
-                        subjectName
-                );
-
-
-
-        List<LecturerResponse> response =
-                new ArrayList<>();
-
-
-
-        for(Subject subject : subjects){
-
-
-
-            Lecturer lecturer =
-                    subject.getLecturer();
-
-
-
-            if(lecturer != null){
-
-
-
-                response.add(
-                        convertToResponse(lecturer)
-                );
-
-
-            }
-
+                return response;
 
         }
 
+        public List<LecturerResponse> searchBySubject(
+                        String subjectName) {
 
+                List<Subject> subjects = subjectRepository
+                                .findBySubjectNameContainingIgnoreCase(
+                                                subjectName);
 
-        return response;
+                List<LecturerResponse> response = new ArrayList<>();
 
+                for (Subject subject : subjects) {
 
-    }
+                        Lecturer lecturer = subject.getLecturer();
 
+                        if (lecturer != null) {
 
+                                response.add(
+                                                convertToResponse(lecturer));
+
+                        }
+
+                }
+
+                return response;
+
+        }
 
 }

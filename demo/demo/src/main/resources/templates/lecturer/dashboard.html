@@ -27,7 +27,8 @@
 
         <ul>
           <li class="active">
-            <a href="/lecturer/dashboard">>
+            <a href="/lecturer/dashboard"
+              >>
               <i class="fas fa-house"></i>
               Dashboard
             </a>
@@ -76,16 +77,6 @@
 
         <section class="cards">
           <div class="card">
-            <i class="fas fa-book icon"></i>
-
-            <h3>My Subjects</h3>
-
-            <p>View assigned subjects.</p>
-
-            <button onclick="openSubjects()">Open</button>
-          </div>
-
-          <div class="card">
             <i class="fas fa-calendar icon"></i>
 
             <h3>Create Attendance Session</h3>
@@ -100,11 +91,13 @@
           <div class="card">
             <i class="fas fa-check icon"></i>
 
-            <h3>Mark Attendance</h3>
+            <h3>Manage Attendance</h3>
 
             <p>Mark and edit attendance.</p>
 
-            <button onclick="openMarkAttendance()">Open</button>
+            <button onclick="location.href = '/lecturer/manage_attendance'">
+              Open
+            </button>
           </div>
 
           <div class="card">
@@ -117,16 +110,6 @@
             <button onclick="location.href = '/lecturer/view_attendance'">
               Open
             </button>
-          </div>
-
-          <div class="card">
-            <i class="fas fa-file icon"></i>
-
-            <h3>Attendance Reports</h3>
-
-            <p>Generate reports.</p>
-
-            <button onclick="openReports()">Open</button>
           </div>
 
           <!-- RED LOGOUT CARD -->

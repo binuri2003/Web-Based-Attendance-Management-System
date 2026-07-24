@@ -1,6 +1,5 @@
 package com.attendance.demo.dto;
 
-
 public class LoginRequest {
 
     private String username;
