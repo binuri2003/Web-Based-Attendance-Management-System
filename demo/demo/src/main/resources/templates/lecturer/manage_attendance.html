@@ -219,7 +219,11 @@
                   <td th:text="${attendance.student.studentName}"></td>
 
                   <td>
-                    <span class="status" th:text="${attendance.status}"> </span>
+                    <span
+                      th:class="'status ' + ${#strings.toLowerCase(attendance.status.name())}"
+                      th:text="${attendance.status}"
+                    >
+                    </span>
                   </td>
 
                   <td>
